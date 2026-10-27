@@ -1,0 +1,176 @@
+[
+  {
+    "id": "olivia-bennett",
+    "name": "Olivia Bennett",
+    "role": "Pottery artist",
+    "image": "../../assets/images/image-55.webp",
+    "order": 1,
+    "social": [
+      {
+        "label": "Facebook",
+        "href": "https://www.facebook.com/",
+        "icon": "facebook-solid"
+      },
+      {
+        "label": "X",
+        "href": "https://x.com/",
+        "icon": "x-solid"
+      },
+      {
+        "label": "Instagram",
+        "href": "https://www.instagram.com/",
+        "icon": "instagram-solid"
+      },
+      {
+        "label": "LinkedIn",
+        "href": "https://www.linkedin.com/",
+        "icon": "linkedin-solid"
+      }
+    ]
+  },
+  {
+    "id": "daniel-carter",
+    "name": "Daniel Carter",
+    "role": "Print illustrator",
+    "image": "../../assets/images/image-54.webp",
+    "order": 2,
+    "social": [
+      {
+        "label": "Facebook",
+        "href": "https://www.facebook.com/",
+        "icon": "facebook-solid"
+      },
+      {
+        "label": "X",
+        "href": "https://x.com/",
+        "icon": "x-solid"
+      },
+      {
+        "label": "Instagram",
+        "href": "https://www.instagram.com/",
+        "icon": "instagram-solid"
+      },
+      {
+        "label": "LinkedIn",
+        "href": "https://www.linkedin.com/",
+        "icon": "linkedin-solid"
+      }
+    ]
+  },
+  {
+    "id": "sophia-martinez",
+    "name": "Sophia Martinez",
+    "role": "Textile designer",
+    "image": "../../assets/images/image-73.webp",
+    "order": 3,
+    "social": [
+      {
+        "label": "Facebook",
+        "href": "https://www.facebook.com/",
+        "icon": "facebook-solid"
+      },
+      {
+        "label": "X",
+        "href": "https://x.com/",
+        "icon": "x-solid"
+      },
+      {
+        "label": "Instagram",
+        "href": "https://www.instagram.com/",
+        "icon": "instagram-solid"
+      },
+      {
+        "label": "LinkedIn",
+        "href": "https://www.linkedin.com/",
+        "icon": "linkedin-solid"
+      }
+    ]
+  },
+  {
+    "id": "marcus-hale",
+    "name": "Marcus Hale",
+    "role": "Wood worker",
+    "image": "../../assets/images/image-72.webp",
+    "order": 4,
+    "social": [
+      {
+        "label": "Facebook",
+        "href": "https://www.facebook.com/",
+        "icon": "facebook-solid"
+      },
+      {
+        "label": "X",
+        "href": "https://x.com/",
+        "icon": "x-solid"
+      },
+      {
+        "label": "Instagram",
+        "href": "https://www.instagram.com/",
+        "icon": "instagram-solid"
+      },
+      {
+        "label": "LinkedIn",
+        "href": "https://www.linkedin.com/",
+        "icon": "linkedin-solid"
+      }
+    ]
+  },
+  {
+    "id": "emily-rodriguez",
+    "name": "Emily Rodriguez",
+    "role": "Decor stylist",
+    "image": "../../assets/images/image-71.webp",
+    "order": 5,
+    "social": [
+      {
+        "label": "Facebook",
+        "href": "https://www.facebook.com/",
+        "icon": "facebook-solid"
+      },
+      {
+        "label": "X",
+        "href": "https://x.com/",
+        "icon": "x-solid"
+      },
+      {
+        "label": "Instagram",
+        "href": "https://www.instagram.com/",
+        "icon": "instagram-solid"
+      },
+      {
+        "label": "LinkedIn",
+        "href": "https://www.linkedin.com/",
+        "icon": "linkedin-solid"
+      }
+    ]
+  },
+  {
+    "id": "sarah-mitchell",
+    "name": "Sarah Mitchell",
+    "role": "Ceramic specialist",
+    "image": "../../assets/images/image-70.webp",
+    "order": 6,
+    "social": [
+      {
+        "label": "Facebook",
+        "href": "https://www.facebook.com/",
+        "icon": "facebook-solid"
+      },
+      {
+        "label": "X",
+        "href": "https://x.com/",
+        "icon": "x-solid"
+      },
+      {
+        "label": "Instagram",
+        "href": "https://www.instagram.com/",
+        "icon": "instagram-solid"
+      },
+      {
+        "label": "LinkedIn",
+        "href": "https://www.linkedin.com/",
+        "icon": "linkedin-solid"
+      }
+    ]
+  }
+]

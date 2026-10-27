@@ -1,0 +1,65 @@
+[
+  {
+    "id": "faq-01",
+    "question": "Is everything really handmade?",
+    "answer": "Yes, and by six people whose names are on the about page. Nothing is bought in and relabelled. The only machines involved are a wheel, a loom, a kiln and a screen press, all of which need somebody standing at them.",
+    "image": "../../assets/images/image-33.webp",
+    "order": 1
+  },
+  {
+    "id": "faq-02",
+    "question": "Can I ask for something custom?",
+    "answer": "For lettering, always \u2014 that is what the personalized pieces are. For a one-off in clay, wood or cloth, write to us with what you have in mind and we will tell you honestly whether it is something we can make well.",
+    "image": "../../assets/images/image-32.webp",
+    "order": 2
+  },
+  {
+    "id": "faq-03",
+    "question": "How long does an order take to arrive?",
+    "answer": "Anything in stock leaves within two working days. Personalized work takes ten, because the lettering is drawn rather than set and we send you a proof before framing it.",
+    "image": "../../assets/images/image-31.webp",
+    "order": 3
+  },
+  {
+    "id": "faq-04",
+    "question": "Do you ship internationally?",
+    "answer": "We ship worldwide. Duties and import taxes are the buyer's to pay and are not included at checkout \u2014 for most destinations they are small, but they are not nothing.",
+    "image": "../../assets/images/image-30.webp",
+    "order": 4
+  },
+  {
+    "id": "faq-05",
+    "question": "Something arrived damaged. What now?",
+    "answer": "Photograph it in the packaging it came in and email us the same week. We remake or refund, your choice, and we do not ask for the broken piece back.",
+    "image": "../../assets/images/image-29.webp",
+    "order": 5
+  },
+  {
+    "id": "faq-06",
+    "question": "Can I return or exchange something?",
+    "answer": "Within fourteen days, unused and in its original packaging. Personalized pieces are the exception: once your name is lettered onto something there is nobody else to sell it to.",
+    "image": "../../assets/images/image-28.webp",
+    "order": 6
+  },
+  {
+    "id": "faq-07",
+    "question": "How do I look after what I have bought?",
+    "answer": "Every piece ships with a card that says what it is made of and what it wants. The short version: cool water on textiles, no direct sun on paper, and no boiling water into a cold pot.",
+    "image": "../../assets/images/image-27.webp",
+    "order": 7
+  },
+  {
+    "id": "faq-08",
+    "question": "Are the materials sustainable?",
+    "answer": "Where we can choose, yes: undyed organic cotton, reclaimed ash, local stoneware, rapeseed wax. Where we cannot honestly claim it, we say so on the product page rather than leaving it vague.",
+    "image": "../../assets/images/image-43.webp",
+    "order": 8
+  },
+  {
+    "id": "faq-09",
+    "question": "How do I reach a person?",
+    "answer": "Email is read every weekday morning and answered the same day. The studio phone is answered when somebody is not at the wheel, which is less reliable.",
+    "image": "../../assets/images/image-42.webp",
+    "order": 9
+  }
+]

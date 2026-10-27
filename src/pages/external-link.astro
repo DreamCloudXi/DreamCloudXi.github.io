@@ -1,0 +1,18 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/sections/Hero.astro';
+---
+
+<BaseLayout
+  title="Leaving Handspark"
+  description="You are following a link away from the studio."
+>
+  <Hero tag="External link" title="You are leaving Handspark" />
+  <section class="global-section">
+    <div class="w-layout-blockcontainer main-container w-container">
+      <div class="external-block">
+        <div class="external-text" data-anim="hero">Links in the demo content point here rather than off to somebody else's site, so you can click through every page without leaving the theme. Replace them with your own URLs in <strong>src/config/site.ts</strong> and in the content files under <strong>src/content</strong>, and this page can be deleted along with the route that serves it.</div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

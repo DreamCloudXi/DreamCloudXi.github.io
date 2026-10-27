@@ -1,0 +1,46 @@
+---
+import Icon from '../ui/Icon.astro';
+
+/**
+ * Back and next.
+ *
+ * The whole journal fits on one page, so both controls are disabled rather than
+ * linking nowhere. Pass `back` and `next` once there is more than one page of
+ * posts and they become links.
+ */
+interface Props {
+  back?: string;
+  next?: string;
+}
+
+const { back, next } = Astro.props;
+---
+
+<nav class="pagination" aria-label="Pagination">
+  {
+    back ? (
+      <a class="pagin" href={back} rel="prev">
+        <Icon name="pagin-prev" class="pagin-icon" />
+        <span class="pagin-text w-inline-block">Back</span>
+      </a>
+    ) : (
+      <span class="pagin" aria-disabled="true">
+        <Icon name="pagin-prev" class="pagin-icon" />
+        <span class="pagin-text w-inline-block">Back</span>
+      </span>
+    )
+  }
+  {
+    next ? (
+      <a class="pagin" href={next} rel="next">
+        <span class="pagin-text w-inline-block">Next</span>
+        <Icon name="pagin-next" class="pagin-icon" />
+      </a>
+    ) : (
+      <span class="pagin" aria-disabled="true">
+        <span class="pagin-text w-inline-block">Next</span>
+        <Icon name="pagin-next" class="pagin-icon" />
+      </span>
+    )
+  }
+</nav>

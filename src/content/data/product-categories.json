@@ -1,0 +1,26 @@
+[
+  {
+    "id": "wall-art",
+    "title": "Wall art",
+    "description": "Screen prints and carved panels \u2014 anything that wants a nail.",
+    "order": 1
+  },
+  {
+    "id": "ceramics",
+    "title": "Ceramics",
+    "description": "Thrown, pinched and painted in the studio, then fired twice.",
+    "order": 2
+  },
+  {
+    "id": "textiles",
+    "title": "Textiles",
+    "description": "Woven, knotted and stitched in undyed cotton, linen and willow.",
+    "order": 3
+  },
+  {
+    "id": "gifts",
+    "title": "Gifts",
+    "description": "Small pieces, made to be given: jewelry, candles and lettering.",
+    "order": 4
+  }
+]

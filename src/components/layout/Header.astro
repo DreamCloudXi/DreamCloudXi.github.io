@@ -1,0 +1,151 @@
+---
+import CartDrawer from './CartDrawer.astro';
+import Icon from '../ui/Icon.astro';
+import logo from '../../assets/images/primary-logo.svg';
+import { MEGA_MENU, NAV, ROUTES, SITE } from '../../config/site';
+
+/**
+ * The bar across the top of every page.
+ *
+ * The design carries the navigation twice: once for the overlay the menu button
+ * opens, and once for the row that runs along the top from 992px up. They are
+ * separate blocks rather than one that reflows, so both are rendered and the
+ * stylesheet decides which is shown — the same arrangement the export uses.
+ */
+interface Props {
+  /** Set on pages whose hero sits behind the bar. */
+  overlay?: boolean;
+}
+
+const { overlay = false } = Astro.props;
+
+const path = Astro.url.pathname;
+/** The overlay menu spells two links out in full; the top row keeps them short. */
+const MOBILE_LABEL: Record<string, string> = { About: 'About Us', Contact: 'Contact Us' };
+const isCurrent = (href: string) => path === href;
+---
+
+<header
+  class:list={['header-section', overlay && 'is-overlay']}
+  data-header
+>
+  <div class="header-block">
+    <div class="header-brand-block">
+      <a aria-label={SITE.name} href={ROUTES.home} class="header-brand w-inline-block">
+        <img src={logo.src} alt={SITE.name} class="header-logo" loading="eager" />
+      </a>
+    </div>
+
+    {/* The overlay menu, shown below 992px. */}
+    <nav class="header-menu-block is-display-show-for-mobile w-nav-menu" data-nav-menu aria-label="Main">
+      <div class="header-menu">
+        {
+          NAV.map((item) => (
+            <a
+              href={item.href}
+              aria-current={isCurrent(item.href) ? 'page' : undefined}
+              class:list={['header-menu-link', 'w-nav-link', isCurrent(item.href) && 'is-current']}
+            >
+              {MOBILE_LABEL[item.label] ?? item.label}
+            </a>
+          ))
+        }
+
+        <div class="header-dropdown w-dropdown" data-dropdown>
+          <button
+            type="button"
+            class="header-toggle w-dropdown-toggle"
+            aria-expanded="false"
+            aria-controls="mega-menu-mobile"
+            data-dropdown-toggle
+          >
+            <span class="header-dropdown-text">Pages</span>
+            <Icon name="chevron-down" class="header-dropdown-icon" />
+          </button>
+
+          <div class="header-wrapp w-dropdown-list" id="mega-menu-mobile" data-dropdown-list>
+            <div class="w-layout-grid header-megamenu">
+              {
+                MEGA_MENU.map((item) => (
+                  <a
+                    href={item.href}
+                    aria-current={isCurrent(item.href) ? 'page' : undefined}
+                    class:list={['header-menu-link', isCurrent(item.href) && 'is-current']}
+                  >
+                    {item.label}
+                  </a>
+                ))
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    {/* The row, shown from 992px up. */}
+    <div class="header-menu-block is-display-show-for-desktop">
+      <div class="header-menu header-menu-wrap">
+        {
+          NAV.map((item) => (
+            <a
+              href={item.href}
+              aria-current={isCurrent(item.href) ? 'page' : undefined}
+              class:list={['header-menu-link', 'w-nav-link', isCurrent(item.href) && 'is-current']}
+            >
+              {item.label}
+            </a>
+          ))
+        }
+
+        <div class="header-dropdown w-dropdown" data-dropdown>
+          <button
+            type="button"
+            class="header-toggle w-dropdown-toggle"
+            aria-expanded="false"
+            aria-controls="mega-menu-desktop"
+            data-dropdown-toggle
+          >
+            <span class="header-dropdown-text">Pages</span>
+            <Icon name="chevron-down" class="header-dropdown-icon" />
+          </button>
+
+          <div class="header-wrapp w-dropdown-list" id="mega-menu-desktop" data-dropdown-list>
+            <div class="w-layout-grid header-megamenu">
+              {
+                MEGA_MENU.map((item) => (
+                  <a
+                    href={item.href}
+                    aria-current={isCurrent(item.href) ? 'page' : undefined}
+                    class:list={['header-menu-link', isCurrent(item.href) && 'is-current']}
+                  >
+                    {item.label}
+                  </a>
+                ))
+              }
+            </div>
+          </div>
+        </div>
+
+        <CartDrawer id="cart-desktop" />
+      </div>
+    </div>
+
+    <div class="header-wrap-block">
+      <CartDrawer id="cart-mobile" />
+
+      <button
+        type="button"
+        class="header-line-block w-nav-button"
+        aria-expanded="false"
+        aria-label="Open menu"
+        data-nav-toggle
+      >
+        <span class="header-menu-line">
+          <span class="top"></span>
+          <span class="middle"></span>
+          <span class="bottom"></span>
+        </span>
+      </button>
+    </div>
+  </div>
+</header>

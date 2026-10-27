@@ -1,0 +1,95 @@
+---
+import Icon from '../ui/Icon.astro';
+
+/**
+ * The "more like this" carousel that closes a product page and an article.
+ *
+ * The builder's slider furniture is gone with its stylesheet, so the track is a
+ * scroll-snapping row — `behavior.css` styles `.slider-mask`, and
+ * `scripts/components.ts` binds the arrows and the dots to it. It works with no
+ * JavaScript at all: the row still scrolls and still snaps.
+ */
+interface Props {
+  title: string;
+  /** Optional "View all" button beside the heading. */
+  link?: { label: string; href: string };
+  /** How many slides the slot contains, for the dots. */
+  count: number;
+  label: string;
+  /** The section class. The shop's own rail uses `popular-section`. */
+  section?: string;
+}
+
+const { title, link, count, label, section = 'more-section' } = Astro.props;
+---
+
+<section class={section}>
+  <div class="section-space">
+    <div class="w-layout-blockcontainer main-container w-container">
+      <div class="more-block">
+        <div class="more-title-block">
+          <h2 class="more-title is-display-show-for-desktop" data-anim="text-lines">{title}</h2>
+          <h3 class="more-title is-display-show-for-mobile" data-anim="text-lines">{title}</h3>
+          {
+            link && (
+              <div class="more-link is-more-space" data-anim="text-lines">
+                <a class="button is-link w-inline-block" href={link.href}>
+                  <div class="button-bg is-link" />
+                  <div class="button-text">{link.label}</div>
+                  <div class="button-wrap is-link">
+                    <Icon name="arrow-up-right" class="button-icon" />
+                    <Icon name="arrow-up-right" class="button-icon" />
+                  </div>
+                </a>
+              </div>
+            )
+          }
+        </div>
+
+        <div class="more-card-block">
+          <div class="more-slider w-slider" data-slider data-slider-infinite>
+            <div
+              class="more-mask w-slider-mask"
+              data-slider-mask
+              tabindex="0"
+              role="group"
+              aria-label={label}
+            >
+              <slot />
+            </div>
+
+            <button
+              type="button"
+              class="more-arrow is-left w-slider-arrow-left"
+              data-slider-prev
+              aria-label="Previous"
+            >
+              <Icon name="arrow-left" class="more-icon" />
+            </button>
+            <button
+              type="button"
+              class="more-arrow is-right w-slider-arrow-right"
+              data-slider-next
+              aria-label="Next"
+            >
+              <Icon name="arrow-right" class="more-icon" />
+            </button>
+
+            <div class="more-navbar w-slider-nav w-round w-num">
+              {
+                Array.from({ length: count }, (_, i) => (
+                  <button
+                    type="button"
+                    class="w-slider-dot"
+                    data-slider-dot
+                    aria-label={`Go to slide ${i + 1}`}
+                  />
+                ))
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

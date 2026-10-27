@@ -1,0 +1,128 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/sections/Hero.astro';
+import { ROUTES } from '../config/site';
+
+/**
+ * What a buyer needs to know on the first afternoon.
+ *
+ * The export's version of this page explained the page builder the design was
+ * drawn in, which is not what ships here — none of it applies to an Astro
+ * project. Same eight cards, rewritten for what this theme actually is.
+ */
+const CARDS = [
+  {
+    name: 'Getting started',
+    text: 'Node 22.12 or newer, then `npm install` and `npm run dev`. The site runs at localhost:4321 with the demo content already in it, so you can see every page before changing anything.',
+    links: [
+      { label: 'Astro documentation', href: 'https://docs.astro.build' },
+      { label: 'Deploying a static site', href: 'https://docs.astro.build/en/guides/deploy/' },
+    ],
+  },
+  {
+    name: 'What to edit first',
+    text: 'One file carries the name, the URL, the contact details, the navigation and the footer columns: src/config/site.ts. Set the URL before the first deploy — the canonical tags, the sitemap and the feed are all built from it, and nothing fails when it is wrong.',
+    links: [
+      { label: 'src/config/site.ts', href: `${ROUTES.styleGuide}` },
+      { label: 'Astro configuration', href: 'https://docs.astro.build/en/reference/configuration-reference/' },
+    ],
+  },
+  {
+    name: 'Where the content lives',
+    long: true,
+    text: [
+      'Everything the pages list comes out of src/content. Long-form content is Markdown, structured lists are JSON, and both are validated against the schemas in src/content/schemas.ts — a missing field fails the build rather than rendering an empty card.',
+      '1. Products are Markdown files in src/content/products. The frontmatter carries the price as a number, the SKU, the category and the images; the body is the description.',
+      '2. Journal articles are Markdown files in src/content/posts, with the article itself as the body.',
+      '3. The categories, the makers, the reviews, the questions and the photographs are JSON in src/content/data.',
+      '4. Adding a file adds a page. Deleting one removes it, and the listings and the sitemap follow.',
+      '5. To load any of it from a CMS instead, set CONTENT_SOURCE and the credentials for Contentful, Sanity, Strapi, WordPress or Shopify. A collection with no remote equivalent quietly keeps using the local files.',
+    ],
+    links: [
+      { label: 'Astro content collections', href: 'https://docs.astro.build/en/guides/content-collections/' },
+      { label: 'Zod schema reference', href: 'https://zod.dev' },
+    ],
+  },
+  {
+    name: 'Motion',
+    text: 'Every reveal is declared in the markup as data-anim and defined once in src/scripts/motion.ts. Change a duration there and it changes everywhere; delete an effect and the elements simply appear. Readers who ask for reduced motion get the page with nothing moving.',
+  },
+  {
+    name: 'Selling things',
+    text: 'Every Add to Cart is a real form carrying the id, name, price, currency and quantity. Nothing on a static site answers it — attach Snipcart, a Shopify Buy Button or any provider that reads a form, and the shop is live without a markup change. See docs/commerce.md.',
+  },
+  {
+    name: 'Styling',
+    text: 'src/styles/theme.css holds the design tokens and components.css the class for every block in the design. Both are generated; hand-written corrections go in additions.css, which loads last. Tailwind utilities are available everywhere and win over a component class.',
+  },
+  {
+    name: 'Images and fonts',
+    text: 'Images in src/assets are resized and re-encoded at build time; drop a file in and reference it from the content. Both faces are bundled rather than fetched, so a build works offline and a visitor loads nothing from a third party.',
+  },
+  {
+    name: 'Before you deploy',
+    text: 'Run npm run build and npx astro check — the theme ships with no errors, no warnings and no hints, and keeping it that way is the cheapest test you have. Then set the site URL, and check that the host you deploy to is the host it names.',
+  },
+];
+---
+
+<BaseLayout
+  title="Instructions"
+  description="How to set the theme up, where the content lives, and what to edit first."
+>
+  <Hero tag="Instructions" title="Setting the theme up" />
+
+  <section class="global-section">
+    <div class="w-layout-blockcontainer main-container w-container">
+      <div class="utility-block">
+        <div class="utility-wrapper">
+          {
+            CARDS.map((card, index) => (
+              /* The design reveals the first two cards with the page and
+                 splits the rest line by line as they come into view. */
+              <div class="utility-card" data-anim={index < 2 ? 'hero' : 'text-lines'}>
+                <div class="utility-title-card">
+                  <div class="utility-name">{card.name}</div>
+                  {
+                    card.long ? (
+                      <p class="utility-except">
+                        {(card.text as string[]).map((line, i) => (
+                          <>
+                            {i > 0 && <br />}
+                            {i > 0 && <br />}
+                            {line}
+                          </>
+                        ))}
+                      </p>
+                    ) : (
+                      <p class="utility-except">{card.text}</p>
+                    )
+                  }
+                </div>
+                {
+                  card.links && (
+                    <div class="utility-text-card">
+                      {card.links.map((link) => (
+                        <div class="utility-text">
+                          {link.label} :{' '}
+                          <a
+                            class="utility-link"
+                            href={link.href}
+                            target={link.href.startsWith('http') ? '_blank' : undefined}
+                            rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                          >
+                            {link.href}
+                          </a>
+                        </div>
+                      ))}
+                    </div>
+                  )
+                }
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

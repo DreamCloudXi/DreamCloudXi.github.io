@@ -1,0 +1,79 @@
+---
+import { Image } from 'astro:assets';
+
+/**
+ * Renders an image that may come from either content source.
+ *
+ * Local content gives us a bundled asset, which Astro can resize and re-encode
+ * at build time. A CMS gives us a URL, which we cannot optimize without knowing
+ * its dimensions, so it is rendered as-is.
+ *
+ * Use this anywhere the image comes from a collection; use `<Image>` directly
+ * for assets imported in the component itself.
+ */
+interface Props {
+  src: ImageMetadata | string;
+  alt: string;
+  class?: string;
+  /** Widths to generate for the srcset. Ignored for remote images. */
+  widths?: number[];
+  sizes?: string;
+  width?: number;
+  height?: number;
+  /**
+   * Pixel ratios to generate for a fixed-size image. Defaults to 1x and 2x:
+   * without it Astro emits a single candidate at the CSS width, which on a
+   * high-density screen is half the pixels the element is drawn with.
+   */
+  densities?: number[];
+  loading?: 'eager' | 'lazy';
+  /** Passed through so the motion layer can target the element. */
+  'data-anim'?: string;
+  'data-cursor-parallax-target'?: boolean;
+  'data-timeline-image'?: boolean;
+}
+
+const {
+  src,
+  alt,
+  class: className,
+  widths,
+  sizes,
+  width,
+  height,
+  densities,
+  loading = 'lazy',
+  ...rest
+} = Astro.props;
+
+const isRemote = typeof src === 'string';
+---
+
+{
+  isRemote ? (
+    <img src={src} {alt} class={className} {loading} {width} {height} decoding="async" {...rest} />
+  ) : widths ? (
+    /* Responsive: the srcset is generated from the widths the caller asked for. */
+    <Image src={src} {alt} class={className} {loading} {widths} {sizes} {...rest} />
+  ) : width ? (
+    /*
+     * Fixed size: Astro emits one candidate at the CSS width unless it is told
+     * otherwise, which is half the pixels the element is drawn with on a
+     * high-density screen. These two spellings are kept apart because Astro
+     * types them as separate shapes — a single call carrying both optionally
+     * matches neither, which is what `astro check` was reporting here.
+     */
+    <Image
+      src={src}
+      {alt}
+      class={className}
+      {loading}
+      {width}
+      {...(height ? { height } : {})}
+      densities={densities ?? [1, 2]}
+      {...rest}
+    />
+  ) : (
+    <Image src={src} {alt} class={className} {loading} {...rest} />
+  )
+}

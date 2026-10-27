@@ -1,0 +1,32 @@
+[
+  {
+    "id": "wall-art",
+    "title": "Wall art",
+    "description": "Hanging it, framing it, living with it.",
+    "order": 1
+  },
+  {
+    "id": "ceramics",
+    "title": "Ceramics",
+    "description": "Clay, kilns and what happens between them.",
+    "order": 2
+  },
+  {
+    "id": "gifting",
+    "title": "Gifting",
+    "description": "Choosing something handmade for somebody else.",
+    "order": 3
+  },
+  {
+    "id": "interiors",
+    "title": "Interiors",
+    "description": "Putting handmade work into rooms people actually use.",
+    "order": 4
+  },
+  {
+    "id": "care",
+    "title": "Care",
+    "description": "Keeping handmade things in the condition they arrived in.",
+    "order": 5
+  }
+]

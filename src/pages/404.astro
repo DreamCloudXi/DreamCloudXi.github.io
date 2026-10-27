@@ -1,0 +1,35 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/ui/Icon.astro';
+import { ROUTES } from '../config/site';
+import img_404 from '../assets/images/404.svg';
+---
+
+<BaseLayout
+  title="Page not found"
+  description="That page is not here. The shop, the journal and the studio are."
+  noindex
+>
+  <section class="error-section">
+    <div class="w-layout-blockcontainer main-container w-container">
+      <div class="error-block">
+        <div class="error-image-block">
+          <img src={img_404.src} alt="Page Not Found" class="error-image" loading="eager" />
+        </div>
+        <div class="error-button-block">
+          <div class="error-button">
+            <a class="button w-inline-block" aria-label="Link Block" href={ROUTES.home}>
+              <div class="button-bg">
+              </div>
+              <div class="button-wrap">
+                <Icon name="arrow-up-right-lg" class="button-icon" />
+                <Icon name="arrow-up-right-lg" class="button-icon" />
+              </div>
+              <div class="button-text">Back to Home</div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

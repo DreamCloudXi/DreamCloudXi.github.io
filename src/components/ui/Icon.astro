@@ -1,0 +1,43 @@
+---
+/**
+ * Inlines an SVG from `src/icons` so it inherits `currentColor` and can be
+ * styled and animated like any other element.
+ *
+ *   <Icon name="arrow-right-double" class="button-icon" />
+ */
+const icons = import.meta.glob<string>('../../icons/*.svg', {
+  query: '?raw',
+  import: 'default',
+  eager: true,
+});
+
+interface Props {
+  /** File name in `src/icons`, without the extension. */
+  name: string;
+  class?: string;
+  /** Accessible label. Omit for decorative icons — they stay aria-hidden. */
+  label?: string;
+}
+
+const { name, class: className, label } = Astro.props;
+
+const source = icons[`../../icons/${name}.svg`];
+if (!source) {
+  throw new Error(
+    `Icon "${name}" not found. Available: ${Object.keys(icons)
+      .map((k) => k.replace('../../icons/', '').replace('.svg', ''))
+      .join(', ')}`
+  );
+}
+
+// Merge the caller's class and accessibility intent into the root <svg>.
+const attrs = [
+  className ? `class="${className}"` : '',
+  label ? `role="img" aria-label="${label}"` : 'aria-hidden="true" focusable="false"',
+].filter(Boolean).join(' ');
+
+const svg = source
+  .replace(/\s*aria-hidden="true"/, '')
+  .replace(/^<svg/, `<svg ${attrs}`);
+---
+<Fragment set:html={svg} />

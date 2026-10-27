@@ -1,0 +1,86 @@
+---
+import { Font } from 'astro:assets';
+
+import Footer from '../components/layout/Footer.astro';
+import Header from '../components/layout/Header.astro';
+import Seo from '../components/layout/Seo.astro';
+import { SITE } from '../config/site';
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  type?: 'website' | 'article';
+  noindex?: boolean;
+  publishedAt?: Date;
+  /** Bylined author, for an article's structured data. */
+  author?: string;
+  /** Trail leading here, for the breadcrumb structured data. */
+  breadcrumb?: { label: string; href?: string }[];
+  /** Set on pages whose hero sits behind the header. */
+  overlayHeader?: boolean;
+  /** Extra classes for the page wrapper. */
+  class?: string;
+}
+
+const {
+  title,
+  description,
+  image,
+  type,
+  noindex,
+  publishedAt,
+  author,
+  breadcrumb,
+  overlayHeader = false,
+  class: className,
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang={SITE.locale}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="theme-color" content={SITE.themeColor} />
+
+    <Seo {title} {description} {image} {type} {noindex} {publishedAt} {author} {breadcrumb} />
+
+    <link rel="icon" href="/favicon.png" type="image/png" />
+    <link rel="apple-touch-icon" href="/webclip.jpg" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="alternate" type="application/rss+xml" title={`${SITE.name} blog`} href="/rss.xml" />
+
+    {/* Only the body face is preloaded. The largest paint on most pages is an
+        image, and preloading four heading weights takes the connection ahead
+        of it on a phone; the heading face still loads from the stylesheet. */}
+    <Font cssVariable="--font-libre-baskerville" />
+    <Font cssVariable="--font-manrope" preload />
+
+    <!-- Marks JS as available before first paint, so elements the motion layer
+         reveals can start hidden without ever hiding content from no-JS readers. -->
+    <script is:inline>
+      document.documentElement.classList.add('js');
+    </script>
+  </head>
+
+  <body>
+    <a href="#main" class="skip-link">Skip to content</a>
+
+    <div class:list={['page-wrapper', className]} id="top">
+      <Header overlay={overlayHeader} />
+
+      <main class="main-wrapper" id="main">
+        <slot />
+      </main>
+
+      <Footer />
+    </div>
+
+    <script>
+      import '../scripts/index.ts';
+    </script>
+  </body>
+</html>

@@ -1,0 +1,59 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { getImage } from 'astro:assets';
+import Media from '../ui/Media.astro';
+
+import Icon from '../ui/Icon.astro';
+import { ROUTES, SITE } from '../../config/site';
+
+/**
+ * One product in a grid or a slider.
+ *
+ * The bag is a button rather than an icon, and it submits the same form the
+ * product page uses — id, name, price and currency — so a cart provider picks
+ * it up wherever the card appears. See `docs/commerce.md`.
+ */
+interface Props {
+  product: CollectionEntry<'products'>;
+  sizes?: string;
+}
+
+const { product, sizes = '(max-width: 767px) 92vw, (max-width: 991px) 45vw, 30vw' } = Astro.props;
+const { title, excerpt, price, sku, images } = product.data;
+const href = ROUTES.product(product.id);
+/** A small copy of the photograph for the cart panel to show. */
+const cartImage =
+  typeof images[0] === 'string' ? images[0] : (await getImage({ src: images[0], width: 160 })).src;
+const formatted = `${SITE.currencySymbol} ${price.toFixed(2)} ${SITE.currency}`;
+---
+
+<div class="shop-card">
+  <div class="shop-thumb-card">
+    <Media src={images[0]} alt={excerpt} class="shop-thumb" widths={[400, 700, 1000]} {sizes} />
+    <div class="shop-details">
+      <a class="button is-shop w-inline-block" {href} aria-label={`View ${title}`}>
+        <div class="button-bg"></div>
+        <div class="button-text">View Details</div>
+      </a>
+    </div>
+  </div>
+  <div class="shop-details-card">
+    <div class="shop-info-card">
+      <a class="shop-name" {href}>{title}</a>
+      <div class="shop-price">{formatted}</div>
+    </div>
+    <form class="shop-bag-card" method="post" action="#" data-add-to-cart>
+      <input type="hidden" name="id" value={sku} />
+      <input type="hidden" name="name" value={title} />
+      <input type="hidden" name="price" value={price} />
+      <input type="hidden" name="currency" value={SITE.currency} />
+      <input type="hidden" name="url" value={href} />
+      <input type="hidden" name="image" value={cartImage} />
+      <input type="hidden" name="symbol" value={SITE.currencySymbol} />
+      <input type="hidden" name="quantity" value="1" />
+      <button type="submit" aria-label={`Add ${title} to cart`}>
+        <Icon name="shop-bag" class="shop-bag" />
+      </button>
+    </form>
+  </div>
+</div>

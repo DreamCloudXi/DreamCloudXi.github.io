@@ -1,0 +1,18 @@
+---
+import { getCollection } from 'astro:content';
+
+import BlogIndex from '../components/blog/BlogIndex.astro';
+import { ROUTES } from '../config/site';
+
+const PAGE_SIZE = 6;
+
+const posts = (await getCollection('posts', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf()
+);
+const pages = Math.ceil(posts.length / PAGE_SIZE);
+---
+
+<BlogIndex
+  posts={posts.slice(0, PAGE_SIZE)}
+  next={pages > 1 ? `${ROUTES.blog}page/2/` : undefined}
+/>

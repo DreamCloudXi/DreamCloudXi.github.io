@@ -1,0 +1,235 @@
+/* =============================================================================
+   Design tokens
+   -----------------------------------------------------------------------------
+   Generated from the export. Sizes that change across breakpoints carry their
+   overrides here rather than in the components, so a component asks for a token
+   once and gets the right value at every width.
+   30 of these keep the name the export gave them, because the
+   converter had no better one and the generated classes reference them as
+   they are.
+   ========================================================================== */
+
+:root {
+  /* _typography */
+  --_typography---heading-01--font: var(--font-family--heading);
+  --_typography---heading-01--space: 0em;
+  --_typography---heading-02--font: var(--font-family--heading);
+  --_typography---heading-02--space: 0em;
+  --_typography---heading-03--font: var(--font-family--heading);
+  --_typography---heading-03--space: 0em;
+  --_typography---heading-04--font: var(--font-family--heading);
+  --_typography---heading-04--space: 0em;
+  --_typography---heading-05--font: var(--font-family--heading);
+  --_typography---heading-05--space: 0em;
+  --_typography---heading-06--font: var(--font-family--heading);
+  --_typography---heading-06--space: 0em;
+  --_typography---text-large--font: var(--font-family--paragraph);
+  --_typography---text-large--space: 0em;
+  --_typography---text-medium--font: var(--font-family--paragraph);
+  --_typography---text-medium--space: 0em;
+  --_typography---text-medium--weight: var(--font-weight--medium);
+  --_typography---text-small--font: var(--font-family--paragraph);
+  --_typography---text-small--space: 0em;
+
+  /* color */
+  --color-ash: #666;
+  --color-background: #f9f4ea;
+  --color-coffee: #5f4228;
+  --color-gray-bg: #efefef;
+  --color-ink: #1d1914;
+  --color-light-lite: #f1ede2;
+  --color-line: #8a8a8a;
+  --color-primary: #3d5a33;
+  --color-secondary: #8baf7e;
+  --color-smoke-white: #f1f1f1;
+  --color-stroke: #8a8a8a4d;
+  --color-transparent: transparent;
+  --color-white: white;
+  --color-whitesmoke: whitesmoke;
+
+  /* container */
+  --container-size: 430px;
+
+  /* details */
+  --details-width: 1000px;
+
+  /* empty */
+  --empty: 0px;
+
+  /* font */
+  --font-family--heading: Librebaskerville, Arial, sans-serif;
+  --font-family--paragraph: Manrope, sans-serif;
+  --font-weight--black: 900;
+  --font-weight--bold: 700;
+  --font-weight--extra-bold: 800;
+  --font-weight--extra-light: 200;
+  --font-weight--light: 300;
+  --font-weight--medium: 500;
+  --font-weight--normal: 400;
+  --font-weight--semi-bold: 600;
+  --font-weight--thin: 100;
+
+  /* global */
+  --global-space: 50px;
+
+  /* hero */
+  --hero-end-space: 75px;
+  --hero-top-space: 100px;
+
+  /* leading */
+  --leading-body: var(--line-height--m);
+  --leading-body-lg: var(--line-height--xl);
+  --leading-h1: var(--line-height--xs);
+  --leading-h2: var(--line-height--s);
+  --leading-h3: var(--line-height--s);
+  --leading-h4: var(--line-height--s);
+  --leading-h5: var(--line-height--l);
+  --leading-h6: var(--line-height--l);
+  --leading-l: 1.5;
+  --leading-m: 1.4;
+  --leading-medium: var(--line-height--l);
+  --leading-s: 1.3;
+  --leading-xl: 1.6;
+  --leading-xs: 1.2;
+  --leading-xxl: 1.7;
+  --leading-xxs: 1.1;
+  --leading-xxxl: 1.8;
+  --leading-xxxs: 1;
+
+  /* radius */
+  --radius-10xl: 96px;
+  --radius-2xl: 28px;
+  --radius-2xs: 4px;
+  --radius-3xl: 40px;
+  --radius-3xs: 2px;
+  --radius-4xl: 48px;
+  --radius-5xl: 56px;
+  --radius-6xl: 64px;
+  --radius-7xl: 72px;
+  --radius-8xl: 80px;
+  --radius-9xl: 88px;
+  --radius-l: 20px;
+  --radius-m: 16px;
+  --radius-none: 0px;
+  --radius-s: 12px;
+  --radius-tiny: 1px;
+  --radius-xl: 24px;
+  --radius-xs: 8px;
+
+  /* section */
+  --section-space: 60px;
+
+  /* shop */
+  --shop-space: 100px;
+
+  /* size */
+  --size-body: 14px;
+  --size-body-lg: 18px;
+  --size-h1: 36px;
+  --size-h2: 30px;
+  --size-h3: 26px;
+  --size-h4: 22px;
+  --size-h5: 18px;
+  --size-h6: 16px;
+  --size-medium: 16px;
+
+  /* space */
+  --space-10xl: 96px;
+  --space-2xl: 28px;
+  --space-3xl: 40px;
+  --space-3xs: 2px;
+  --space-4xl: 48px;
+  --space-5xl: 56px;
+  --space-6xl: 64px;
+  --space-7xl: 72px;
+  --space-8xl: 80px;
+  --space-9xl: 88px;
+  --space-l: 20px;
+  --space-m: 16px;
+  --space-s: 12px;
+  --space-tiny: 1px;
+  --space-xl: 24px;
+  --space-xs: 8px;
+  --space-xxl: 32px;
+  --space-xxs: 4px;
+  --space-zero: 0px;
+
+  /* weight */
+  --weight-body: var(--font-weight--medium);
+  --weight-body-lg: var(--font-weight--medium);
+  --weight-h1: var(--font-weight--bold);
+  --weight-h2: var(--font-weight--bold);
+  --weight-h3: var(--font-weight--bold);
+  --weight-h4: var(--font-weight--bold);
+  --weight-h5: var(--font-weight--bold);
+  --weight-h6: var(--font-weight--normal);
+
+  /* width */
+  --width-l: 1080px;
+  --width-m: 990px;
+  --width-s: 685px;
+}
+
+@media screen and (min-width: 1920px) {
+  :root {
+    --container-size: 1832px;
+    --details-width: 1400px;
+    --global-space: 120px;
+    --hero-end-space: 185px;
+    --hero-top-space: 300px;
+    --section-space: 180px;
+    --shop-space: 250px;
+    --size-h1: 80px;
+    --size-h2: 48px;
+    --size-h3: 32px;
+    --size-h4: 24px;
+    --size-h5: 20px;
+    --width-l: 1280px;
+    --width-m: 1190px;
+    --width-s: 885px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  :root {
+    --container-size: 1372px;
+    --details-width: 1200px;
+    --global-space: 100px;
+    --hero-end-space: 160px;
+    --hero-top-space: 275px;
+    --section-space: 140px;
+    --shop-space: 225px;
+    --size-h1: 72px;
+    --size-h2: 40px;
+    --size-h3: 28px;
+    --size-h4: 24px;
+    --size-h5: 20px;
+    --width-l: 1180px;
+    --width-m: 1090px;
+    --width-s: 785px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  :root {
+    --container-size: 630px;
+    --hero-end-space: 100px;
+    --hero-top-space: 125px;
+    --size-h1: 40px;
+  }
+}
+
+@media screen and (max-width: 991px) {
+  :root {
+    --container-size: 768px;
+    --global-space: 60px;
+    --hero-end-space: 100px;
+    --hero-top-space: 150px;
+    --section-space: 80px;
+    --size-h1: 44px;
+    --size-h2: 32px;
+    --size-h3: 28px;
+    --size-h4: 24px;
+    --size-h5: 20px;
+  }
+}

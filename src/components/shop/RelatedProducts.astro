@@ -1,0 +1,33 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+import MoreSlider from '../sections/MoreSlider.astro';
+import ProductCard from './ProductCard.astro';
+import { ROUTES } from '../../config/site';
+
+interface Props {
+  products: CollectionEntry<'products'>[];
+  title?: string;
+}
+
+const { products, title = 'More from the studio' } = Astro.props;
+---
+
+{
+  products.length > 0 && (
+    <MoreSlider
+      {title}
+      link={{ label: 'View All', href: ROUTES.shop }}
+      count={products.length}
+      label="More products"
+    >
+      {products.map((product) => (
+        <div class="more-slide w-slide" data-slide data-anim="card">
+          <div class="shop-list is-shop-slider">
+            <ProductCard {product} sizes="(max-width: 767px) 88vw, 30vw" />
+          </div>
+        </div>
+      ))}
+    </MoreSlider>
+  )
+}

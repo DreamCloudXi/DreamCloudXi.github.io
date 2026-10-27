@@ -1,0 +1,83 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/sections/Hero.astro';
+import Icon from '../components/ui/Icon.astro';
+---
+
+<BaseLayout
+  title="Personalize your gift"
+  description="Tell us the names, the dates and the words, and we will letter them onto the piece by hand."
+>
+  <Hero tag="Personalize" title="Tell us what to letter, and who it is for" />
+  <section class="global-section">
+    <div class="w-layout-blockcontainer main-container w-container">
+      <div class="personalize-block" data-anim="hero">
+        <div class="contact-form w-form">
+          <div class="contact-title">Tell us what to letter, and who it is for</div>
+          <form class="contact-wrap" name="personalize" data-contact-form>
+            <div class="contact-grid">
+              <div class="contact-wrapp">
+                <label class="contact-text" for="Recipient-Name">Recipient Name</label>
+                <input class="contact-field w-input" maxlength="256" name="Recipient-Name" placeholder="Who is it for?" type="text" id="Recipient-Name" required="">
+              </div>
+              <div class="contact-wrapp">
+                <label class="contact-text" for="Recipient-Email">Recipient Email</label>
+                <input class="contact-field w-input" maxlength="256" name="Recipient-Email" placeholder="Where should it be sent?" type="email" id="Recipient-Email" required="">
+              </div>
+            </div>
+            <div class="contact-grid">
+              <div class="contact-wrapp">
+                <label class="contact-text" for="Recipient-Phone">Recipient Phone</label>
+                <input class="contact-field w-input" maxlength="256" name="Recipient-Phone" placeholder="A number we can reach them on" type="tel" id="Recipient-Phone" required="">
+              </div>
+              <div class="contact-wrapp">
+                <label class="contact-text" for="Sender-Full-Name">Sender Full Name</label>
+                <input class="contact-field w-input" maxlength="256" name="Sender-Full-Name" placeholder="And who is it from?" type="text" id="Sender-Full-Name" required="">
+              </div>
+            </div>
+            <div class="contact-grid">
+              <div class="contact-wrapp">
+                <label class="contact-text" for="Delivery-Date">When should it arrive?</label>
+                <input class="contact-field" id="Delivery-Date" name="Delivery-Date" type="date" />
+              </div>
+              <div class="contact-wrapp">
+                <label class="contact-text" for="Gift-Card-Price-Range">How much?</label>
+                <select class="contact-field is-price-range w-select" id="Gift-Card-Price-Range" name="Gift-Card-Price-Range" required="">
+                  <option value="$25.00">$25.00</option>
+                  <option value="$50.00">$50.00</option>
+                  <option value="$75.00">$75.00</option>
+                  <option value="custom">Another amount</option>
+                </select>
+              </div>
+            </div>
+            <div class="contact-grid">
+              <div class="contact-wrapp">
+                <label class="contact-text" for="Sender-Personal-Message">What should it say?</label>
+                <textarea class="contact-field is-contact-write w-input" required="" placeholder="The names, the date, the line you want lettered" maxlength="5000" id="Sender-Personal-Message" name="Sender-Personal-Message">
+                </textarea>
+              </div>
+            </div>
+            <div class="contact-grid">
+              <div class="contact-button">
+                <button type="submit" class="button w-inline-block">
+                  <div class="button-bg"></div>
+                  <div class="button-text">Send the request</div>
+                  <div class="button-wrap is-form">
+                    <Icon name="arrow-up-right" class="button-icon" />
+                    <Icon name="arrow-up-right" class="button-icon" />
+                  </div>
+                </button>
+              </div>
+            </div>
+          </form>
+          <div class="contact-done w-form-done" role="status" data-form-success hidden>
+            <div class="contact-message">Thank you — we will write back with a proof before anything is lettered.</div>
+          </div>
+          <div class="contact-error w-form-fail" role="alert" data-form-error hidden>
+            <div class="contact-message">Oops! Something went wrong.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

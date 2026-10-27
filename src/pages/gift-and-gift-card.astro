@@ -1,0 +1,346 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/sections/Hero.astro';
+import { Image } from 'astro:assets';
+import Icon from '../components/ui/Icon.astro';
+import img_image_66 from '../assets/images/image-66.webp';
+import img_image_67 from '../assets/images/image-67.webp';
+import img_image_68 from '../assets/images/image-68.webp';
+import img_image_69 from '../assets/images/image-69.webp';
+---
+
+<BaseLayout
+  title="Gifts & gift cards"
+  description="Gift cards that never expire, and a guide to choosing something handmade for someone else."
+>
+  <Hero tag="Gifts" title="Gift cards, and how to choose something handmade" />
+  <section class="process-section">
+    <div class="section-space">
+      <div class="w-layout-blockcontainer main-container w-container">
+        <div class="process-block">
+          <div class="process-text-block">
+            <div class="process-info-block">
+              <div class="process-info" data-anim="hero">
+                <ul class="section-info" role="list">
+                  <li class="section-info-item">How a gift gets made</li>
+                </ul>
+              </div>
+            </div>
+            <div class="process-title-block">
+              <h2 class="process-title is-display-show-for-desktop" data-anim="hero">From our hands to somebody else&rsquo;s</h2>
+              <h3 class="process-title is-display-show-for-mobile" data-anim="hero">From our hands to somebody else&rsquo;s</h3>
+            </div>
+          </div>
+          <div class="process-card-block">
+            <div class="process-card">
+              <div class="process-num">01</div>
+              <div class="process-wrap">
+                <div class="process-name">Inspiration &amp; Design</div>
+                <div class="process-except">A piece starts as a drawing on whatever is nearest — an envelope, a page of the order book. Most of them go no further.</div>
+              </div>
+            </div>
+            <div class="process-card">
+              <div class="process-num">02</div>
+              <div class="process-wrap">
+                <div class="process-name">
+                  <strong>Handmade Creation</strong>
+                </div>
+                <div class="process-except">Using traditional techniques and quality materials, the design is handcrafted. Every detail is shaped with patience and skill.</div>
+              </div>
+            </div>
+            <div class="process-card">
+              <div class="process-num">03</div>
+              <div class="process-wrap">
+                <div class="process-name">Quality Check</div>
+                <div class="process-except">Before reaching our store, each piece is inspected to ensure it meets our standards for craftsmanship, durability, and beauty.</div>
+              </div>
+            </div>
+          </div>
+          <div class="global-slider-block">
+            <div class="global-slider w-slider" data-slider data-slider-infinite>
+              <div class="global-mask is-process w-slider-mask"
+                data-slider-mask
+                tabindex="0"
+                role="group"
+                aria-label="How a gift is made">
+                <div class="global-slide w-slide" data-slide data-anim="hero">
+                  <div class="process-card">
+                    <div class="process-num">01</div>
+                    <div class="process-wrap">
+                      <div class="process-name">Inspiration &amp; Design</div>
+                      <div class="process-except">A piece starts as a drawing on whatever is nearest — an envelope, a page of the order book. Most of them go no further.</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="global-slide w-slide" data-slide data-anim="hero">
+                  <div class="process-card">
+                    <div class="process-num">02</div>
+                    <div class="process-wrap">
+                      <div class="process-name">
+                        <strong>Handmade Creation</strong>
+                      </div>
+                      <div class="process-except">Using traditional techniques and quality materials, the design is handcrafted. Every detail is shaped with patience and skill.</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="global-slide w-slide" data-slide data-anim="hero">
+                  <div class="process-card">
+                    <div class="process-num">03</div>
+                    <div class="process-wrap">
+                      <div class="process-name">Quality Check</div>
+                      <div class="process-except">Before reaching our store, each piece is inspected to ensure it meets our standards for craftsmanship, durability, and beauty.</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <button type="button" class="global-arrow w-slider-arrow-left" data-slider-prev aria-label="Previous">
+                <Icon name="arrow-left" />
+              </button>
+              <button type="button" class="global-arrow w-slider-arrow-right" data-slider-next aria-label="Next">
+                <Icon name="arrow-right" />
+              </button>
+              <div class="global-nav w-slider-nav w-round w-num">
+                {
+                  Array.from({ length: 3 }, (_, i) => (
+                    <button
+                      type="button"
+                      class="w-slider-dot"
+                      data-slider-dot
+                      aria-label={`Go to slide ${i + 1}`}
+                    />
+                  ))
+                }
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="gift-card-section">
+    <div class="gift-card-height">
+      <div class="gift-card-sticky">
+        <div class="w-layout-blockcontainer main-container w-container">
+          <div class="gift-card-block">
+            <div class="gift-card-details-block">
+              <div class="gift-card-text-block">
+                <div class="gift-card-info-block">
+                  <div class="gift-card-info" data-anim="text-lines">
+                    <ul class="section-info is-white" role="list">
+                      <li class="section-info-item">Our Gift Card</li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="gift-card-title-block">
+                  <h2 class="gift-card-title is-display-show-for-desktop" data-anim="text-lines">From our hands to somebody else&rsquo;s</h2>
+                  <h3 class="gift-card-title is-display-show-for-mobile" data-anim="text-lines">From our hands to somebody else&rsquo;s</h3>
+                </div>
+              </div>
+              <div class="gift-card-card-block" data-anim="card">
+                <div class="gift-card-btn">
+                  <div class="gift-card-link">
+                    <Icon name="gift-card" class="gift-card-icon" />
+                  </div>
+                </div>
+                <div class="gift-card-card">
+                  <div class="gift-card-wrapper">
+                    <a class="gift-card is-one w-inline-block" href="#">
+                      <div class="gift-card-name">Gift Card</div>
+                      <div class="gift-card-wrapp">
+                        <div class="gift-card-price">$24.00</div>
+                        <div class="gift-card-cond">HandSpark-2026-GIFT</div>
+                      </div>
+                    </a>
+                  </div>
+                  <div class="gift-card-wrapper">
+                    <a class="gift-card is-two w-inline-block" href="#">
+                      <div class="gift-card-name">Gift Card</div>
+                      <div class="gift-card-wrapp">
+                        <div class="gift-card-price">$49.00</div>
+                        <div class="gift-card-cond">HandSpark-2026-GIFT</div>
+                      </div>
+                    </a>
+                  </div>
+                  <div class="gift-card-wrapper">
+                    <a class="gift-card is-three w-inline-block" href="#">
+                      <div class="gift-card-name">Gift Card</div>
+                      <div class="gift-card-wrapp">
+                        <div class="gift-card-price">$74.00</div>
+                        <div class="gift-card-cond">HandSpark-2026-GIFT</div>
+                      </div>
+                    </a>
+                  </div>
+                  <div class="gift-card-wrapper">
+                    <a class="gift-card is-four w-inline-block" href="#">
+                      <div class="gift-card-name">Gift Card</div>
+                      <div class="gift-card-wrapp">
+                        <div class="gift-card-price">$99.00</div>
+                        <div class="gift-card-cond">HandSpark-2026-GIFT</div>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="gift-card-num-block" data-anim="text-lines">
+                <div class="gift-card-num-wrap">
+                  <div class="gift-card-num">
+                    <div class="gift-card-text">01</div>
+                    <div class="gift-card-text">02</div>
+                    <div class="gift-card-text">03</div>
+                    <div class="gift-card-text">04</div>
+                  </div>
+                  <div class="gift-card-text">-04</div>
+                </div>
+              </div>
+            </div>
+            <div class="gift-card-thumb-block">
+              <div class="gift-card-wrap is-one">
+                <Image src={img_image_69} alt="Gift Card Image" class="gift-card-image" loading="lazy" />
+              </div>
+              <div class="gift-card-wrap is-two">
+                <Image src={img_image_68} alt="Gift Card Image" class="gift-card-image" loading="lazy" />
+              </div>
+              <div class="gift-card-wrap is-three">
+                <Image src={img_image_67} alt="Gift Card Image" class="gift-card-image" loading="lazy" />
+              </div>
+              <div class="gift-card-wrap is-four">
+                <Image src={img_image_66} alt="Gift Card Image" class="gift-card-image" loading="lazy" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="meaningful-section">
+    <div class="section-space">
+      <div class="w-layout-blockcontainer main-container w-container">
+        <div class="meaningful-block">
+          <div class="meaningful-text-block">
+            <div class="meaningful-info-block">
+              <div class="meaningful-info" data-anim="text-lines">
+                <ul class="section-info" role="list">
+                  <li class="section-info-item">WHY CHOOSE</li>
+                </ul>
+              </div>
+            </div>
+            <div class="meaningful-title-block">
+              <h2 class="meaningful-title is-display-show-for-desktop" data-anim="text-lines">From our hands to somebody else&rsquo;s</h2>
+              <h3 class="meaningful-title is-display-show-for-mobile" data-anim="text-lines">From our hands to somebody else&rsquo;s</h3>
+            </div>
+          </div>
+          <div class="meaningful-card-block">
+            <div class="meaningful-card is-one">
+              <Icon name="meaningful-01" class="meaningful-icon" />
+              <div class="meaningful-text">
+                <div class="meaningful-name">Instant Delivery</div>
+                <div class="meaningful-except">Our CraftPeak Gift Cards are delivered immediately via email, perfect for gifts.</div>
+              </div>
+            </div>
+            <div class="meaningful-blank">
+            </div>
+            <div class="meaningful-blank">
+            </div>
+            <div class="meaningful-blank">
+            </div>
+            <div class="meaningful-card is-two">
+              <Icon name="meaningful-02" class="meaningful-icon" />
+              <div class="meaningful-text">
+                <div class="meaningful-name">No Expiry Date</div>
+                <div class="meaningful-except">Our gift cards never expire , so recipients can use them whenever they’re ready</div>
+              </div>
+            </div>
+            <div class="meaningful-blank">
+            </div>
+            <div class="meaningful-blank">
+            </div>
+            <div class="meaningful-blank">
+            </div>
+            <div class="meaningful-card is-three">
+              <Icon name="meaningful-03" class="meaningful-icon" />
+              <div class="meaningful-text">
+                <div class="meaningful-name">Perfect for Occasions</div>
+                <div class="meaningful-except">Birthdays, anniversaries , holidays or just because - perfect gift for art lovers.</div>
+              </div>
+            </div>
+            <div class="meaningful-blank">
+            </div>
+            <div class="meaningful-card is-four">
+              <Icon name="meaningful-04" class="meaningful-icon" />
+              <div class="meaningful-text">
+                <div class="meaningful-name">Usable on Products</div>
+                <div class="meaningful-except">Redeemable on our entire collection of handmade art prints and handicrafts</div>
+              </div>
+            </div>
+            <div class="meaningful-blank">
+            </div>
+          </div>
+          <div class="global-slider-block">
+            <div class="global-slider w-slider" data-slider data-slider-infinite>
+              <div class="global-mask is-meaningful w-slider-mask"
+                data-slider-mask
+                tabindex="0"
+                role="group"
+                aria-label="What makes a gift meaningful">
+                <div class="global-slide w-slide" data-slide data-anim="fade">
+                  <div class="meaningful-card">
+                    <Icon name="meaningful-01" class="meaningful-icon" />
+                    <div class="meaningful-text">
+                      <div class="meaningful-name">Instant Delivery</div>
+                      <div class="meaningful-except">Our CraftPeak Gift Cards are delivered immediately via email, perfect for gifts.</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="global-slide w-slide" data-slide data-anim="fade">
+                  <div class="meaningful-card">
+                    <Icon name="meaningful-02" class="meaningful-icon" />
+                    <div class="meaningful-text">
+                      <div class="meaningful-name">No Expiry Date</div>
+                      <div class="meaningful-except">Our gift cards never expire , so recipients can use them whenever they’re ready</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="global-slide w-slide" data-slide data-anim="fade">
+                  <div class="meaningful-card">
+                    <Icon name="meaningful-03" class="meaningful-icon" />
+                    <div class="meaningful-text">
+                      <div class="meaningful-name">Perfect for Occasions</div>
+                      <div class="meaningful-except">Birthdays, anniversaries , holidays or just because - perfect gift for art lovers.</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="global-slide w-slide" data-slide data-anim="fade">
+                  <div class="meaningful-card">
+                    <Icon name="meaningful-04" class="meaningful-icon" />
+                    <div class="meaningful-text">
+                      <div class="meaningful-name">Usable on Products</div>
+                      <div class="meaningful-except">Redeemable on our entire collection of handmade art prints and handicrafts</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <button type="button" class="global-arrow w-slider-arrow-left" data-slider-prev aria-label="Previous">
+                <Icon name="arrow-left" />
+              </button>
+              <button type="button" class="global-arrow w-slider-arrow-right" data-slider-next aria-label="Next">
+                <Icon name="arrow-right" />
+              </button>
+              <div class="global-nav w-slider-nav w-round w-num">
+                {
+                  Array.from({ length: 4 }, (_, i) => (
+                    <button
+                      type="button"
+                      class="w-slider-dot"
+                      data-slider-dot
+                      aria-label={`Go to slide ${i + 1}`}
+                    />
+                  ))
+                }
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

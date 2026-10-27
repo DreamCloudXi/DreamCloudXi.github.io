@@ -1,0 +1,26 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/sections/Hero.astro';
+---
+
+<BaseLayout
+  title="Change log"
+  description="What changed in each release of the theme."
+>
+  <Hero tag="Change log" title="What changed, and when" />
+  <section class="global-section">
+    <div class="w-layout-blockcontainer main-container w-container">
+      <div class="changelog-block" data-anim="hero">
+        <div class="changelog-title-block">
+          <div class="utility-name">Version</div>
+          <p class="utility-except">Experience the speed and stability of our initial release, crafted for seamless performance.</p>
+        </div>
+        <div class="changelog-text-block">
+          <div class="changelog-text">Version 1.0.0</div>
+          <div class="changelog-text">April 2026</div>
+          <div class="changelog-text is-published">Published</div>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

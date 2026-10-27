@@ -1,0 +1,75 @@
+---
+import { getCollection } from 'astro:content';
+import type { PaginateFunction } from 'astro';
+
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CategoryFilter from '../../components/shop/CategoryFilter.astro';
+import Hero from '../../components/sections/Hero.astro';
+import MoreSlider from '../../components/sections/MoreSlider.astro';
+import Pagination from '../../components/sections/Pagination.astro';
+import ProductCard from '../../components/shop/ProductCard.astro';
+import { ROUTES } from '../../config/site';
+
+export async function getStaticPaths({ paginate }: { paginate: PaginateFunction }) {
+  // getStaticPaths runs on its own, before the rest of this file, so the page
+  // size has to live inside it. Six products a page, as in the design.
+  const products = (await getCollection('products', ({ data }) => !data.draft)).sort(
+    (a, b) => a.data.order - b.data.order
+  );
+  return paginate(products, { pageSize: 6 });
+}
+
+const { page } = Astro.props;
+/** The rest of the site links to `/shop/` with the trailing slash. */
+const slash = (url?: string) => (url ? (url.endsWith('/') ? url : `${url}/`) : undefined);
+const products = page.data;
+const categories = (await getCollection('productCategories')).sort(
+  (a, b) => a.data.order - b.data.order
+);
+
+/* The rail at the foot of the page. Marked `featured` in the content. */
+const loved = (await getCollection('products', ({ data }) => !data.draft))
+  .filter((product) => product.data.featured)
+  .sort((a, b) => a.data.order - b.data.order);
+---
+
+<BaseLayout
+  title="Shop"
+  description="Everything the studio makes: prints, ceramics, textiles and small things to give away."
+  breadcrumb={[{ label: 'Home', href: ROUTES.home }, { label: 'Shop' }]}
+>
+  <Hero tag="Shop" title="Everything we have made and not yet sold" />
+
+  <section class="global-section">
+    <div class="w-layout-blockcontainer main-container w-container">
+      <div class="global-block">
+        <div class="product-block">
+          <CategoryFilter {categories} />
+          <div class="shop-wrapper" data-paginated>
+            <div class="shop-list">
+              {products.map((product) => <ProductCard {product} />)}
+            </div>
+            <Pagination back={slash(page.url.prev)} next={slash(page.url.next)} />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <MoreSlider
+    section="popular-section"
+    title="Most loved by the people who bought them"
+    count={loved.length}
+    label="Most loved products"
+  >
+    {
+      loved.map((product) => (
+        <div class="more-slide w-slide" data-slide data-anim="card">
+          <div class="shop-list is-shop-slider">
+            <ProductCard {product} sizes="(max-width: 767px) 88vw, 30vw" />
+          </div>
+        </div>
+      ))
+    }
+  </MoreSlider>
+</BaseLayout>

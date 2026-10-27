@@ -1,0 +1,115 @@
+---
+import { SITE } from '../../config/site';
+
+interface Props {
+  title?: string;
+  description?: string;
+  /** Path or absolute URL of the social sharing image. */
+  image?: string;
+  /** Page type for Open Graph. */
+  type?: 'website' | 'article';
+  /** Keep the page out of search results. */
+  noindex?: boolean;
+  publishedAt?: Date;
+  /** Bylined author, for the structured data on an article. */
+  author?: string;
+  /** Trail leading to this page, for the breadcrumb structured data. */
+  breadcrumb?: { label: string; href?: string }[];
+}
+
+const {
+  title,
+  description = SITE.description,
+  image = SITE.ogImage,
+  type = 'website',
+  noindex = false,
+  publishedAt,
+  author,
+  breadcrumb,
+} = Astro.props;
+
+const pageTitle = title ? SITE.titleTemplate.replace('%s', title) : SITE.title;
+const site = Astro.site ?? new URL(SITE.url);
+const canonical = new URL(Astro.url.pathname, site).href;
+const socialImage = new URL(image, site).href;
+const absolute = (path: string) => new URL(path, site).href;
+
+/*
+ * One @graph rather than several loose blocks, so the article can point at the
+ * organization by id instead of repeating it. Search engines read the whole
+ * graph together either way, and this keeps the payload small.
+ */
+const organization = {
+  '@type': 'Organization',
+  '@id': `${site.href}#organization`,
+  name: SITE.name,
+  url: site.href,
+  logo: absolute(SITE.logo),
+  sameAs: SITE.social.map((profile) => profile.href),
+};
+
+const website = {
+  '@type': 'WebSite',
+  '@id': `${site.href}#website`,
+  name: SITE.title,
+  url: site.href,
+  description: SITE.description,
+  inLanguage: SITE.locale,
+  publisher: { '@id': organization['@id'] },
+};
+
+const graph: Record<string, unknown>[] = [organization, website];
+
+if (type === 'article') {
+  graph.push({
+    '@type': 'Article',
+    headline: title ?? SITE.title,
+    description,
+    image: socialImage,
+    inLanguage: SITE.locale,
+    mainEntityOfPage: { '@type': 'WebPage', '@id': canonical },
+    ...(publishedAt && { datePublished: publishedAt.toISOString() }),
+    ...(author && { author: { '@type': 'Person', name: author } }),
+    publisher: { '@id': organization['@id'] },
+  });
+}
+
+// The page itself closes the trail, so it is appended without a link of its own.
+if (breadcrumb?.length) {
+  graph.push({
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: site.href },
+      ...breadcrumb.map((crumb, i) => ({
+        '@type': 'ListItem',
+        position: i + 2,
+        name: crumb.label,
+        ...(crumb.href ? { item: absolute(crumb.href) } : { item: canonical }),
+      })),
+    ],
+  });
+}
+
+const jsonLd = JSON.stringify({ '@context': 'https://schema.org', '@graph': graph });
+---
+
+<title>{pageTitle}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+{noindex && <meta name="robots" content="noindex, nofollow" />}
+
+<meta property="og:type" content={type} />
+<meta property="og:site_name" content={SITE.name} />
+<meta property="og:title" content={pageTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:image" content={socialImage} />
+<meta property="og:locale" content={SITE.locale} />
+{publishedAt && <meta property="article:published_time" content={publishedAt.toISOString()} />}
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={pageTitle} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={socialImage} />
+
+<script type="application/ld+json" is:inline set:html={jsonLd} />

@@ -1,0 +1,33 @@
+---
+import { getCollection } from 'astro:content';
+
+import BlogIndex from '../../../components/blog/BlogIndex.astro';
+import { ROUTES } from '../../../config/site';
+
+export async function getStaticPaths() {
+  // Runs on its own, before the rest of this file, so the page size lives here.
+  const size = 6;
+  const posts = (await getCollection('posts', ({ data }) => !data.draft)).sort(
+    (a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf()
+  );
+  const pages = Math.ceil(posts.length / size);
+
+  // Page 1 is `/blog/`; this route carries page 2 onward.
+  return Array.from({ length: Math.max(0, pages - 1) }, (_, i) => {
+    const number = i + 2;
+    return {
+      params: { page: String(number) },
+      props: { posts: posts.slice((number - 1) * size, number * size), number, pages },
+    };
+  });
+}
+
+const { posts, number, pages } = Astro.props;
+---
+
+<BlogIndex
+  {posts}
+  pageNumber={number}
+  back={number === 2 ? ROUTES.blog : `${ROUTES.blog}page/${number - 1}/`}
+  next={number < pages ? `${ROUTES.blog}page/${number + 1}/` : undefined}
+/>

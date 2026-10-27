@@ -1,0 +1,52 @@
+---
+import Icon from '../ui/Icon.astro';
+
+/**
+ * The band at the top of every page but the home page: a breadcrumb, the page
+ * title, and the long rule that runs off both edges of the viewport.
+ *
+ * The rule is 1905px wide by design and is meant to overflow its column — the
+ * generated base sheet clamps every svg to its container, which `additions.css`
+ * undoes for exactly this reason.
+ */
+interface Props {
+  /** Where this page sits. Rendered as "// Shop - Product category". */
+  parent?: { label: string; href: string };
+  /**
+   * The design hides the breadcrumb link on a plain page and shows it on the
+   * two kinds of page generated from a collection. `cms` is the variant an
+   * article or a post category uses; `show` is the one a product category
+   * uses. They differ only in color.
+   */
+  variant?: 'cms' | 'show';
+  tag: string;
+  title: string;
+}
+
+const { parent, variant, tag, title } = Astro.props;
+---
+
+<section class="hero-section">
+  <div class="w-layout-blockcontainer main-container w-container">
+    <div class="hero-block">
+      <div class="hero-info-block">
+        <div class="hero-info" data-anim="hero">
+          {
+            parent && (
+              <a class:list={['hero-info-link', variant && `is-${variant}`]} href={parent.href}>
+                // {parent.label}
+              </a>
+            )
+          }
+          <div class="hero-info-text">{parent ? `- ${tag}` : `// ${tag}`}</div>
+        </div>
+      </div>
+      <div class="hero-title-block">
+        <h1 class="hero-title" data-anim="hero">{title}</h1>
+      </div>
+      <div class="hero-line-block">
+        <Icon name="hero-line" class="hero-line" />
+      </div>
+    </div>
+  </div>
+</section>

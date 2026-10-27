@@ -1,0 +1,82 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import Media from '../ui/Media.astro';
+
+import Icon from '../ui/Icon.astro';
+
+/**
+ * One maker.
+ *
+ * The social links sit behind the portrait until the plus is pressed — the
+ * design overlays them and the theme toggles `data-open`, so the row is in the
+ * markup for a screen reader whether or not it is on screen.
+ */
+interface Props {
+  member: CollectionEntry<'team'>;
+}
+
+const { member } = Astro.props;
+const { name, role, image, social } = member.data;
+
+/*
+ * The design names one of these cells `twitter`. Keeping its own word for it
+ * rather than renaming to `x` leaves the stylesheet's selectors intact — they
+ * carry no rules today, but the design is the authority on what its cells are
+ * called.
+ */
+const CELL: Record<string, string> = {
+  'facebook-solid': 'facebook',
+  'x-solid': 'twitter',
+  'instagram-solid': 'instagram',
+  'linkedin-solid': 'linkedin',
+};
+---
+
+<div class="team-card" data-anim="card">
+  <div class="team-thumb-card">
+    <Media
+      src={image}
+      alt={`${name}, ${role}`}
+      class="team-thumb"
+      widths={[300, 600, 900]}
+      sizes="(max-width: 767px) 90vw, 25vw"
+    />
+    <div class="team-social" data-team-social>
+      <div class="team-social-wrap">
+        {
+          social.map((profile) => (
+            <a
+              class:list={[
+                'team-social-link',
+                CELL[profile.icon] ?? profile.icon,
+                'w-inline-block',
+              ]}
+              href={profile.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`${name} on ${profile.label}`}
+            >
+              <Icon name={profile.icon} />
+            </a>
+          ))
+        }
+        <button
+          type="button"
+          class="team-social-icon"
+          aria-expanded="false"
+          aria-label={`Show ${name}'s links`}
+          data-team-social-toggle
+        >
+          <Icon name="plus" class="team-social-plus" />
+          <Icon name="minus" class="team-social-minus" />
+          <span class="team-social-bg" />
+        </button>
+        <div class="team-bg-overlay"></div>
+      </div>
+    </div>
+  </div>
+  <div class="team-details-card">
+    <div class="team-name">{name}</div>
+    <div class="team-roles">({role})</div>
+  </div>
+</div>

@@ -1,0 +1,571 @@
+---
+import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
+
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/ui/Icon.astro';
+import Media from '../components/ui/Media.astro';
+import ProductCard from '../components/shop/ProductCard.astro';
+import ReviewCard from '../components/sections/ReviewCard.astro';
+import { ROUTES } from '../config/site';
+import img_placeholder from '../assets/images/placeholder.svg';
+import img_featured_logo_01 from '../assets/images/featured-logo-01.svg';
+import img_featured_logo_02 from '../assets/images/featured-logo-02.svg';
+import img_featured_logo_03 from '../assets/images/featured-logo-03.svg';
+import img_featured_logo_04 from '../assets/images/featured-logo-04.svg';
+import img_featured_logo_05 from '../assets/images/featured-logo-05.svg';
+import img_image_64 from '../assets/images/image-64.webp';
+import img_image_65 from '../assets/images/image-65.webp';
+import img_image_74 from '../assets/images/image-74.webp';
+import img_image_75 from '../assets/images/image-75.webp';
+import img_image_76 from '../assets/images/image-76.webp';
+import img_image_77 from '../assets/images/image-77.webp';
+import img_image_78 from '../assets/images/image-78.webp';
+import img_image_79 from '../assets/images/image-79.webp';
+import img_image_80 from '../assets/images/image-80.webp';
+import img_image_81 from '../assets/images/image-81.webp';
+import img_image_82 from '../assets/images/image-82.webp';
+
+const products = await getCollection('products', ({ data }) => !data.draft);
+const bestSellers = products
+  .filter((product) => product.data.featured)
+  .sort((a, b) => a.data.order - b.data.order);
+
+const reviews = (await getCollection('reviews')).sort((a, b) => a.data.order - b.data.order);
+
+const posts = (await getCollection('posts', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
+---
+
+<BaseLayout
+  title="Handmade art, prints and personalized gifts"
+  description="Handmade art prints, ceramics and personalized gifts, made to order by a small studio of makers in Asheville."
+>
+  <section class="home-section">
+    <div class="w-layout-blockcontainer main-container w-container">
+      <div class="home-block">
+        <div class="home-gsap">
+          <div class="home-text-block">
+            <div class="home-title-block">
+              <h1 class="home-title" data-anim="hero">Handcrafted Art Prints &amp; Unique Handmade Creations</h1>
+            </div>
+            <div class="home-except-block">
+              <div class="home-except" data-anim="hero">Discover beautiful handmade art, prints, and crafts created by talented artisans. Each piece tells a story and brings warmth to your space.</div>
+            </div>
+            <div class="home-button-block">
+              <div class="home-button" data-anim="hero">
+                <a class="button w-inline-block" href="/shop/">
+                  <div class="button-bg">
+                  </div>
+                  <div class="button-text">View All Products</div>
+                  <div class="button-wrap">
+                    <Icon name="arrow-up-right" class="button-icon" />
+                    <Icon name="arrow-up-right" class="button-icon" />
+                  </div>
+                </a>
+              </div>
+              <div class="home-button" data-anim="hero">
+                <a class="button is-coffee w-inline-block" href="/about/">
+                  <div class="button-bg is-coffee">
+                  </div>
+                  <div class="button-text">About Us</div>
+                  <div class="button-wrap">
+                    <Icon name="arrow-up-right" class="button-icon" />
+                    <Icon name="arrow-up-right" class="button-icon" />
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="home-line-block">
+            <Icon name="hero-line" class="hero-line" />
+          </div>
+          <div class="gsap-component">
+            <div class="gsap-wrapper">
+              <div class="gsap-block">
+                <div class="gsap-wrap">
+                  <img src={img_placeholder.src} alt="" class="gsap-place" loading="lazy" />
+                </div>
+              </div>
+            </div>
+            <div class="gsap-container">
+              <div class="gsap-list">
+                <div class="gsap-item">
+                  <Image src={img_image_65} alt="GSAP Image" class="gsap-image" loading="lazy" />
+                </div>
+                <div class="gsap-item">
+                  <Image src={img_image_64} alt="GSAP Image" class="gsap-image" loading="lazy" />
+                </div>
+                <div class="gsap-item">
+                  <Image src={img_image_82} alt="GSAP Image" class="gsap-image" loading="lazy" />
+                </div>
+                <div class="gsap-item">
+                  <Image src={img_image_81} alt="GSAP Image" class="gsap-image" loading="lazy" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="company-section">
+    <div class="section-space">
+      <div class="w-layout-blockcontainer main-container w-container">
+        <div class="company-block">
+          <div class="company-text-block">
+            <div class="company-info-block">
+              <div class="company-info" data-anim="text-lines">
+                <ul class="section-info" role="list">
+                  <li class="section-info-item">About Us</li>
+                </ul>
+              </div>
+            </div>
+            <div class="company-title-block">
+              <h2 class="company-title is-display-show-for-desktop" data-anim="text-lines">We Design Art Driving Meaningful Change</h2>
+              <h3 class="company-title is-display-show-for-mobile" data-anim="text-lines">We Design Art Driving Meaningful Change</h3>
+            </div>
+          </div>
+          <div class="company-wrap-block">
+            <div class="company-thumb-block is-display-show-for-desktop">
+              <div class="company-thumb-wrap">
+                <Image src={img_image_80} alt="We Design Art Driving Meaningful Change" class="company-thumb" loading="lazy" data-anim="image-zoom" />
+              </div>
+            </div>
+            <div class="company-details-block">
+              <div class="company-thumb-block">
+                <div class="company-thumb-wrap">
+                  <Image src={img_image_79} alt="We Design Art Driving Meaningful Change" class="company-thumb" loading="lazy" data-anim="image-zoom" />
+                </div>
+                <div class="company-thumb-wrap">
+                  <Image src={img_image_78} alt="We Design Art Driving Meaningful Change" class="company-thumb" loading="lazy" data-anim="image-zoom" />
+                </div>
+              </div>
+              <div class="company-except-block">
+                <div class="company-except" data-anim="text-lines">We bring together unique art prints and handcrafted products made by talented artisans. Each piece is carefully created with passion and creativity, helping you add meaningful art and handmade charm to your home.</div>
+                <div class="company-except" data-anim="text-lines">Our collection is thoughtfully curated to ensure every product feels special and unique. No mass production — just carefully crafted items that carry real stories and human touch.</div>
+                <div class="company-except" data-anim="text-lines">By choosing handmade, you support creativity, sustainability, and small artisans around the world while bringing something truly personal into your everyday life.</div>
+              </div>
+              <div class="company-button-block">
+                <div class="company-button" data-anim="card">
+                  <a class="button w-inline-block" href="/about/">
+                    <div class="button-bg">
+                    </div>
+                    <div class="button-text">More About Us</div>
+                    <div class="button-wrap">
+                      <Icon name="arrow-up-right" class="button-icon" />
+                      <Icon name="arrow-up-right" class="button-icon" />
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="best-sellers-section">
+    <div class="section-space">
+      <div class="w-layout-blockcontainer main-container w-container">
+        <div class="more-block">
+          <div class="more-title-block">
+            <h2 class="more-title is-display-show-for-desktop" data-anim="text-lines">Best Sellers</h2>
+            <h3 class="more-title is-display-show-for-mobile" data-anim="text-lines">Best Sellers</h3>
+            <div class="more-link is-more-space" data-anim="text-lines">
+              <a class="button is-link w-inline-block" href={ROUTES.shop}>
+                <div class="button-bg is-link"></div>
+                <div class="button-text">View All</div>
+                <div class="button-wrap is-link">
+                  <Icon name="arrow-up-right" class="button-icon" />
+                  <Icon name="arrow-up-right" class="button-icon" />
+                </div>
+              </a>
+            </div>
+          </div>
+          <div class="more-card-block">
+            <div class="more-slider w-slider" data-slider data-slider-infinite>
+              <div
+                class="more-mask w-slider-mask"
+                data-slider-mask
+                tabindex="0"
+                role="group"
+                aria-label="Best sellers"
+              >
+                {
+                  bestSellers.map((product) => (
+                    <div class="more-slide w-slide" data-slide data-anim="card">
+                      <ProductCard {product} sizes="(max-width: 767px) 88vw, 30vw" />
+                    </div>
+                  ))
+                }
+              </div>
+              <button
+                type="button"
+                class="more-arrow is-left w-slider-arrow-left"
+                data-slider-prev
+                aria-label="Previous"
+              >
+                <Icon name="arrow-left" class="more-icon" />
+              </button>
+              <button
+                type="button"
+                class="more-arrow is-right w-slider-arrow-right"
+                data-slider-next
+                aria-label="Next"
+              >
+                <Icon name="arrow-right" class="more-icon" />
+              </button>
+              <div class="more-navbar w-slider-nav w-round w-num">
+                {
+                  bestSellers.map((_, i) => (
+                    <button
+                      type="button"
+                      class="w-slider-dot"
+                      data-slider-dot
+                      aria-label={`Go to slide ${i + 1}`}
+                    />
+                  ))
+                }
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="our-works-section">
+    <div class="works-height" data-anim="fade">
+      <div class="works-sticky">
+        <div class="w-layout-blockcontainer main-container w-container">
+          <div class="works-block">
+            <div class="works-details-block">
+              <div class="works-text-block">
+                <div class="works-info-block">
+                  <div class="works-info">
+                    <ul class="section-info is-white" role="list">
+                      <li class="section-info-item">Our Works</li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="works-title-block">
+                  <div class="works-title-wrap">
+                    <h2 class="works-title">Handmade Bags</h2>
+                    <h2 class="works-title">Decorative Items</h2>
+                    <h2 class="works-title">Personalized Gifts</h2>
+                    <h2 class="works-title">Traditional Crafts</h2>
+                  </div>
+                </div>
+              </div>
+              <div class="works-num-block">
+                <div class="values-num-wrap">
+                  <div class="values-num">
+                    <div class="values-text">01</div>
+                    <div class="values-text">02</div>
+                    <div class="values-text">03</div>
+                    <div class="values-text">04</div>
+                  </div>
+                  <div class="values-text">-04</div>
+                </div>
+              </div>
+            </div>
+            <div class="works-thumb-block">
+              <div class="works-thumb-wrap is-one">
+                <Image src={img_image_77} alt="Our Works Image" class="works-thumb" loading="lazy" />
+              </div>
+              <div class="works-thumb-wrap is-two">
+                <Image src={img_image_76} alt="Our Works Image" class="works-thumb" loading="lazy" />
+              </div>
+              <div class="works-thumb-wrap is-three">
+                <Image src={img_image_75} alt="Our Works Image" class="works-thumb" loading="lazy" />
+              </div>
+              <div class="works-thumb-wrap is-four">
+                <Image src={img_image_74} alt="Our Works Image" class="works-thumb" loading="lazy" />
+              </div>
+            </div>
+            <a class="works-button-block w-inline-block" href="/shop/">
+              <div class="works-button">
+                <div class="works-button-text">View All</div>
+                <Icon name="works-arrow" class="works-button-icon" />
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="process-section">
+    <div class="w-layout-blockcontainer main-container w-container">
+      <div class="process-block">
+        <div class="process-text-block">
+          <div class="process-info-block">
+            <div class="process-info" data-anim="text-lines">
+              <ul class="section-info" role="list">
+                <li class="section-info-item">Our Process</li>
+              </ul>
+            </div>
+          </div>
+          <div class="process-title-block">
+            <h2 class="process-title is-display-show-for-desktop" data-anim="text-lines">
+From HandSpark              <br>
+Hands to Your Home            </h2>
+            <h3 class="process-title is-display-show-for-mobile" data-anim="text-lines">
+From HandSpark              <br>
+Hands to Your Home            </h3>
+          </div>
+        </div>
+        <div class="process-card-block is-home">
+          <div class="process-card is-one">
+            <div class="process-num">01</div>
+            <div class="process-wrap">
+              <div class="process-name">Inspiration &amp; Design</div>
+              <div class="process-except">Our artisans start with inspiration from culture, and everyday life. Each artwork or craft begins with sketches and creative .</div>
+            </div>
+          </div>
+          <div class="process-card is-two">
+            <div class="process-num">02</div>
+            <div class="process-wrap">
+              <div class="process-name">Handmade Creation</div>
+              <div class="process-except">Using traditional techniques and quality materials, the design is handcrafted. Every detail is shaped with patience and skill.</div>
+            </div>
+          </div>
+          <div class="process-card is-three">
+            <div class="process-num">03</div>
+            <div class="process-wrap">
+              <div class="process-name">Quality Check</div>
+              <div class="process-except">Before reaching our store, each piece is inspected to ensure it meets our standards for craftsmanship, durability, and beauty.</div>
+            </div>
+          </div>
+          <div class="process-card is-four">
+            <div class="process-num">04</div>
+            <div class="process-wrap">
+              <div class="process-name">Packaging &amp; Delivery</div>
+              <div class="process-except">Your order is securely packaged to protect the artwork and delivered safely to your doorstep so you can enjoy it for years.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="featured-section" id="scroll-down">
+    <div class="section-space">
+      <div class="w-layout-blockcontainer main-container w-container">
+        <div class="featured-block">
+          <div class="featured-title" data-anim="text-lines">Featured On</div>
+          <div class="featured-wrap" data-anim="fade">
+            <div class="featured-loop">
+              <img src={img_featured_logo_01.src} alt="Trusted Partner" class="featured-logo" loading="lazy" />
+              <img src={img_featured_logo_02.src} alt="Trusted Partner" class="featured-logo" loading="lazy" />
+              <img src={img_featured_logo_03.src} alt="Trusted Partner" class="featured-logo" loading="lazy" />
+              <img src={img_featured_logo_04.src} alt="Trusted Partner" class="featured-logo" loading="lazy" />
+              <img src={img_featured_logo_05.src} alt="Trusted Partner" class="featured-logo" loading="lazy" />
+            </div>
+            <div class="featured-loop">
+              <img src={img_featured_logo_01.src} alt="Trusted Partner" class="featured-logo" loading="lazy" />
+              <img src={img_featured_logo_02.src} alt="Trusted Partner" class="featured-logo" loading="lazy" />
+              <img src={img_featured_logo_03.src} alt="Trusted Partner" class="featured-logo" loading="lazy" />
+              <img src={img_featured_logo_04.src} alt="Trusted Partner" class="featured-logo" loading="lazy" />
+              <img src={img_featured_logo_05.src} alt="Trusted Partner" class="featured-logo" loading="lazy" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="review-section">
+    <div class="review-height">
+      <div class="review-sticky">
+        <div class="section-space">
+          <div class="w-layout-blockcontainer main-container w-container">
+            <div class="review-block">
+              <div class="review-text-block">
+                <div class="review-info-block">
+                  <div class="review-info" data-anim="text-lines">
+                    <ul class="section-info" role="list">
+                      <li class="section-info-item">Testimonials</li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="review-title-block">
+                  <h2 class="review-title is-display-show-for-desktop" data-anim="text-lines">
+Happy Businesses                    <br>
+Happy Client’s                  </h2>
+                  <h3 class="review-title is-display-show-for-mobile" data-anim="text-lines">
+Happy Businesses                    <br>
+Happy Client’s                  </h3>
+                </div>
+              </div>
+              {
+                ['large', 'medium', 'laptop'].map((size) => (
+                  <div class:list={['review-card-block', `is-display-show-for-${size}`]}>
+                    {reviews.map((review) => (
+                      <ReviewCard {review} />
+                    ))}
+                  </div>
+                ))
+              }
+              <div class="global-slider-block">
+                <div class="global-slider w-slider" data-slider data-slider-infinite>
+                  <div
+                    class="global-mask is-review w-slider-mask"
+                    data-slider-mask
+                    tabindex="0"
+                    role="group"
+                    aria-label="Customer reviews"
+                  >
+                    {
+                      reviews.map((review) => (
+                        <div class="global-slide w-slide" data-slide data-anim="card">
+                          <ReviewCard {review} anim={undefined} />
+                        </div>
+                      ))
+                    }
+                  </div>
+                  <button
+                    type="button"
+                    class="global-arrow w-slider-arrow-left"
+                    data-slider-prev
+                    aria-label="Previous"
+                  >
+                    <Icon name="arrow-left" />
+                  </button>
+                  <button
+                    type="button"
+                    class="global-arrow w-slider-arrow-right"
+                    data-slider-next
+                    aria-label="Next"
+                  >
+                    <Icon name="arrow-right" />
+                  </button>
+                  <div class="global-nav w-slider-nav w-round w-num">
+                    {
+                      reviews.map((_, i) => (
+                        <button
+                          type="button"
+                          class="w-slider-dot"
+                          data-slider-dot
+                          aria-label={`Go to review ${i + 1}`}
+                        />
+                      ))
+                    }
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="blog-section">
+    <div class="section-space">
+      <div class="w-layout-blockcontainer main-container w-container">
+        <div class="more-block">
+          <div class="more-title-block">
+            <h2 class="more-title is-display-show-for-desktop" data-anim="text-lines">From the journal</h2>
+            <h3 class="more-title is-display-show-for-mobile" data-anim="text-lines">From the journal</h3>
+            <div class="more-link is-more-space" data-anim="text-lines">
+              <a class="button is-link w-inline-block" href={ROUTES.blog}>
+                <div class="button-bg is-link"></div>
+                <div class="button-text">View All</div>
+                <div class="button-wrap is-link">
+                  <Icon name="arrow-up-right" class="button-icon" />
+                  <Icon name="arrow-up-right" class="button-icon" />
+                </div>
+              </a>
+            </div>
+          </div>
+          <div class="more-card-block">
+            <div class="more-slider w-slider" data-slider data-slider-infinite>
+              <div
+                class="more-mask w-slider-mask"
+                data-slider-mask
+                tabindex="0"
+                role="group"
+                aria-label="Recent articles"
+              >
+                {
+                  posts.map((post) => (
+                    <div class="more-slide w-slide" data-slide data-anim="card">
+                      <div class="blog-list is-slider">
+                        <a
+                          class="blog-card w-inline-block"
+                          href={ROUTES.post(post.id)}
+                          aria-label={post.data.title}
+                        >
+                          <div class="blog-thumb-card">
+                            <Media
+                              src={post.data.image}
+                              alt={post.data.excerpt}
+                              class="blog-thumb"
+                              widths={[400, 700, 1000]}
+                              sizes="(max-width: 767px) 88vw, 30vw"
+                            />
+                          </div>
+                          <div class="blog-details-card">
+                            <div class="blog-date">
+                              <time datetime={post.data.publishedAt.toISOString()}>
+                                {post.data.publishedAt.toLocaleDateString('en-US', {
+                                  year: 'numeric',
+                                  month: 'long',
+                                  day: 'numeric',
+                                })}
+                              </time>
+                            </div>
+                            <div class="blog-name">{post.data.title}</div>
+                            <div class="blog-author">
+                              <div class="blog-author-wrap">
+                                {post.data.author.avatar && (
+                                  <Media
+                                    src={post.data.author.avatar}
+                                    alt={post.data.author.name}
+                                    class="blog-author-photo"
+                                    width={48}
+                                  />
+                                )}
+                                <div class="blog-author-name">{post.data.author.name}</div>
+                              </div>
+                              <Icon name="author" class="blog-author-icon" />
+                            </div>
+                          </div>
+                        </a>
+                      </div>
+                    </div>
+                  ))
+                }
+              </div>
+              <button
+                type="button"
+                class="more-arrow is-left w-slider-arrow-left"
+                data-slider-prev
+                aria-label="Previous"
+              >
+                <Icon name="arrow-left" class="more-icon" />
+              </button>
+              <button
+                type="button"
+                class="more-arrow is-right w-slider-arrow-right"
+                data-slider-next
+                aria-label="Next"
+              >
+                <Icon name="arrow-right" class="more-icon" />
+              </button>
+              <div class="more-navbar w-slider-nav w-round w-num">
+                {
+                  posts.map((_, i) => (
+                    <button
+                      type="button"
+                      class="w-slider-dot"
+                      data-slider-dot
+                      aria-label={`Go to slide ${i + 1}`}
+                    />
+                  ))
+                }
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

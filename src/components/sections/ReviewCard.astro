@@ -1,0 +1,35 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import Media from '../ui/Media.astro';
+
+import Icon from '../ui/Icon.astro';
+
+/**
+ * One customer quote.
+ *
+ * The design lays these out four ways on the home page — a four-across row, a
+ * two-across row, a narrower row, and a carousel below 768px — and switches
+ * between them in CSS rather than reflowing one of them. All four render the
+ * same card, which is this.
+ */
+interface Props {
+  review: CollectionEntry<'reviews'>;
+  /** The reveal to run. The carousel copies use the slider's own timing. */
+  anim?: string | undefined;
+}
+
+const { review, anim = 'card' } = Astro.props;
+const { quote, author, role, avatar, rating } = review.data;
+---
+
+<div class="review-card" data-anim={anim}>
+  <Icon name="rating-small" class="review-rating" label={`Rated ${rating} out of 5`} />
+  <div class="review-except">&ldquo;{quote}&rdquo;</div>
+  <div class="review-author">
+    <Media src={avatar} alt={author} class="review-author-thumb" width={80} />
+    <div class="review-author-wrapp">
+      <div class="review-author-name">{author}</div>
+      <div class="review-author-role">{role}</div>
+    </div>
+  </div>
+</div>

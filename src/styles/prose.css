@@ -1,0 +1,150 @@
+/* =============================================================================
+   Rich text
+   -----------------------------------------------------------------------------
+   Markdown and MDX bodies. The design styles the few elements its own sample
+   content happened to use; this fills in the rest of what an author can write.
+   ========================================================================== */
+
+.prose {
+  color: var(--color-style--ash);
+}
+
+/* One rhythm for everything, rather than a margin per element. */
+.prose > * + * {
+  margin-top: 20px;
+}
+
+.prose :is(h2, h3, h4, h5, h6) {
+  margin-top: 40px;
+  margin-bottom: 20px;
+}
+
+.prose :is(h2, h3, h4, h5, h6):first-child {
+  margin-top: 0;
+}
+
+.prose h2 {
+  font-family: var(--_typography---heading-04--font);
+  font-size: var(--_typography---heading-04--size);
+  font-weight: var(--_typography---heading-04--weight);
+  line-height: var(--_typography---heading-04--height);
+}
+
+.prose h3 {
+  font-family: var(--_typography---heading-05--font);
+  font-size: var(--_typography---heading-05--size);
+  font-weight: var(--_typography---heading-05--weight);
+  line-height: var(--_typography---heading-05--height);
+}
+
+.prose h4 {
+  font-family: var(--_typography---heading-06--font);
+  font-size: var(--_typography---heading-06--size);
+  font-weight: var(--_typography---heading-06--weight);
+  line-height: var(--_typography---heading-06--height);
+}
+
+.prose h5 {
+  font-family: var(--_typography---heading-06--font);
+  font-size: var(--_typography---heading-06--size);
+  font-weight: var(--_typography---heading-06--weight);
+  line-height: var(--_typography---heading-06--height);
+}
+
+.prose h6 {
+  font-family: var(--_typography---heading-06--font);
+  font-size: var(--_typography---heading-06--size);
+  font-weight: var(--_typography---heading-06--weight);
+  line-height: var(--_typography---heading-06--height);
+}
+
+/* Lists keep their markers; the base layer strips them for navigation. */
+.prose ul {
+  padding-left: 24px;
+  list-style: disc;
+}
+
+.prose ol {
+  padding-left: 24px;
+  list-style: decimal;
+}
+
+.prose li + li {
+  margin-top: 8px;
+}
+
+.prose :is(ul, ol) :is(ul, ol) {
+  margin-top: 8px;
+}
+
+.prose strong {
+  font-weight: 700;
+}
+
+.prose em {
+  font-style: italic;
+}
+
+.prose a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.prose blockquote {
+  padding-left: 24px;
+  border-left: 2px solid currentColor;
+  font-style: italic;
+}
+
+.prose :is(img, video, iframe) {
+  width: 100%;
+  height: auto;
+  border-radius: 6px;
+}
+
+.prose figure figcaption {
+  margin-top: 8px;
+  font-size: 0.875em;
+  opacity: 0.75;
+}
+
+.prose :is(code, kbd, samp) {
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: rgb(0 0 0 / 0.06);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.9em;
+}
+
+.prose pre {
+  padding: 20px;
+  border-radius: 6px;
+  background: rgb(0 0 0 / 0.06);
+  overflow-x: auto;
+}
+
+.prose pre code {
+  padding: 0;
+  background: none;
+}
+
+/* A table wider than the column scrolls inside itself, never the page. */
+.prose .table-wrap {
+  overflow-x: auto;
+}
+
+.prose table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.prose :is(th, td) {
+  padding: 10px 12px;
+  border-bottom: 1px solid rgb(0 0 0 / 0.12);
+}
+
+.prose hr {
+  border: 0;
+  border-top: 1px solid rgb(0 0 0 / 0.12);
+}

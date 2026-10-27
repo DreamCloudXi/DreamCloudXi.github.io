@@ -1,0 +1,38 @@
+[
+  {
+    "id": "sarah-mitchell",
+    "quote": "The print arrived flat, signed and a shade warmer than it looked on screen, which is exactly what I wanted. It has changed the whole end of the room.",
+    "author": "Sarah Mitchell",
+    "role": "Interior designer",
+    "avatar": "../../assets/images/image-86.webp",
+    "rating": 5,
+    "order": 1
+  },
+  {
+    "id": "daniel-carter",
+    "quote": "I have bought a lot of prints. This is the first one where I could feel the ink standing off the paper, and the first where somebody wrote to tell me which day it was pulled.",
+    "author": "Daniel Carter",
+    "role": "Art collector",
+    "avatar": "../../assets/images/image-85.webp",
+    "rating": 5,
+    "order": 2
+  },
+  {
+    "id": "michael-thompson",
+    "quote": "The vase has a thumbprint near the foot where it was lifted off the wheel. My partner spotted it within a minute and has mentioned it to every visitor since.",
+    "author": "Michael Thompson",
+    "role": "Home decor blogger",
+    "avatar": "../../assets/images/image-84.webp",
+    "rating": 5,
+    "order": 3
+  },
+  {
+    "id": "sophia-martinez",
+    "quote": "They emailed a photograph of the lettering before framing it and caught a spelling I had given them wrong. Small thing. It is why I have ordered three more.",
+    "author": "Sophia Martinez",
+    "role": "Interior designer",
+    "avatar": "../../assets/images/image-83.webp",
+    "rating": 5,
+    "order": 4
+  }
+]

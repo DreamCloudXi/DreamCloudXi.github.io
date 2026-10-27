@@ -1,0 +1,227 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/sections/Hero.astro';
+import Icon from '../components/ui/Icon.astro';
+---
+
+<BaseLayout
+  title="Style guide"
+  description="Every type size, color, button and form field the theme ships with, on one page."
+>
+  <Hero tag="Style guide" title="Every type size, color and control in one place" />
+  <section class="global-section">
+    <div class="w-layout-blockcontainer main-container w-container">
+      <div class="style-guide-block">
+        <div class="style-guide-wrap" data-anim="hero">
+          <div class="style-guide-title">Colors</div>
+          <div class="w-layout-grid style-guide-grid">
+            <div class="colorbox-card">
+              <div class="colorbox-square is-primary">
+              </div>
+              <div class="colorbox-content">
+                <div class="colorbox-name">Primary</div>
+                <div class="colorbox-color">#3d5a33</div>
+              </div>
+            </div>
+            <div class="colorbox-card">
+              <div class="colorbox-square is-secondary">
+              </div>
+              <div class="colorbox-content">
+                <div class="colorbox-name">Secondary</div>
+                <div class="colorbox-color">#8baf7e</div>
+              </div>
+            </div>
+            <div class="colorbox-card">
+              <div class="colorbox-square is-neutral">
+              </div>
+              <div class="colorbox-content">
+                <div class="colorbox-name">Neutral</div>
+                <div class="colorbox-color">#1d1914</div>
+              </div>
+            </div>
+            <div class="colorbox-card">
+              <div class="colorbox-square is-coffee">
+              </div>
+              <div class="colorbox-content">
+                <div class="colorbox-name">Coffee</div>
+                <div class="colorbox-color">#5f4228</div>
+              </div>
+            </div>
+            <div class="colorbox-card">
+              <div class="colorbox-square is-ash">
+              </div>
+              <div class="colorbox-content">
+                <div class="colorbox-name">Ash</div>
+                <div class="colorbox-color">#666666</div>
+              </div>
+            </div>
+            <div class="colorbox-card">
+              <div class="colorbox-square is-gray">
+              </div>
+              <div class="colorbox-content">
+                <div class="colorbox-name">Gray</div>
+                <div class="colorbox-color">#8a8a8a</div>
+              </div>
+            </div>
+            <div class="colorbox-card">
+              <div class="colorbox-square is-gray-bg">
+              </div>
+              <div class="colorbox-content">
+                <div class="colorbox-name">Gray BG</div>
+                <div class="colorbox-color">#efefef</div>
+              </div>
+            </div>
+            <div class="colorbox-card">
+              <div class="colorbox-square is-smoke-white">
+              </div>
+              <div class="colorbox-content">
+                <div class="colorbox-name">Smoke White</div>
+                <div class="colorbox-color">#f1f1f1</div>
+              </div>
+            </div>
+            <div class="colorbox-card">
+              <div class="colorbox-square is-whitesmoke">
+              </div>
+              <div class="colorbox-content">
+                <div class="colorbox-name">Whitesmoke</div>
+                <div class="colorbox-color">#f5f5f5</div>
+              </div>
+            </div>
+            <div class="colorbox-card">
+              <div class="colorbox-square is-white">
+              </div>
+              <div class="colorbox-content">
+                <div class="colorbox-name">White</div>
+                <div class="colorbox-color">#FFFFFF</div>
+              </div>
+            </div>
+            <div class="colorbox-card">
+              <div class="colorbox-square is-background">
+              </div>
+              <div class="colorbox-content">
+                <div class="colorbox-name">Background</div>
+                <div class="colorbox-color">#f9f4ea</div>
+              </div>
+            </div>
+            <div class="colorbox-card">
+              <div class="colorbox-square is-light-lite">
+              </div>
+              <div class="colorbox-content">
+                <div class="colorbox-name">Light Lite</div>
+                <div class="colorbox-color">#f1ede2</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="style-guide-wrap" data-anim="text-lines">
+          <div class="style-guide-title">Typography</div>
+          <div class="style-guide-text">
+            <div class="typography-block">
+              <div class="typography-left-block">
+                <h1 class="typography-name">Aa</h1>
+                <div class="typography-subtitle">Libre Baskerville, Manrope</div>
+                <p class="typography-except">ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz1234567890</p>
+              </div>
+              <div class="typography-right-block">
+                <div class="typography-wrapper">
+                  <div class="typography-text-wrapper">
+                    <div class="typography-text">H1</div>
+                  </div>
+                  <div class="typography-content-wrapper">
+                    <h1 class="typography-heading is-h1">Typography...</h1>
+                    <div class="typography-subtext">Size: 80</div>
+                  </div>
+                </div>
+                <div class="typography-wrapper">
+                  <div class="typography-text-wrapper">
+                    <div class="typography-text">H2</div>
+                  </div>
+                  <div class="typography-content-wrapper">
+                    <h2 class="typography-heading is-h2">Typography...</h2>
+                    <div class="typography-subtext">Size: 48</div>
+                  </div>
+                </div>
+                <div class="typography-wrapper">
+                  <div class="typography-text-wrapper">
+                    <div class="typography-text">H3</div>
+                  </div>
+                  <div class="typography-content-wrapper">
+                    <h3 class="typography-heading is-h3">Typography...</h3>
+                    <div class="typography-subtext">Size: 32</div>
+                  </div>
+                </div>
+                <div class="typography-wrapper">
+                  <div class="typography-text-wrapper">
+                    <div class="typography-text">H4</div>
+                  </div>
+                  <div class="typography-content-wrapper">
+                    <h4 class="typography-heading is-h4">Typography...</h4>
+                    <div class="typography-subtext">Size: 24</div>
+                  </div>
+                </div>
+                <div class="typography-wrapper">
+                  <div class="typography-text-wrapper">
+                    <div class="typography-text">H5</div>
+                  </div>
+                  <div class="typography-content-wrapper">
+                    <h5 class="typography-heading is-h5">Typography...</h5>
+                    <div class="typography-subtext">Size: 20</div>
+                  </div>
+                </div>
+                <div class="typography-wrapper">
+                  <div class="typography-text-wrapper">
+                    <div class="typography-text">H6</div>
+                  </div>
+                  <div class="typography-content-wrapper">
+                    <h6 class="typography-heading is-h6">Typography...</h6>
+                    <div class="typography-subtext">Size: 16</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="style-guide-wrap" data-anim="text-lines">
+          <div class="style-guide-title">Buttons</div>
+          <div class="style-guide-text">
+            <div class="style-guide-button-block">
+              <div class="style-guide-button">
+                <a class="button w-inline-block" href="#">
+                  <div class="button-bg">
+                  </div>
+                  <div class="button-text">Button</div>
+                  <div class="button-wrap">
+                    <Icon name="arrow-up-right" class="button-icon" />
+                    <Icon name="arrow-up-right" class="button-icon" />
+                  </div>
+                </a>
+              </div>
+              <div class="style-guide-button">
+                <a class="button is-ink w-inline-block" href="#">
+                  <div class="button-bg is-ink">
+                  </div>
+                  <div class="button-text">Button</div>
+                  <div class="button-wrap">
+                    <Icon name="arrow-up-right" class="button-icon" />
+                    <Icon name="arrow-up-right" class="button-icon" />
+                  </div>
+                </a>
+              </div>
+              <div class="style-guide-button">
+                <a class="button is-coffee w-inline-block" href="#">
+                  <div class="button-bg is-coffee">
+                  </div>
+                  <div class="button-text">Button</div>
+                  <div class="button-wrap">
+                    <Icon name="arrow-up-right" class="button-icon" />
+                    <Icon name="arrow-up-right" class="button-icon" />
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

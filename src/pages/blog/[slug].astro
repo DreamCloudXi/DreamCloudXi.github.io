@@ -1,0 +1,102 @@
+---
+import { getCollection, render } from 'astro:content';
+import Media from '../../components/ui/Media.astro';
+
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Hero from '../../components/sections/Hero.astro';
+import RelatedPosts from '../../components/blog/RelatedPosts.astro';
+import { ROUTES } from '../../config/site';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts', ({ data }) => !data.draft);
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post, all: posts },
+  }));
+}
+
+const { post, all } = Astro.props;
+const { title, excerpt, image, author, publishedAt, category, seo } = post.data;
+const { Content } = await render(post);
+
+const categories = await getCollection('blogCategories');
+const categoryTitle = categories.find((c) => c.id === category)?.data.title ?? category;
+
+/*
+ * Six more articles, the same category first and the rest behind it, so the
+ * rail is never short on a journal this size.
+ */
+const others = all.filter((p) => p.id !== post.id);
+const related = [
+  ...others.filter((p) => p.data.category === category),
+  ...others.filter((p) => p.data.category !== category),
+].slice(0, 6);
+
+const date = publishedAt.toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+---
+
+<BaseLayout
+  title={seo?.title ?? title}
+  description={seo?.description ?? excerpt}
+  type="article"
+  {publishedAt}
+  author={author.name}
+  breadcrumb={[
+    { label: 'Home', href: ROUTES.home },
+    { label: 'Journal', href: ROUTES.blog },
+    { label: title },
+  ]}
+>
+  <Hero variant="cms" parent={{ label: 'Journal', href: ROUTES.blog }} tag="Article" title="Behind the post" />
+
+  <section class="global-section">
+    <div class="w-layout-blockcontainer main-container w-container">
+      <div class="blog-details-block">
+        <div class="blog-heading-block" data-anim="hero">
+          <h2 class="blog-heading is-display-show-for-desktop">{title}</h2>
+          <h2 class="blog-heading is-display-show-for-mobile">{title}</h2>
+        </div>
+
+        <div class="blog-wrapper-block" data-anim="hero">
+          <div class="blog-wrapper">
+            <div class="blog-info is-semi-bold">Author :</div>
+            <div class="blog-text">{author.name}</div>
+          </div>
+          <div class="blog-wrapper">
+            <div class="blog-info">Category :</div>
+            <a class="blog-link" href={ROUTES.postCategory(category)}>{categoryTitle}</a>
+          </div>
+          <div class="blog-wrapper">
+            <div class="blog-info">Date :</div>
+            <div class="blog-text">
+              <time datetime={publishedAt.toISOString()}>{date}</time>
+            </div>
+          </div>
+        </div>
+
+        <div class="blog-content-block" data-anim="hero">
+          <div class="blog-featured-block">
+            <Media
+              src={image}
+              alt={excerpt}
+              class="blog-featured"
+              widths={[700, 1100, 1600]}
+              sizes="(max-width: 991px) 92vw, 1100px"
+              loading="eager"
+              data-anim="image-zoom"
+            />
+          </div>
+          <div class="blog-richtext-block w-richtext">
+            <Content />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <RelatedPosts posts={related} title="More from the journal" />
+</BaseLayout>

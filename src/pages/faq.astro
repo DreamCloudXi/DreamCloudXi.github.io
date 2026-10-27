@@ -1,0 +1,70 @@
+---
+import { getCollection } from 'astro:content';
+import Media from '../components/ui/Media.astro';
+
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/sections/Hero.astro';
+import Icon from '../components/ui/Icon.astro';
+import { ROUTES } from '../config/site';
+
+const faqs = (await getCollection('faqs')).sort((a, b) => a.data.order - b.data.order);
+---
+
+<BaseLayout
+  title="Frequently asked questions"
+  description="Shipping, returns, commissions, gift wrapping, and how long a piece takes to make."
+  breadcrumb={[{ label: 'Home', href: ROUTES.home }, { label: 'FAQ' }]}
+>
+  <Hero tag="FAQ" title="Questions people ask before they order" />
+
+  <section class="global-section">
+    <div class="w-layout-blockcontainer main-container w-container">
+      <div class="faq-block">
+        <div class="faq-title-block">
+          <h2 class="faq-title is-display-show-for-desktop" data-anim="hero">
+            Frequently asked questions
+          </h2>
+          <h3 class="faq-title is-display-show-for-mobile" data-anim="hero">
+            Frequently asked questions
+          </h3>
+        </div>
+
+        {/* One panel open at a time, which is what the design draws. */}
+        <div class="faq-card-block" data-accordion>
+          {
+            faqs.map((faq, index) => (
+              <div class="faq-card w-dropdown" data-anim="hero" data-accordion-item>
+                <button
+                  type="button"
+                  class="faq-info-card w-dropdown-toggle"
+                  aria-expanded="false"
+                  aria-controls={`faq-${index + 1}`}
+                  data-accordion-trigger
+                >
+                  <span class="faq-info-text">{faq.data.question}</span>
+                  <span class="faq-info-icon">
+                    <Icon name="faq-plus" class="faq-info-plus" />
+                    <Icon name="faq-minus" class="faq-info-minus" />
+                  </span>
+                </button>
+
+                <div class="faq-text-card w-dropdown-list" id={`faq-${index + 1}`} data-accordion-panel>
+                  <div class="faq-wrapper">
+                    <Media
+                      src={faq.data.image}
+                      alt=""
+                      class="faq-image"
+                      widths={[300, 600]}
+                      sizes="(max-width: 767px) 40vw, 300px"
+                    />
+                    <p class="faq-except">{faq.data.answer}</p>
+                  </div>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

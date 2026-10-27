@@ -1,0 +1,55 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import Media from '../ui/Media.astro';
+
+import Icon from '../ui/Icon.astro';
+import { ROUTES } from '../../config/site';
+
+/**
+ * One post in the journal grid. Used on the journal index, on a category
+ * listing, and in the three-across row on the home page.
+ */
+interface Props {
+  post: CollectionEntry<'posts'>;
+  sizes?: string;
+}
+
+const { post, sizes = '(max-width: 767px) 92vw, (max-width: 991px) 45vw, 30vw' } = Astro.props;
+const { title, excerpt, image, author, publishedAt } = post.data;
+
+const date = publishedAt.toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+---
+
+<div class="blog-item" data-anim="hero">
+  <a class="blog-card w-inline-block" href={ROUTES.post(post.id)} aria-label={title}>
+    <div class="blog-thumb-card">
+      <Media src={image} alt={excerpt} class="blog-thumb" widths={[400, 700, 1000]} {sizes} />
+    </div>
+    <div class="blog-details-card is-main-blog">
+      <div class="blog-date">
+        <time datetime={publishedAt.toISOString()}>{date}</time>
+      </div>
+      <div class="blog-name">{title}</div>
+      <div class="blog-author">
+        <div class="blog-author-wrap">
+          {
+            author.avatar && (
+              <Media
+                src={author.avatar}
+                alt={author.name}
+                class="blog-author-photo"
+                width={48}
+              />
+            )
+          }
+          <div class="blog-author-name">{author.name}</div>
+        </div>
+        <Icon name="author" class="blog-author-icon" />
+      </div>
+    </div>
+  </a>
+</div>

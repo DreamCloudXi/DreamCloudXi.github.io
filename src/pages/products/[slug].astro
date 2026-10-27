@@ -1,0 +1,204 @@
+---
+import { getCollection } from 'astro:content';
+import { getImage } from 'astro:assets';
+import Media from '../../components/ui/Media.astro';
+
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Icon from '../../components/ui/Icon.astro';
+import RelatedProducts from '../../components/shop/RelatedProducts.astro';
+import { ROUTES, SITE } from '../../config/site';
+
+export async function getStaticPaths() {
+  const products = await getCollection('products', ({ data }) => !data.draft);
+  return products.map((product) => ({
+    params: { slug: product.id },
+    props: { product, all: products },
+  }));
+}
+
+const { product, all } = Astro.props;
+const { title, excerpt, price, sku, images, details, features, category, seo } = product.data;
+
+const categories = await getCollection('productCategories');
+const categoryTitle = categories.find((c) => c.id === category)?.data.title ?? category;
+
+const others = all.filter((p) => p.id !== product.id);
+const related = [
+  ...others.filter((p) => p.data.category === category),
+  ...others.filter((p) => p.data.category !== category),
+].slice(0, 6);
+
+/** A small copy of the photograph for the cart panel to show. */
+const cartImage =
+  typeof images[0] === 'string' ? images[0] : (await getImage({ src: images[0], width: 160 })).src;
+const formatted = `${SITE.currencySymbol} ${price.toFixed(2)} ${SITE.currency}`;
+
+/** The three panels under the price. Returns are the same for every product. */
+const panels = [
+  { label: 'Details', items: details },
+  { label: 'Features', items: features },
+  { label: 'Returns & Exchanges', items: SITE.returns },
+];
+---
+
+<BaseLayout
+  title={seo?.title ?? title}
+  description={seo?.description ?? excerpt}
+  breadcrumb={[
+    { label: 'Home', href: ROUTES.home },
+    { label: 'Shop', href: ROUTES.shop },
+    { label: title },
+  ]}
+>
+  <section class="shop-section">
+    <div class="w-layout-blockcontainer main-container w-container">
+      <div class="product-block">
+        <div class="product-info-block">
+          <div class="product-info" data-anim="hero">
+            <a class="product-info-link" href={ROUTES.shop}>// Shop</a>
+            <div class="product-info-text">- {categoryTitle}</div>
+          </div>
+        </div>
+
+        <div class="product-text-block">
+          <div class="product-thumb-block">
+            <div class="product-tabs w-tabs" data-anim="hero" data-tabs>
+              <div class="product-tabs-menu w-tab-menu" role="tablist" aria-label={`${title} images`}>
+                {
+                  images.map((image, index) => (
+                    <button
+                      type="button"
+                      class:list={['product-tab-link', 'w-tab-link', index === 0 && 'is-current']}
+                      role="tab"
+                      aria-selected={index === 0 ? 'true' : 'false'}
+                      data-tab
+                    >
+                      <Media src={image} alt="" class="product-thumb" width={160} />
+                    </button>
+                  ))
+                }
+              </div>
+              <div class="product-tabs-wrap w-tab-content">
+                {
+                  images.map((image, index) => (
+                    <div
+                      class:list={['product-tab-pane', 'w-tab-pane', index === 0 && 'is-tab-active']}
+                      data-tab-pane
+                      data-active={index === 0 ? '' : undefined}
+                    >
+                      <Media
+                        src={image}
+                        alt={index === 0 ? excerpt : ''}
+                        class="product-thumb"
+                        widths={[500, 800, 1200]}
+                        sizes="(max-width: 991px) 92vw, 45vw"
+                        loading={index === 0 ? 'eager' : 'lazy'}
+                      />
+                    </div>
+                  ))
+                }
+              </div>
+            </div>
+          </div>
+
+          <div class="product-details-block">
+            <div class="product-title-block">
+              <h1 class="product-title" data-anim="hero">{title}</h1>
+            </div>
+            <div class="product-price-block">
+              <div class="shop-original-price" data-anim="hero">{formatted}</div>
+            </div>
+            <div class="product-desp-block">
+              <p class="shop-desp" data-anim="hero">{excerpt}</p>
+            </div>
+
+            <div class="product-button-block">
+              <div class="shop-add-to-cart w-form">
+                {/*
+                  A real form carrying everything a cart needs: the id, the
+                  name, the price as a number, the currency and the quantity.
+                  Nothing on this site answers the POST — attach Snipcart or a
+                  Shopify Buy Button and it becomes live without a markup
+                  change. See docs/commerce.md.
+                */}
+                <form class="shop-quantity" method="post" action="#" data-add-to-cart>
+                  <input type="hidden" name="id" value={sku} />
+                  <input type="hidden" name="name" value={title} />
+                  <input type="hidden" name="price" value={price} />
+                  <input type="hidden" name="currency" value={SITE.currency} />
+                  <input type="hidden" name="url" value={ROUTES.product(product.id)} />
+                  <input type="hidden" name="image" value={cartImage} />
+                  <input type="hidden" name="symbol" value={SITE.currencySymbol} />
+
+                  <div class="shop-detals">
+                    <label class="shop-text" for="quantity">Quantity</label>
+                    <input
+                      class="shop-num w-input"
+                      name="quantity"
+                      id="quantity"
+                      type="number"
+                      min="1"
+                      max="99"
+                      value="1"
+                      required
+                    />
+                  </div>
+
+                  <button type="submit" class="button w-inline-block">
+                    <div class="button-bg"></div>
+                    <div class="button-text">Add to Cart</div>
+                    <div class="button-wrap is-form">
+                      <Icon name="arrow-up-right" class="button-icon" />
+                      <Icon name="arrow-up-right" class="button-icon" />
+                    </div>
+                  </button>
+                </form>
+              </div>
+            </div>
+
+            <div class="product-content-block">
+              <div class="product-content w-tabs" data-anim="hero" data-tabs>
+                <div class="product-menu w-tab-menu" role="tablist" aria-label="Product information">
+                  {
+                    panels.map((panel, index) => (
+                      <button
+                        type="button"
+                        class:list={['product-menu-link', 'w-tab-link', index === 0 && 'is-current']}
+                        role="tab"
+                        aria-selected={index === 0 ? 'true' : 'false'}
+                        data-tab
+                      >
+                        <div>{panel.label}</div>
+                      </button>
+                    ))
+                  }
+                </div>
+                <div class="product-wrap w-tab-content">
+                  {
+                    panels.map((panel, index) => (
+                      <div
+                        class:list={['product-wrap-pane', 'w-tab-pane', index === 0 && 'is-tab-active']}
+                        data-tab-pane
+                        data-active={index === 0 ? '' : undefined}
+                      >
+                        <div class="product-desp w-richtext">
+                          <ul role="list">
+                            {panel.items.map((item) => (
+                              <li>{item}</li>
+                            ))}
+                          </ul>
+                        </div>
+                      </div>
+                    ))
+                  }
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <RelatedProducts products={related} title="Related products like this" />
+</BaseLayout>

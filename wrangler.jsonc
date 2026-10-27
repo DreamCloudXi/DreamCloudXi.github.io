@@ -1,0 +1,28 @@
+{
+  // Cloudflare Workers deployment for the static build.
+  //
+  // The site compiles to plain files, so no Worker script runs: Cloudflare
+  // serves `dist` directly. Requests for static assets are unmetered.
+  //
+  // This file also decides how the images are built. Without it, Cloudflare
+  // applies its own framework preset, which sets up on-demand rendering — and
+  // Astro then defers every image to `/_image?href=…` instead of writing the
+  // resized files at build time. Nothing serves that endpoint on a static
+  // deployment, so every image on the site 404s, the logo included.
+  //
+  // Deploying somewhere else? Delete this file — nothing else refers to it.
+  "name": "handspark-astro-theme",
+  "compatibility_date": "2026-09-21",
+  // The preview domain, declared here rather than clicked together in the
+  // dashboard. `wrangler deploy` creates the Worker on its first run and binds
+  // this route, so a new theme needs no manual setup — the zone just has to be
+  // in the same Cloudflare account. Change or remove it to deploy elsewhere.
+  "routes": [
+    { "pattern": "handspark-astro-preview.tncflow.com", "custom_domain": true }
+  ],
+  "assets": {
+    "directory": "./dist",
+    // Astro emits dist/404.html, which this serves for unmatched paths.
+    "not_found_handling": "404-page"
+  }
+}

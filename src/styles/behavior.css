@@ -1,0 +1,70 @@
+/* =============================================================================
+   Behavior
+   -----------------------------------------------------------------------------
+   What the builder's runtime used to do, as CSS: the states the scripts in
+   `src/scripts` toggle, plus the hover transitions that need no script at all.
+
+   The scripts bind to attributes, so they already work. What is missing is the
+   styling for the states they set, against this theme's own class names:
+
+     [data-nav-menu][data-open]        the mobile menu, open
+     [data-dropdown-list]              hidden by default
+     [data-dropdown-list][data-open]   displayed
+     [data-dropdown-list][data-visible] faded in
+     [data-header][data-hidden]        the bar, hidden on the way down
+     [data-accordion-item][data-open]  an open panel
+   ========================================================================== */
+
+/* Screen-reader-only text. */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* A carousel track: scroll snapping, without the scrollbar. */
+.slider-mask {
+  display: flex;
+  overflow: hidden;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+}
+
+.slider-mask::-webkit-scrollbar {
+  display: none;
+}
+
+.slider-mask > * {
+  flex: 0 0 100%;
+  scroll-snap-align: start;
+}
+
+/* ------------------------------------------------------------ layout -- */
+
+/*
+ * The box type the builder kept on a helper class beside each of these, so
+ * the exported rules set the tracks of a grid without ever saying it is one.
+ *
+ * Wrapped in `:where()` so it carries no specificity at all. This sheet is
+ * unlayered, which outranks every layer — stated plainly, a `display` here
+ * beats the design's own breakpoint rules and its own modifiers. That put
+ * four cells in two columns on a phone where the design stacks them, and
+ * made a blanket `.container { display: block }` win against the more
+ * specific `.container.is-style-guide { display: flex }`. Anything the
+ * design says about these blocks should win; this is only the default.
+ */
+
+:where(.main-container) {
+  display: block;
+}
+
+:where(.header-megamenu, .style-guide-grid) {
+  display: grid;
+}

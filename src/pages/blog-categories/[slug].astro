@@ -1,0 +1,54 @@
+---
+import { getCollection } from 'astro:content';
+
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Hero from '../../components/sections/Hero.astro';
+import PostCard from '../../components/blog/PostCard.astro';
+import Pagination from '../../components/sections/Pagination.astro';
+import { ROUTES } from '../../config/site';
+
+export async function getStaticPaths() {
+  const categories = await getCollection('blogCategories');
+  const posts = await getCollection('posts', ({ data }) => !data.draft);
+
+  return categories.map((category) => ({
+    params: { slug: category.id },
+    props: {
+      category,
+      posts: posts
+        .filter((post) => post.data.category === category.id)
+        .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf()),
+    },
+  }));
+}
+
+const { category, posts } = Astro.props;
+---
+
+<BaseLayout
+  title={category.data.title}
+  description={category.data.description}
+  breadcrumb={[
+    { label: 'Home', href: ROUTES.home },
+    { label: 'Journal', href: ROUTES.blog },
+    { label: category.data.title },
+  ]}
+>
+  <Hero
+    variant="cms"
+    parent={{ label: 'Journal', href: ROUTES.blog }}
+    tag="Category"
+    title={category.data.title}
+  />
+
+  <section class="global-section">
+    <div class="w-layout-blockcontainer main-container w-container">
+      <div class="blog-block">
+        <div class="blog-list">
+          {posts.map((post) => <PostCard {post} />)}
+        </div>
+        <Pagination />
+      </div>
+    </div>
+  </section>
+</BaseLayout>

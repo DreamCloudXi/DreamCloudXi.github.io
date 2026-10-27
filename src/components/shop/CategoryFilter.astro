@@ -1,0 +1,59 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+import Icon from '../ui/Icon.astro';
+import { ROUTES } from '../../config/site';
+
+/**
+ * The category list above a product grid.
+ *
+ * Links rather than a filter that runs in the browser: every category is
+ * already a page, so this is navigation and it works with no JavaScript. The
+ * design's list drops down from the "All Categories" bar: it opens when the
+ * pointer is over the bar or the bar is clicked or tapped, and closes when the
+ * pointer leaves, another part of the page is clicked, or Escape is pressed.
+ */
+interface Props {
+  categories: CollectionEntry<'productCategories'>[];
+  /** The category being shown, if this is a category page. */
+  current?: string;
+}
+
+const { categories, current } = Astro.props;
+const label = categories.find((c) => c.id === current)?.data.title ?? 'All Categories';
+---
+
+<nav class="shop-category w-dropdown" data-anim="hero" data-category-dropdown aria-label="Product categories">
+  <div
+    class="shop-toggle w-dropdown-toggle"
+    role="button"
+    tabindex="0"
+    aria-haspopup="true"
+    aria-expanded="false"
+    data-category-toggle
+  >
+    <div class="shop-toggle-text">{label}</div>
+    <div class="shop-toggle-icon w-icon-dropdown-toggle">
+      <Icon name="chevron-down" />
+    </div>
+  </div>
+
+  <div class="shop-wrapp w-dropdown-list">
+    <div class="shop-category-list">
+      {
+        categories.map((category) => (
+          <a
+            class:list={[
+              'shop-category-link',
+              'w-dropdown-link',
+              category.id === current && 'is-current',
+            ]}
+            href={ROUTES.productCategory(category.id)}
+          >
+            {category.data.title}
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</nav>

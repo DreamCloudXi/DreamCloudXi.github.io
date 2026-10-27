@@ -1,0 +1,64 @@
+---
+import { getImage } from 'astro:assets';
+import Media from '../components/ui/Media.astro';
+import { getCollection } from 'astro:content';
+
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/sections/Hero.astro';
+import { ROUTES } from '../config/site';
+
+const photos = (await getCollection('gallery')).sort((a, b) => a.data.order - b.data.order);
+
+/*
+ * The design gives each cell an ordinal class — `one` through `eighteen` — and
+ * sizes the grid areas from it, so the class has to be generated from the
+ * position rather than stored with the photograph.
+ */
+const ORDINALS = [
+  'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine',
+  'ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen',
+  'seventeen', 'eighteen',
+];
+
+/* The full-size file each cell links to, so the page works with no script. */
+const full = await Promise.all(
+  photos.map((photo) =>
+    typeof photo.data.image === 'string'
+      ? Promise.resolve({ src: photo.data.image })
+      : getImage({ src: photo.data.image, width: 1600, format: 'webp' })
+  )
+);
+---
+
+<BaseLayout
+  title="Photo gallery"
+  description="The studio, the kiln, the press and the work that comes out of them."
+  breadcrumb={[{ label: 'Home', href: ROUTES.home }, { label: 'Photo gallery' }]}
+>
+  <Hero tag="Photo gallery" title="A year in the studio" />
+
+  <section class="global-section">
+    <div class="w-layout-blockcontainer main-container w-container">
+      <div class="gallery-block" data-anim="gallery" data-lightbox-group>
+        {
+          photos.map((photo, index) => (
+            <a
+              class:list={['gallery-lightbox', `is-${ORDINALS[index] ?? 'one'}`, 'w-inline-block']}
+              href={full[index].src}
+              data-lightbox
+              aria-label={`View ${photo.data.title} full size`}
+            >
+              <Media
+                src={photo.data.image}
+                alt={photo.data.title}
+                class="gallery-image"
+                widths={[400, 700, 1100]}
+                sizes="(max-width: 767px) 92vw, 33vw"
+              />
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</BaseLayout>

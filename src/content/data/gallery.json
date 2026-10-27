@@ -1,0 +1,110 @@
+[
+  {
+    "id": "photo-01",
+    "title": "The wheel, mid-morning",
+    "image": "../../assets/images/image-40.webp",
+    "order": 1
+  },
+  {
+    "id": "photo-02",
+    "title": "Glaze tests on the shelf",
+    "image": "../../assets/images/image-39.webp",
+    "order": 2
+  },
+  {
+    "id": "photo-03",
+    "title": "Screens drying against the window",
+    "image": "../../assets/images/image-38.webp",
+    "order": 3
+  },
+  {
+    "id": "photo-04",
+    "title": "A week of bisque",
+    "image": "../../assets/images/image-37.webp",
+    "order": 4
+  },
+  {
+    "id": "photo-05",
+    "title": "Pulling the first sheet",
+    "image": "../../assets/images/image-36.webp",
+    "order": 5
+  },
+  {
+    "id": "photo-06",
+    "title": "Willow soaking in the yard",
+    "image": "../../assets/images/image-35.webp",
+    "order": 6
+  },
+  {
+    "id": "photo-07",
+    "title": "The kiln at the end of a firing",
+    "image": "../../assets/images/image-34.webp",
+    "order": 7
+  },
+  {
+    "id": "photo-08",
+    "title": "Cotton on the loom",
+    "image": "../../assets/images/image-53.webp",
+    "order": 8
+  },
+  {
+    "id": "photo-09",
+    "title": "Ink mixed for a run of fifty",
+    "image": "../../assets/images/image-52.webp",
+    "order": 9
+  },
+  {
+    "id": "photo-10",
+    "title": "Trimming a foot ring",
+    "image": "../../assets/images/image-51.webp",
+    "order": 10
+  },
+  {
+    "id": "photo-11",
+    "title": "Offcuts waiting to become beads",
+    "image": "../../assets/images/image-50.webp",
+    "order": 11
+  },
+  {
+    "id": "photo-12",
+    "title": "Wax poured and cooling",
+    "image": "../../assets/images/image-49.webp",
+    "order": 12
+  },
+  {
+    "id": "photo-13",
+    "title": "Lettering a frame in gouache",
+    "image": "../../assets/images/image-48.webp",
+    "order": 13
+  },
+  {
+    "id": "photo-14",
+    "title": "Oiling a carved panel",
+    "image": "../../assets/images/image-47.webp",
+    "order": 14
+  },
+  {
+    "id": "photo-15",
+    "title": "Packing the week's orders",
+    "image": "../../assets/images/image-46.webp",
+    "order": 15
+  },
+  {
+    "id": "photo-16",
+    "title": "The bench at the end of a day",
+    "image": "../../assets/images/image-45.webp",
+    "order": 16
+  },
+  {
+    "id": "photo-17",
+    "title": "Drying racks, full",
+    "image": "../../assets/images/image-44.webp",
+    "order": 17
+  },
+  {
+    "id": "photo-18",
+    "title": "The studio door, closing time",
+    "image": "../../assets/images/image-63.webp",
+    "order": 18
+  }
+]

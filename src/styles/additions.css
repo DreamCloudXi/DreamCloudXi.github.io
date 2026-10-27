@@ -1,0 +1,1874 @@
+/* =============================================================================
+   Additions
+   -----------------------------------------------------------------------------
+   Hand-written corrections, and anything this theme adds of its own.
+
+   The generated sheets are overwritten whenever the converter runs, so nothing
+   here may go in them. Numbered sections follow, in four groups:
+
+   1-2   What the conversion got wrong. Astro hashes a font family name, so the
+         design's own family tokens have to be pointed at the variables the font
+         pipeline emits; and `theme.css` writes its responsive tokens in an
+         order that does not cascade.
+   3-5   What the conversion could not carry. The builder's runtime stylesheet,
+         kept in `@layer base` so every one of the design's own rules still
+         wins; two cascades the alphabetized component sheet reverses; and the
+         fifteen rules the builder attached to generated element ids rather than
+         to a class, re-expressed here against the class each element carries.
+   6-13  The states this theme's own scripts set, where the builder's runtime
+         used to write inline styles: the menus, the cart panel, the tabs, the
+         carousel, the accordion, the lightbox and the two forms.
+   14-15 Two things nothing styled at all — an article body beyond a heading and
+         a paragraph, and the skip link.
+
+   The rule that decides where something goes: if it must lose to the design,
+   it goes in `@layer base`; if it must beat the generated component sheet but
+   still lose to a Tailwind utility, it re-opens `@layer components`; if it is
+   this theme's own state, it is unlayered and keyed to an attribute.
+   ========================================================================== */
+
+/* =============================================================================
+   1 — Font bindings
+   -----------------------------------------------------------------------------
+   Astro's font pipeline renames each family to a hashed string and exposes it
+   only through the CSS variable it was asked for, so a rule naming
+   `Librebaskerville` or `Manrope` as a literal matches nothing and the text
+   falls back to the system face. The design reads both faces through these two
+   tokens, so pointing them at Astro's variables is the whole of the binding.
+   ========================================================================== */
+
+:root,
+body {
+  --font-family--heading: var(--font-libre-baskerville), Georgia, 'Times New Roman', serif;
+  --font-family--paragraph: var(--font-manrope), system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  /*
+   * The stylesheet converter rewrites a rule that asks for a face by role —
+   * the export's `--_typography---heading-04--font` — into `var(--family-heading)`,
+   * but nothing ever defines those two names. Fifty-six rules in
+   * `components.css` referenced them, every one of them falling through to the
+   * system sans: every h4, h5 and h6 on the site, and the type on the style
+   * guide. They are aliases of the two above.
+   */
+  --family-heading: var(--font-family--heading);
+  --family-body: var(--font-family--paragraph);
+}
+
+/* =============================================================================
+   2 — Responsive design tokens
+   -----------------------------------------------------------------------------
+   `theme.css` writes one `:root` per breakpoint, but emits them in the order it
+   met them — `min-width: 1920px` before `min-width: 1440px`, `max-width: 767px`
+   before `max-width: 991px` — and takes the narrowest screen's values as the
+   unconditional ones. Media queries add no specificity, so the last matching
+   block wins: a 1200px window fell through every query to the 430px phone
+   values, and a 1920px one was overruled by the 1440px block.
+
+   The same tokens, in an order where the narrower query is written last and the
+   default is the design's own desktop value. Unlayered, so this wins over
+   `theme.css` wherever the two disagree.
+   ========================================================================== */
+
+:root {
+  --container-size: 1232px;
+  --details-width: 1000px;
+  --global-space: 80px;
+  --hero-end-space: 135px;
+  --hero-top-space: 250px;
+  --section-space: 100px;
+  --shop-space: 200px;
+  --size-h1: 64px;
+  --size-h2: 32px;
+  --size-h3: 28px;
+  --size-h4: 24px;
+  --size-h5: 20px;
+  --width-l: 1080px;
+  --width-m: 990px;
+  --width-s: 685px;
+}
+
+@media screen and (min-width: 1440px) {
+  :root {
+    --container-size: 1372px;
+    --details-width: 1200px;
+    --global-space: 100px;
+    --hero-end-space: 160px;
+    --hero-top-space: 275px;
+    --section-space: 140px;
+    --shop-space: 225px;
+    --size-h1: 72px;
+    --size-h2: 40px;
+    --width-l: 1180px;
+    --width-m: 1090px;
+    --width-s: 785px;
+  }
+}
+
+@media screen and (min-width: 1920px) {
+  :root {
+    --container-size: 1832px;
+    --details-width: 1400px;
+    --global-space: 120px;
+    --hero-end-space: 185px;
+    --hero-top-space: 300px;
+    --section-space: 180px;
+    --shop-space: 250px;
+    --size-h1: 80px;
+    --size-h2: 48px;
+    --size-h3: 32px;
+    --width-l: 1280px;
+    --width-m: 1190px;
+    --width-s: 885px;
+  }
+}
+
+@media screen and (max-width: 991px) {
+  :root {
+    --container-size: 768px;
+    --details-width: 1000px;
+    --global-space: 60px;
+    --hero-end-space: 100px;
+    --hero-top-space: 150px;
+    --section-space: 80px;
+    --shop-space: 100px;
+    --size-h1: 44px;
+    --size-h2: 32px;
+    --size-h3: 28px;
+    --size-h4: 24px;
+    --size-h5: 20px;
+    --width-l: 1080px;
+    --width-m: 990px;
+    --width-s: 685px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  :root {
+    --container-size: 630px;
+    --global-space: 50px;
+    --hero-end-space: 100px;
+    --hero-top-space: 125px;
+    --section-space: 60px;
+    --size-h1: 40px;
+    --size-h2: 30px;
+    --size-h3: 26px;
+    --size-h4: 22px;
+    --size-h5: 18px;
+  }
+}
+
+@media screen and (max-width: 479px) {
+  :root {
+    --container-size: 430px;
+    --hero-end-space: 75px;
+    --hero-top-space: 100px;
+    --size-h1: 36px;
+  }
+}
+
+/* =============================================================================
+   3 — The builder runtime's stylesheet
+   -----------------------------------------------------------------------------
+   The export loads `webflow.css` before its own sheet, and the conversion drops
+   it. What it carried is not decoration: `w-inline-block` is the only thing
+   making a wrapped link an inline-block, `w-nav-menu` floats the desktop menu,
+   `w-slide` lays a carousel out in a row, `w-tab-pane` hides every panel but
+   the open one. Restated here under the names the markup already uses.
+
+   `@layer base` because that is where it sits in the export's cascade: the
+   design's own rules are loaded afterwards and must keep winning. Unlayered,
+   the blue `.w-button` background would beat every button in the theme.
+   ========================================================================== */
+
+@layer base {
+  /* The builder drew its chevrons and arrows from an icon font served off its
+     own CDN, which this theme does not ship. The four `content` rules that
+     placed those glyphs are dropped here and the markup carries an inline SVG
+     instead, so an arrow is an arrow rather than a missing-glyph box. */
+  .w-inline-block {
+    max-width: 100%;
+    display: inline-block;
+  }
+  .w-button {
+    display: inline-block;
+    padding: 9px 15px;
+    background-color: #3898EC;
+    color: white;
+    border: 0;
+    line-height: inherit;
+    text-decoration: none;
+    cursor: pointer;
+    border-radius: 0;
+  }
+  input.w-button {
+    -webkit-appearance: button;
+  }
+  .w-embed:before,
+  .w-embed:after {
+    content: " ";
+    display: table;
+    grid-column-start: 1;
+    grid-row-start: 1;
+    grid-column-end: 2;
+    grid-row-end: 2;
+  }
+  .w-embed:after {
+    clear: both;
+  }
+  .w-form {
+    margin: 0 0 15px;
+  }
+  .w-form-done {
+    display: none;
+    padding: 20px;
+    text-align: center;
+    background-color: #dddddd;
+  }
+  .w-form-fail {
+    display: none;
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #ffdede;
+  }
+  .w-input,
+  .w-select {
+    display: block;
+    width: 100%;
+    height: 38px;
+    padding: 8px 12px;
+    margin-bottom: 10px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #333333;
+    vertical-align: middle;
+    background-color: #ffffff;
+    border: 1px solid #cccccc;
+  }
+  .w-input::placeholder,
+  .w-select::placeholder {
+    color: #999;
+  }
+  .w-input:focus,
+  .w-select:focus {
+    border-color: #3898EC;
+    outline: 0;
+  }
+  .w-input[disabled],
+  .w-select[disabled],
+  .w-input[readonly],
+  .w-select[readonly],
+  fieldset[disabled] .w-input,
+  fieldset[disabled] .w-select {
+    cursor: not-allowed;
+  }
+  textarea.w-input,
+  textarea.w-select {
+    height: auto;
+  }
+  .w-select {
+    background-color: #f3f3f3;
+  }
+  .w-select[multiple] {
+    height: auto;
+  }
+  .w-container {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 940px;
+  }
+  .w-container:before,
+  .w-container:after {
+    content: " ";
+    display: table;
+    grid-column-start: 1;
+    grid-row-start: 1;
+    grid-column-end: 2;
+    grid-row-end: 2;
+  }
+  .w-container:after {
+    clear: both;
+  }
+  @media screen and (max-width: 991px) {
+  .w-container {
+      max-width: 728px;
+    }
+  }
+  @media screen and (max-width: 767px) {
+  .w-row,
+    .w-container .w-row {
+      margin-left: 0;
+      margin-right: 0;
+    }
+  }
+  @media screen and (max-width: 479px) {
+  .w-container {
+      max-width: none;
+    }
+  }
+  .w-background-video {
+    position: relative;
+    overflow: hidden;
+    height: 500px;
+    color: white;
+  }
+  .w-background-video > video {
+    background-size: cover;
+    background-position: 50% 50%;
+    position: absolute;
+    margin: auto;
+    width: 100%;
+    height: 100%;
+    right: -100%;
+    bottom: -100%;
+    top: -100%;
+    left: -100%;
+    object-fit: cover;
+    z-index: -100;
+  }
+  .w-background-video > video::-webkit-media-controls-start-playback-button {
+    display: none !important;
+    -webkit-appearance: none;
+  }
+  .w-background-video--control {
+    position: absolute;
+    bottom: 1em;
+    right: 1em;
+    background-color: transparent;
+    padding: 0;
+  }
+  .w-background-video--control > [hidden] {
+    display: none !important;
+  }
+  .w-slider {
+    position: relative;
+    height: 300px;
+    text-align: center;
+    background: #dddddd;
+    clear: both;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    tap-highlight-color: rgba(0, 0, 0, 0);
+  }
+  .w-slider-mask {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    z-index: 1;
+    left: 0;
+    right: 0;
+    height: 100%;
+    white-space: nowrap;
+  }
+  .w-slide {
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    width: 100%;
+    height: 100%;
+    white-space: normal;
+    text-align: left;
+  }
+  .w-slider-nav {
+    position: absolute;
+    z-index: 2;
+    top: auto;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    padding-top: 10px;
+    height: 40px;
+    text-align: center;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    tap-highlight-color: rgba(0, 0, 0, 0);
+  }
+  .w-slider-nav.w-round > div {
+    border-radius: 100%;
+  }
+  .w-slider-nav.w-num > div {
+    width: auto;
+    height: auto;
+    padding: 0.2em 0.5em;
+    font-size: inherit;
+    line-height: inherit;
+  }
+  .w-slider-dot {
+    position: relative;
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    background-color: rgba(255, 255, 255, 0.4);
+    cursor: pointer;
+    margin: 0 3px 0.5em;
+    transition: background-color 100ms, color 100ms;
+  }
+  .w-slider-dot.w-active {
+    background-color: #fff;
+  }
+  .w-slider-dot:focus {
+    outline: none;
+    box-shadow: 0px 0px 0px 2px #fff;
+  }
+  .w-slider-dot:focus.w-active {
+    box-shadow: none;
+  }
+  .w-slider-arrow-left,
+  .w-slider-arrow-right {
+    position: absolute;
+    width: 80px;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    cursor: pointer;
+    overflow: hidden;
+    color: white;
+    font-size: 40px;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    tap-highlight-color: rgba(0, 0, 0, 0);
+    user-select: none;
+  }
+  .w-slider-arrow-left [class^='w-icon-'],
+  .w-slider-arrow-right [class^='w-icon-'],
+  .w-slider-arrow-left [class*=' w-icon-'],
+  .w-slider-arrow-right [class*=' w-icon-'] {
+    position: absolute;
+  }
+  .w-slider-arrow-left:focus,
+  .w-slider-arrow-right:focus {
+    outline: 0;
+  }
+  .w-slider-arrow-left {
+    z-index: 3;
+    right: auto;
+  }
+  .w-slider-arrow-right {
+    z-index: 4;
+    left: auto;
+  }
+  .w-icon-slider-left,
+  .w-icon-slider-right {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    width: 1em;
+    height: 1em;
+  }
+  .w-slider-aria-label {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+  }
+  .w-slider-force-show {
+    display: block !important;
+  }
+  .w-dropdown {
+    display: inline-block;
+    position: relative;
+    text-align: left;
+    margin-left: auto;
+    margin-right: auto;
+    z-index: 900;
+  }
+  .w-dropdown-btn,
+  .w-dropdown-toggle,
+  .w-dropdown-link {
+    position: relative;
+    vertical-align: top;
+    text-decoration: none;
+    color: #222222;
+    padding: 20px;
+    text-align: left;
+    margin-left: auto;
+    margin-right: auto;
+    white-space: nowrap;
+  }
+  .w-dropdown-toggle {
+    user-select: none;
+    display: inline-block;
+    cursor: pointer;
+    padding-right: 40px;
+  }
+  .w-dropdown-toggle:focus {
+    outline: 0;
+  }
+  .w-icon-dropdown-toggle {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    margin-right: 20px;
+    width: 1em;
+    height: 1em;
+  }
+  .w-dropdown-list {
+    position: absolute;
+    background: #dddddd;
+    display: none;
+    min-width: 100%;
+  }
+  .w-dropdown-list.w--open {
+    display: block;
+  }
+  .w-dropdown-link {
+    padding: 10px 20px;
+    display: block;
+    color: #222222;
+  }
+  .w-dropdown-link.w--current {
+    color: #0082f3;
+  }
+  .w-dropdown-link:focus {
+    outline: 0;
+  }
+  @media screen and (max-width: 767px) {
+  .w-nav-brand {
+      padding-left: 10px;
+    }
+  }
+  .w-richtext:before,
+  .w-richtext:after {
+    content: " ";
+    display: table;
+    grid-column-start: 1;
+    grid-row-start: 1;
+    grid-column-end: 2;
+    grid-row-end: 2;
+  }
+  .w-richtext:after {
+    clear: both;
+  }
+  .w-richtext ol,
+  .w-richtext ul {
+    overflow: hidden;
+  }
+  .w-nav {
+    position: relative;
+    background: #dddddd;
+    z-index: 1000;
+  }
+  .w-nav:before,
+  .w-nav:after {
+    content: " ";
+    display: table;
+    grid-column-start: 1;
+    grid-row-start: 1;
+    grid-column-end: 2;
+    grid-row-end: 2;
+  }
+  .w-nav:after {
+    clear: both;
+  }
+  .w-nav-brand {
+    position: relative;
+    float: left;
+    text-decoration: none;
+    color: #333333;
+  }
+  .w-nav-link {
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    text-decoration: none;
+    color: #222222;
+    padding: 20px;
+    text-align: left;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .w-nav-link.w--current {
+    color: #0082f3;
+  }
+  .w-nav-menu {
+    position: relative;
+    float: right;
+  }
+  .w-nav-overlay {
+    position: absolute;
+    overflow: hidden;
+    display: none;
+    top: 100%;
+    left: 0;
+    right: 0;
+    width: 100%;
+  }
+  .w-nav-overlay [data-nav-menu-open] {
+    top: 0;
+  }
+  .w-nav[data-animation='over-left'] .w-nav-overlay {
+    width: auto;
+  }
+  .w-nav[data-animation='over-left'] .w-nav-overlay,
+  .w-nav[data-animation='over-left'] [data-nav-menu-open] {
+    right: auto;
+    z-index: 1;
+    top: 0;
+  }
+  .w-nav[data-animation='over-right'] .w-nav-overlay {
+    width: auto;
+  }
+  .w-nav[data-animation='over-right'] .w-nav-overlay,
+  .w-nav[data-animation='over-right'] [data-nav-menu-open] {
+    left: auto;
+    z-index: 1;
+    top: 0;
+  }
+  .w-nav-button {
+    position: relative;
+    float: right;
+    padding: 18px;
+    font-size: 24px;
+    display: none;
+    cursor: pointer;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    tap-highlight-color: rgba(0, 0, 0, 0);
+    user-select: none;
+  }
+  .w-nav-button:focus {
+    outline: 0;
+  }
+  .w-nav-button.w--open {
+    background-color: #C8C8C8;
+    color: white;
+  }
+  .w-nav[data-collapse='all'] .w-nav-menu {
+    display: none;
+  }
+  .w-nav[data-collapse='all'] .w-nav-button {
+    display: block;
+  }
+  @media screen and (max-width: 767px) {
+  .w-nav[data-collapse='small'] .w-nav-menu {
+      display: none;
+    }
+  .w-nav[data-collapse='small'] .w-nav-button {
+      display: block;
+    }
+  .w-nav-brand {
+      padding-left: 10px;
+    }
+  }
+  @media screen and (max-width: 479px) {
+  .w-nav[data-collapse='tiny'] .w-nav-menu {
+      display: none;
+    }
+  .w-nav[data-collapse='tiny'] .w-nav-button {
+      display: block;
+    }
+  }
+  .w-tabs {
+    position: relative;
+  }
+  .w-tabs:before,
+  .w-tabs:after {
+    content: " ";
+    display: table;
+    grid-column-start: 1;
+    grid-row-start: 1;
+    grid-column-end: 2;
+    grid-row-end: 2;
+  }
+  .w-tabs:after {
+    clear: both;
+  }
+  .w-tab-menu {
+    position: relative;
+  }
+  .w-tab-link {
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    text-decoration: none;
+    padding: 9px 30px;
+    text-align: left;
+    cursor: pointer;
+    color: #222222;
+    background-color: #dddddd;
+  }
+  .w-tab-link.w--current {
+    background-color: #C8C8C8;
+  }
+  .w-tab-link:focus {
+    outline: 0;
+  }
+  .w-tab-content {
+    position: relative;
+    display: block;
+    overflow: hidden;
+  }
+  .w-tab-pane {
+    position: relative;
+    display: none;
+  }
+  .w--tab-active {
+    display: block;
+  }
+  @media screen and (max-width: 479px) {
+  .w-tab-link {
+      display: block;
+    }
+  }
+}
+
+/*
+ * The generated base sheet sets `svg { display: block }`, which the export does
+ * not: there an icon sits inline on the text baseline unless its own class says
+ * otherwise, and eight button icons were landing a few pixels low because of
+ * it. It cannot live in `@layer base` — `global.css` writes its own base block
+ * after the import and would win — so it is unlayered and narrowed to an svg
+ * with no class of its own, which leaves every design rule untouched.
+ */
+svg:not([class]),
+.button-icon {
+  display: inline;
+}
+
+/*
+ * The same sheet clamps an svg to `max-width: 100%`, which the export also does
+ * not. One drawing in the design is deliberately wider than the column it sits
+ * in — the 1905px rule under every page heading — and the clamp cut it to the
+ * viewport.
+ */
+svg {
+  max-width: none;
+}
+
+/* =============================================================================
+   4 — Cascade repairs
+   -----------------------------------------------------------------------------
+   Two faults in the generated sheet, both from it being alphabetized.
+
+   The export loads `.w-layout-blockcontainer`, `.w-layout-grid` and the
+   commerce classes first and overrides them with the design's own classes
+   afterwards. Sorted by name, `w-*` lands last and wins instead. The visible
+   cost was the page gutter — every container collapsed to the builder's
+   default 940px rather than the design's 1232px — and the two grids that carry
+   `w-layout-grid` taking its two columns and 16px gap in place of their own.
+
+   And `grid-template-columns: 1fr 1fr 1fr` converts to `grid-cols-3`, which is
+   `repeat(3, minmax(0, 1fr))`. That is not the same track list: `minmax(0, 1fr)`
+   lets a column shrink below its content, so a long product name or an
+   unbreakable price narrows its neighbours instead of setting the column width.
+   Every such rule is restated below at the value the export actually wrote —
+   the single-column overrides at narrow widths included, without which a card
+   that stacks on a phone in the export stayed in two columns here.
+
+   Re-declaring `@layer components` appends to the same layer after the
+   generated file, so the design wins again without being promoted above
+   Tailwind's utilities.
+   ========================================================================== */
+
+@layer components {
+  .main-container {
+    max-width: var(--container-size);
+  }
+
+  /* The two grids the builder left its own helper class on. Everything except
+     the track lists comes through correctly; these three properties are the
+     ones `.w-layout-grid` was overriding. */
+  .header-megamenu {
+    grid-template-rows: auto;
+    column-gap: var(--space-3xl);
+    row-gap: var(--space-l);
+  }
+
+  .style-guide-grid {
+    grid-template-rows: auto;
+    column-gap: var(--space-3xl);
+    row-gap: var(--space-3xl);
+  }
+
+  @media screen and (max-width: 767px) {
+    .style-guide-grid {
+      column-gap: var(--space-xl);
+      row-gap: var(--space-xl);
+    }
+  }
+
+  @media screen and (max-width: 479px) {
+    .style-guide-grid {
+      column-gap: var(--space-m);
+      row-gap: var(--space-m);
+    }
+  }
+
+  .style-guide-grid {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+
+  .footer-copy-block {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  .footer-nav-block {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  .header-megamenu {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .contact-block {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  .contact-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .blog-list {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  .blog-wrapper-block {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  .product-text-block {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .product-tabs-menu {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  .about-block {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .choose-card-block {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  .details-card {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .team-card-block {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  .process-card-block {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  .process-card-block.is-home {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+
+  .meaningful-card-block {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  .company-thumb-block {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .shop-list {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  .checkout-list._3x {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  .checkout-list._2x {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  @media screen and (max-width: 991px) {
+    .style-guide-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .blog-list {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .choose-card-block {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .team-card-block {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .process-card-block.is-home {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .shop-list {
+      grid-template-columns: 1fr 1fr;
+    }
+
+  }
+
+  @media screen and (max-width: 767px) {
+    .style-guide-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .footer-copy-block {
+      grid-template-columns: 1fr;
+    }
+
+    .blog-list {
+      grid-template-columns: 1fr;
+    }
+
+    .gallery-block {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .choose-card-block {
+      grid-template-columns: 1fr;
+    }
+
+    .details-card {
+      grid-template-columns: 1fr;
+    }
+
+    .process-card-block.is-home {
+      grid-template-columns: 1fr;
+    }
+
+    .shop-list {
+      grid-template-columns: 1fr;
+    }
+
+  }
+
+  @media screen and (max-width: 479px) {
+    .footer-nav-block {
+      grid-template-columns: 1fr 1fr;
+    }
+
+  }
+}
+
+/* =============================================================================
+   5 — Layout the builder keyed to element ids
+   -----------------------------------------------------------------------------
+   Fifteen rules in the export attach grid placement to a generated element id.
+   A class-driven conversion drops them, and nothing errors — the cell simply
+   stops spanning and the footer's three columns collapse to the left.
+
+   Each is re-expressed against the class its element carries, positioned by
+   `nth-child` rather than by a count, so adding a fourth link column or a
+   fourth milestone does not silently drop the rule.
+   ========================================================================== */
+
+/* The desktop collage is a two-column grid holding a single wide thumbnail;
+   the stacked variant beside it holds two, one per column. */
+.company-thumb-block.is-display-show-for-desktop > .company-thumb-wrap {
+  grid-row: span 1 / span 1;
+  grid-column: span 2 / span 2;
+}
+
+/* The footer's three link columns sit in a three-column grid: left, centered,
+   right. The newsletter call to action underneath spans all three. */
+.footer-nav-block > .footer-nav:nth-child(2) {
+  justify-self: center;
+}
+
+.footer-nav-block > .footer-nav:nth-child(3) {
+  justify-self: end;
+}
+
+.footer-nav-block > .footer-cta {
+  grid-row: span 1 / span 1;
+  grid-column: span 3 / span 3;
+  place-self: end start;
+}
+
+/* The bottom row — copyright, credit, policy links — reads left, center, right. */
+.footer-copy-block > .footer-copy-text:nth-child(1) {
+  place-self: center start;
+}
+
+.footer-copy-block > .footer-copy-text:nth-child(2) {
+  place-self: center;
+}
+
+.footer-copy-block > .footer-copy-text:nth-child(3) {
+  place-self: center end;
+}
+
+/* Below 768px the row becomes a single stacked column, and the export releases
+   the horizontal placement on everything after the first. */
+@media screen and (max-width: 767px) {
+  .footer-copy-block > .footer-copy-text:nth-child(n + 2) {
+    justify-self: auto;
+  }
+}
+
+/* The contact block is three columns: the text on the left, the form across
+   the remaining two. */
+.contact-block > .contact-form-block {
+  grid-row: span 1 / span 1;
+  grid-column: span 2 / span 2;
+}
+
+/* Field rows are two columns. A row holding one field — the message box, the
+   submit button — runs the full width. Keyed to being the only child rather
+   than to a position, so it holds wherever a row has one field in it. */
+.contact-grid > :only-child {
+  grid-row: span 1 / span 1;
+  grid-column: span 2 / span 2;
+}
+
+/* An article's byline row: author left, category centered, date right. */
+.blog-wrapper-block > .blog-wrapper:nth-child(1) {
+  place-self: center start;
+}
+
+.blog-wrapper-block > .blog-wrapper:nth-child(2) {
+  place-self: center;
+}
+
+.blog-wrapper-block > .blog-wrapper:nth-child(3) {
+  place-self: center end;
+}
+
+/* =============================================================================
+   6 — States the scripts toggle
+   -----------------------------------------------------------------------------
+   The builder's runtime opened its menus by writing inline styles. The scripts
+   in `src/scripts` set attributes instead, so the styling for each state has to
+   exist here. Keyed to attributes rather than classes, which keeps them out of
+   the design's own cascade entirely.
+   ========================================================================== */
+
+/* -- the mega menu ---------------------------------------------------------- */
+
+[data-dropdown-list] {
+  display: none;
+  opacity: 0;
+  /* Fades out in 0.2s and in over 0.4s, as the design's dropdown does. */
+  transition: opacity 0.2s ease;
+}
+
+/*
+ * The design keeps the open list transparent (`.header-wrapp.w--open`), so the
+ * builder's grey list background never shows through the panel's top padding.
+ * The scripts set `data-open`, not `w--open`, so that rule has to be restated.
+ */
+.header-wrapp[data-dropdown-list] {
+  background-color: transparent;
+}
+
+[data-dropdown-list][data-open] {
+  display: block;
+}
+
+[data-dropdown-list][data-visible] {
+  opacity: 1;
+  transition-duration: 0.4s;
+}
+
+/*
+ * From 992px the panel hangs under the row rather than pushing it apart.
+ * Position only: the design already gives the panel its width, its border,
+ * its background and its padding.
+ */
+@media screen and (min-width: 992px) {
+  /*
+   * The row's vertical padding moves from the block onto the row itself, and
+   * the dropdown stretches to the row's content height, so the panel can be
+   * offset by exactly that padding (`--nav-pad`) to sit below the bottom dashed
+   * border while staying under the "Pages" link.
+   */
+  .header-menu-block.is-display-show-for-desktop {
+    --nav-pad: 1.25rem;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+  .header-menu-block .header-menu-wrap {
+    padding-top: var(--nav-pad);
+    padding-bottom: var(--nav-pad);
+  }
+  .header-menu-block .header-dropdown {
+    align-self: stretch;
+    justify-content: center;
+  }
+  .header-wrapp[data-dropdown-list] {
+    margin-top: 0;
+    padding-top: 0;
+  }
+  [data-dropdown-list] {
+    position: absolute;
+    /* Row padding plus the block's 1px dashed border: starts right below it. */
+    top: calc(100% + var(--nav-pad) + 1px);
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 900;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .header-menu-block.is-display-show-for-desktop { --nav-pad: 1.5rem; }
+}
+@media screen and (min-width: 1920px) {
+  .header-menu-block.is-display-show-for-desktop { --nav-pad: var(--_size-variables---global-sizes--size-2xl); }
+}
+
+/* -- the hamburger button ----------------------------------------------------- */
+
+/*
+ * `.w-nav-button` is `display: none` and only the builder's collapse rules
+ * (`.w-nav[data-collapse]`) revealed it. The header collapses below 992px, so
+ * show the button there and colour it by the state the script sets.
+ */
+@media screen and (max-width: 991px) {
+  .header-line-block.w-nav-button {
+    display: block;
+  }
+  .header-line-block[aria-expanded='true'] {
+    background-color: var(--color-style--secondary);
+  }
+}
+
+/* -- the overlay menu ------------------------------------------------------- */
+
+/*
+ * `.header-menu-block.is-display-show-for-mobile` is `display: none` in the
+ * design at every width — the builder's runtime is what revealed it. Opening it
+ * is therefore a state of this theme's own, and it drops out of the flow so the
+ * page underneath does not shift when it appears.
+ */
+@media screen and (max-width: 991px) {
+  [data-nav-menu][data-open] {
+    display: block;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    max-height: calc(100vh - 100%);
+    overflow-y: auto;
+  }
+
+  /* The design's nav drops the panel down over 0.4s and lifts it back up. */
+  [data-nav-menu][data-open] .header-menu {
+    animation: nav-slide-down 0.4s ease both;
+  }
+  [data-nav-menu][data-closing] .header-menu {
+    animation: nav-slide-up 0.4s ease both;
+  }
+}
+
+@keyframes nav-slide-down {
+  from { transform: translateY(-100%); }
+  to { transform: translateY(0); }
+}
+@keyframes nav-slide-up {
+  from { transform: translateY(0); }
+  to { transform: translateY(-100%); }
+}
+
+/*
+ * The three bars fold into a cross while the menu is open. Only the movement
+ * is written here — the design already sizes and colors `.top`, `.middle` and
+ * `.bottom`, and restating any of that would quietly overrule it from an
+ * unlayered rule. The bars are 2px tall with 4px between them, so half a bar
+ * plus a gap is 6px of travel to meet in the middle.
+ */
+.header-menu-line > * {
+  transition:
+    transform 0.25s ease,
+    opacity 0.2s ease;
+}
+
+[data-nav-toggle][aria-expanded='true'] .top {
+  transform: translateY(6px) rotate(45deg);
+}
+
+[data-nav-toggle][aria-expanded='true'] .middle {
+  opacity: 0;
+}
+
+[data-nav-toggle][aria-expanded='true'] .bottom {
+  transform: translateY(-6px) rotate(-45deg);
+}
+
+/* -- the cart panel --------------------------------------------------------- */
+
+[data-cart-panel] {
+  transition: opacity 0.25s ease;
+}
+
+[data-cart-panel][data-open] {
+  display: flex;
+}
+
+[data-cart-panel][data-visible] {
+  opacity: 1;
+}
+
+/* The design draws the box small and clear; opening brings it to full size. */
+[data-cart-panel] .header-cart-wrap {
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
+}
+
+[data-cart-panel][data-visible] .header-cart-wrap {
+  opacity: 1;
+  transform: none;
+}
+
+/* =============================================================================
+   6b — Controls the design drew as a div
+   -----------------------------------------------------------------------------
+   The toggles, tabs, arrows and accordion headers are all `<button>` here,
+   because a thing that does something on click has to be reachable from a
+   keyboard. The base sheet already resets a button's font, colour, background,
+   border and cursor; what it does not reset is the centered text a button
+   defaults to, which the design never asked for because it never had one.
+
+   Deliberately nothing else. Every one of these elements has a class the design
+   styles — a border on an arrow, a gap on a toggle, a fixed size on a tab — and
+   an unlayered rule here would quietly overrule all of it.
+   ========================================================================== */
+
+button {
+  text-align: inherit;
+}
+
+/* =============================================================================
+   7 — Add to cart
+   -----------------------------------------------------------------------------
+   The bag on a product card is a real submit button inside a real form, so a
+   cart provider can read the id, name, price and currency out of it. The design
+   drew it as an icon in a box, so the button is stripped back to that box and
+   carries no class of its own — it is an element this theme adds, and the
+   comparison against the export should not see it.
+   ========================================================================== */
+
+.shop-bag-card > button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+.shop-bag-card > button:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
+/* =============================================================================
+   8 — Tabs
+   -----------------------------------------------------------------------------
+   The product page carries two sets: the image thumbnails, and the three panels
+   under the price. `scripts/components.ts` marks the open panel with
+   `data-active` and the chosen tab with `is-current`; the design styles the tab
+   itself, so all that is missing is which panel is on screen.
+   ========================================================================== */
+
+[data-tab-pane] {
+  display: none;
+}
+
+[data-tab-pane][data-active] {
+  display: block;
+}
+
+/* =============================================================================
+   9 — The carousel track
+   -----------------------------------------------------------------------------
+   The builder's slider moved a nowrap row of inline-blocks by writing a
+   transform; its runtime is gone, so the track scrolls instead — snapping, with
+   the scrollbar hidden. The row itself is left exactly as the design has it, an
+   inline-block sequence rather than a flex line, so the slides keep the widths
+   and the baseline the stylesheet gives them.
+
+   It works with no JavaScript at all: the row is scrollable and swipeable on
+   its own. `scripts/components.ts` only adds the arrows and the dots.
+   ========================================================================== */
+
+[data-slider-mask] {
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+[data-slider-mask]::-webkit-scrollbar {
+  display: none;
+}
+
+[data-slider-mask] > * {
+  scroll-snap-align: start;
+}
+
+/* The dots are elements this theme adds; the builder's runtime drew them. The
+   arrows are the design's own, and are left alone beyond being disable-able. */
+.w-slider-nav > button {
+  width: 0.75em;
+  height: 0.75em;
+  margin: 0 3px;
+  padding: 0;
+  border: 0;
+  border-radius: 100%;
+  background-color: color-mix(in srgb, currentColor 30%, transparent);
+  transition: background-color 0.2s ease;
+}
+
+.w-slider-nav > button.is-current {
+  background-color: currentColor;
+}
+
+.more-arrow[disabled],
+.details-arrow[disabled],
+.global-arrow[disabled] {
+  opacity: 0.35;
+  cursor: default;
+}
+
+/* =============================================================================
+   9b — Button and product card hovers
+   -----------------------------------------------------------------------------
+   The builder parked each button's fill off to the left and slid it in on
+   hover, and slid a product card's "View Details" up over its photograph while
+   the photograph grew. The export's stylesheet carries none of that, so it is
+   restated here. All of it moves over 0.5s on an ease-in-out curve.
+   ========================================================================== */
+
+.button-bg {
+  transform: translateX(-100%);
+  transition: transform 0.5s cubic-bezier(0.455, 0.03, 0.515, 0.955);
+}
+
+.button:hover .button-bg {
+  transform: translateX(0);
+}
+
+/* A looping slider is moved by transforms, so its mask is neither scrolled nor clipped. */
+[data-slider-infinite] .w-slider-mask {
+  overflow: visible;
+  scroll-snap-type: none;
+}
+
+/*
+ * The slider arrows stretch into a pill on hover, pushing their neighbours
+ * aside: the hovered arrow widens, the other arrow and the "View All" link step
+ * out of its way.
+ */
+@media (hover: hover) {
+  .more-arrow,
+  .more-block .more-link {
+    transition:
+      background-color 0.3s,
+      width 0.25s ease,
+      transform 0.25s ease;
+  }
+
+  .more-arrow.is-left:hover {
+    width: 88px;
+    transform: translateX(-26px);
+  }
+  .more-arrow.is-right:hover {
+    width: 96px;
+  }
+  .more-slider:has(.more-arrow.is-right:hover) .more-arrow.is-left {
+    transform: translateX(-72px);
+  }
+  @media (min-width: 768px) {
+    .more-block:has(.more-arrow.is-left:hover) .more-link {
+      transform: translateX(-61px);
+    }
+    .more-block:has(.more-arrow.is-right:hover) .more-link {
+      transform: translateX(-75px);
+    }
+  }
+
+  /* Phones: the arrows sit at the left and grow to the right. */
+  @media (max-width: 767px) {
+    .more-arrow.is-left:hover {
+      width: 64px;
+      transform: none;
+    }
+    .more-arrow.is-right:hover {
+      width: 64px;
+    }
+    .more-slider:has(.more-arrow.is-right:hover) .more-arrow.is-left {
+      transform: none;
+    }
+    .more-slider:has(.more-arrow.is-left:hover) .more-arrow.is-right {
+      transform: translateX(48px);
+    }
+    .more-slider:has(.more-arrow.is-right:hover) .more-arrow.is-right {
+      transform: translateX(24px);
+    }
+  }
+}
+
+/* Devices with no hover keep the details showing, since they cannot reveal them. */
+@media (hover: hover) {
+  .shop-thumb {
+    transition: transform 0.5s cubic-bezier(0.455, 0.03, 0.515, 0.955);
+  }
+  .shop-thumb-card .shop-details {
+    transform: translateY(150%);
+    transition: transform 0.5s cubic-bezier(0.455, 0.03, 0.515, 0.955);
+  }
+  .shop-card:hover .shop-thumb {
+    transform: scale(1.1);
+  }
+  .shop-card:hover .shop-thumb-card .shop-details {
+    transform: translateY(0);
+  }
+}
+
+/* =============================================================================
+   10 — The FAQ accordion
+   -----------------------------------------------------------------------------
+   The builder animated each panel's height from its runtime, writing
+   `height: 0px` into the markup and tweening it. `components.ts` marks the open
+   item with `data-open` instead, and the height is a CSS transition — with
+   `interpolate-size`, which animates to `auto` without anyone measuring
+   anything. Browsers that lack it open the panel instantly, which is the right
+   failure.
+
+   The panel keeps the `display: flex` the design gives it. An earlier attempt
+   used a collapsing grid row here and quietly took the flex column with it.
+   ========================================================================== */
+
+@supports (interpolate-size: allow-keywords) {
+  :root {
+    interpolate-size: allow-keywords;
+  }
+}
+
+[data-accordion-panel] {
+  height: 0;
+  overflow: hidden;
+  transition: height 0.35s ease;
+}
+
+[data-accordion-item][data-open] > [data-accordion-panel] {
+  height: auto;
+}
+
+/*
+ * Plus and minus are stacked on top of one another in the design — the plus is
+ * absolutely positioned over the minus — so neither is ever removed. Opening
+ * the panel turns the plus a quarter turn and fades it out, leaving the minus.
+ */
+.faq-info-plus {
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease;
+}
+
+[data-accordion-item][data-open] .faq-info-plus {
+  opacity: 0;
+  transform: rotate(90deg);
+}
+
+/* =============================================================================
+   11 — The gallery lightbox
+   -----------------------------------------------------------------------------
+   The builder's lightbox went with its stylesheet. Each cell is a link to the
+   full-size file, which is what a reader without JavaScript follows; this is
+   the overlay `scripts/lightbox.ts` puts over the page instead.
+   ========================================================================== */
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-m);
+  padding: var(--space-xl);
+  background-color: #000000e6;
+}
+
+.lightbox img {
+  max-width: min(100%, 1400px);
+  max-height: 90vh;
+  object-fit: contain;
+}
+
+.lightbox button {
+  flex: none;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--color-white);
+  font-size: 40px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: var(--space-m);
+  right: var(--space-xl);
+  font-size: 32px;
+}
+
+/* =============================================================================
+   12 — The team card's social row
+   -----------------------------------------------------------------------------
+   The builder slid the row of links out from behind the plus. The row is in the
+   markup either way — a screen reader should find the links whether or not the
+   overlay is showing — so this moves it rather than displaying it.
+   ========================================================================== */
+
+/*
+ * The row opens on a click of the plus, and only then. Closed, the four links
+ * are stacked up behind the plus, invisible; opening slides each up to its own
+ * place — the further up the row it belongs, the further it travels — while it
+ * fades in. Everything eases out over half a second. The plus turns a quarter
+ * turn as it goes, which lays its bar across the minus underneath so the two
+ * read as a minus.
+ */
+
+[data-team-social] {
+  --team-step: calc(100% + 4px);
+  --team-rest: 10px;
+}
+
+@media screen and (max-width: 479px) {
+  [data-team-social] {
+    --team-rest: 5px;
+  }
+}
+
+[data-team-social] .team-social-link {
+  opacity: 0;
+  transition:
+    opacity 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    color 0.3s,
+    background-color 0.3s ease-in-out;
+}
+
+[data-team-social] .team-social-link:nth-child(1) {
+  transform: translateY(calc(3 * var(--team-step) + var(--team-rest)));
+}
+[data-team-social] .team-social-link:nth-child(2) {
+  transform: translateY(calc(2 * var(--team-step) + var(--team-rest)));
+}
+[data-team-social] .team-social-link:nth-child(3) {
+  transform: translateY(calc(1 * var(--team-step) + var(--team-rest)));
+}
+[data-team-social] .team-social-link:nth-child(4) {
+  transform: translateY(var(--team-rest));
+}
+
+[data-team-social] .team-bg-overlay {
+  opacity: 0;
+  transition: opacity 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+[data-team-social][data-open] .team-social-link {
+  opacity: 1;
+  transform: none;
+}
+
+[data-team-social][data-open] .team-bg-overlay {
+  opacity: 1;
+}
+
+/* Turning back eases out; turning open runs at a steady rate. */
+[data-team-social] .team-social-plus {
+  transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+[data-team-social][data-open] .team-social-plus {
+  transform: rotate(90deg);
+  transition-timing-function: linear;
+}
+
+/* =============================================================================
+   13 — Form results
+   -----------------------------------------------------------------------------
+   The builder's runtime swapped a form for its thank-you message. The shared
+   handler in `components.ts` hides the form and unhides the message instead, so
+   the two panels need a rule that says `hidden` decides — the design's own
+   `display: none` would otherwise keep the thank-you invisible forever.
+
+   With no endpoint configured the form validates, resets and reports success,
+   which is what a demo should do. Point `action` at a form service to make it
+   post; `docs/forms.md` says how.
+   ========================================================================== */
+
+[data-form-success],
+[data-form-error],
+[data-newsletter-success],
+[data-newsletter-error] {
+  display: block;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+/* =============================================================================
+   14 — Article bodies
+   -----------------------------------------------------------------------------
+   The design styles the two elements its own sample article happened to use — a
+   heading and a paragraph — and nothing else. An author writing Markdown can
+   reach for a list, a quote, a subheading or a rule, and all of them arrived
+   unstyled.
+
+   Written against `.blog-richtext-block` rather than by adding a `prose` class,
+   so the element tree still matches the export element for element.
+   ========================================================================== */
+
+.blog-richtext-block :is(h2, h3) {
+  color: var(--color-ink);
+  margin-top: var(--space-4xl);
+  margin-bottom: var(--space-m);
+}
+
+.blog-richtext-block :is(h2, h3, h4):first-child {
+  margin-top: 0;
+}
+
+.blog-richtext-block :is(ul, ol) {
+  margin-top: var(--space-m);
+  margin-bottom: var(--space-3xl);
+  padding-left: var(--space-xl);
+}
+
+.blog-richtext-block li {
+  margin-bottom: var(--space-s);
+}
+
+.blog-richtext-block ul {
+  list-style: disc;
+}
+
+.blog-richtext-block ol {
+  list-style: decimal;
+}
+
+.blog-richtext-block blockquote {
+  margin: var(--space-3xl) 0;
+  padding-left: var(--space-xl);
+  border-left: 2px solid var(--color-primary);
+  color: var(--color-ink);
+  font-family: var(--font-family--heading);
+}
+
+.blog-richtext-block hr {
+  margin: var(--space-4xl) 0;
+  border: 0;
+  border-top: 1px dashed var(--color-line);
+}
+
+.blog-richtext-block :is(a) {
+  color: var(--color-primary);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.blog-richtext-block :is(strong) {
+  color: var(--color-ink);
+  font-weight: var(--font-weight--bold);
+}
+
+/* =============================================================================
+   15 — The skip link
+   -----------------------------------------------------------------------------
+   `BaseLayout` puts one before the header on every page and nothing styled it,
+   so "Skip to content" was sitting visibly above the logo. Off-screen until it
+   takes focus, which is the whole point of it.
+   ========================================================================== */
+
+.skip-link {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10001;
+  padding: var(--space-s) var(--space-l);
+  background-color: var(--color-ink);
+  color: var(--color-white);
+  font-family: var(--font-family--paragraph);
+  transform: translateY(-120%);
+  transition: transform 0.2s ease;
+}
+
+.skip-link:focus-visible {
+  transform: none;
+}
+
+/* =============================================================================
+   The "Featured On" logo strip
+   -----------------------------------------------------------------------------
+   The strip holds two identical runs of logos. Each run slides left by its own
+   width over a minute, so as one leaves the other follows without a gap. The
+   design ran this from the builder's runtime, at a steady pace.
+   ========================================================================== */
+
+.featured-loop {
+  animation: featured-marquee 60s linear infinite;
+}
+
+@keyframes featured-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-100%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .featured-loop {
+    animation: none;
+  }
+}
+
+/* =============================================================================
+   Blog cards
+   -----------------------------------------------------------------------------
+   Every card in a row is as tall as the tallest, with the white panel filling
+   the card and the author line pinned to its foot. On hover the photograph
+   grows and the arrow fades in, turning from a diagonal to point right, all over
+   half a second. Devices with no hover keep the arrow showing.
+   ========================================================================== */
+
+.blog-card .blog-details-card {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.blog-card .blog-author {
+  margin-top: auto;
+  padding-top: 1rem;
+}
+
+@media (hover: hover) {
+  .blog-thumb {
+    transition: transform 0.5s cubic-bezier(0.455, 0.03, 0.515, 0.955);
+  }
+  .blog-card .blog-author-icon {
+    opacity: 0;
+    transform: translateX(-10px);
+    transition:
+      opacity 0.5s cubic-bezier(0.455, 0.03, 0.515, 0.955),
+      transform 0.5s cubic-bezier(0.455, 0.03, 0.515, 0.955);
+  }
+  .blog-card:hover .blog-thumb {
+    transform: scale(1.15);
+  }
+  .blog-card:hover .blog-author-icon {
+    opacity: 1;
+    transform: rotate(45deg);
+  }
+}
+
+/* A slider row's slides are as tall as the tallest one, so its cards line up. */
+.more-mask {
+  display: flex;
+  align-items: stretch;
+}
+.more-mask > .more-slide {
+  flex: none;
+}
+.more-mask > .more-slide {
+  display: flex;
+  flex-direction: column;
+}
+.more-slide > .blog-list {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+}
+.more-slide .blog-list > .blog-card {
+  flex: 1 1 auto;
+}
+
+/* -- footer details ---------------------------------------------------------- */
+
+/* The smiley sits inline in the tagline, between its two halves, as text does. */
+.footer-except-icon {
+  display: inline;
+  vertical-align: middle;
+}
+
+/* Each bottom-row line keeps its bullet. */
+.footer-copy-text {
+  list-style: disc;
+}
+
+/* The section label has no bullet, so the list's own left padding only reads as
+   a stray indent against the heading below it. The boxed variant keeps its own. */
+.section-info:not(.is-choose) {
+  padding-left: 0;
+}
+
+/* The process slider clips its neighbours; only the current slide shows. */
+.details-slider[data-slider-infinite] .w-slider-mask {
+  overflow: hidden;
+}
+
+/* =============================================================================
+   The shop's category dropdown
+   -----------------------------------------------------------------------------
+   Closed, the list has no height; open, it grows to its natural height while the
+   chevron turns over. Without a script the list stays open.
+   ========================================================================== */
+
+@media (scripting: enabled) {
+  [data-category-dropdown] .shop-wrapp {
+    height: 0;
+    interpolate-size: allow-keywords;
+    transition: height 0.33s linear;
+  }
+  [data-category-dropdown][data-open] .shop-wrapp {
+    height: auto;
+  }
+}
+
+[data-category-dropdown] .shop-toggle-icon {
+  transition: transform 0.4s ease-in-out;
+}
+
+[data-category-dropdown][data-open] .shop-toggle-icon {
+  transform: rotate(180deg);
+}
+
+/* A paginated list dims a little while the next page is on its way. */
+[data-paginated] {
+  transition: opacity 0.2s ease;
+}
+[data-paginated][data-loading] {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* The cart panel's lines. Remove is a button, so give it the look of a link. */
+button.header-cart-remove {
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  text-align: left;
+  text-decoration: underline;
+}
+button.header-cart-remove:hover {
+  text-decoration: none;
+}
+.header-cart-default[hidden],
+.header-cart-empty[hidden] {
+  display: none;
+}

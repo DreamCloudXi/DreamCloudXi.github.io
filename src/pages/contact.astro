@@ -1,0 +1,121 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE } from '../config/site';
+import Hero from '../components/sections/Hero.astro';
+import { Image } from 'astro:assets';
+import Icon from '../components/ui/Icon.astro';
+import img_image_41 from '../assets/images/image-41.webp';
+---
+
+<BaseLayout
+  title="Contact"
+  description="Talk to the studio about a commission, an order, or a visit."
+>
+  <Hero tag="Contact" title="Write to the studio" />
+  <section class="global-section">
+    <div class="w-layout-blockcontainer main-container w-container">
+      <div class="contact-block">
+        <div class="contact-text-block">
+          <div class="contact-map-block" data-anim="hero">
+            <Image src={img_image_41} alt="Google Map" class="contact-map" loading="lazy" />
+          </div>
+          <div class="contact-card-block">
+            <div class="contact-card" data-anim="card">
+              <Icon name="contact-01" class="contact-card-icon" />
+              <div class="contact-card-text">{SITE.contact.address}</div>
+            </div>
+            <div class="contact-card" data-anim="card">
+              <Icon name="contact-02" class="contact-card-icon" />
+              <div class="contact-card-wrap">
+                <div class="contact-card-info">Email:</div>
+                <div class="contact-card-text">
+                  <a href={`mailto:${SITE.contact.email}`}>{SITE.contact.email}</a>
+                </div>
+              </div>
+            </div>
+            <div class="contact-card" data-anim="card">
+              <Icon name="contact-03" class="contact-card-icon" />
+              <div class="contact-card-wrap">
+                <div class="contact-card-info">Phone:</div>
+                <div class="contact-card-text">
+                  <a href={SITE.contact.phoneHref}>{SITE.contact.phone}</a>
+                </div>
+              </div>
+            </div>
+            <div class="contact-card" data-anim="card">
+              <Icon name="contact-04" class="contact-card-icon" />
+              <div class="contact-card-wrap">
+                <div class="contact-card-info">Working Hours:</div>
+                <div class="contact-card-text">{SITE.contact.hours}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="contact-form-block" data-anim="hero">
+          <div class="contact-form w-form">
+            <div class="contact-title">Tell us what you have in mind</div>
+            <form class="contact-wrap" name="contact" data-contact-form>
+              <div class="contact-grid">
+                <div class="contact-wrapp">
+                  <label class="contact-text" for="First-Name">First Name</label>
+                  <input class="contact-field w-input" maxlength="256" name="First-Name" placeholder="Your first name" type="text" id="First-Name" required="">
+                </div>
+                <div class="contact-wrapp">
+                  <label class="contact-text" for="Last-Name">Last Name</label>
+                  <input class="contact-field w-input" maxlength="256" name="Last-Name" placeholder="Your last name" type="text" id="Last-Name" required="">
+                </div>
+              </div>
+              <div class="contact-grid">
+                <div class="contact-wrapp">
+                  <label class="contact-text" for="Phone-Number">Phone Number</label>
+                  <input class="contact-field w-input" maxlength="256" name="Phone-Number" placeholder="Your phone number" type="tel" id="Phone-Number" required="">
+                </div>
+                <div class="contact-wrapp">
+                  <label class="contact-text" for="Subject">Subject</label>
+                  <select class="contact-field w-select" id="Subject" name="Subject" required="">
+                    <option value="">What is this about?</option>
+                    <option value="order">An order I have placed</option>
+                    <option value="commission">A commission or a custom piece</option>
+                    <option value="wholesale">Wholesale and stockists</option>
+                    <option value="visit">Visiting the studio</option>
+                  </select>
+                </div>
+              </div>
+              <div class="contact-grid">
+                <div class="contact-wrapp">
+                  <label class="contact-text" for="Message">Message</label>
+                  <textarea
+                    class="contact-field is-contact-area w-input"
+                    id="Message"
+                    name="Message"
+                    maxlength="5000"
+                    rows="6"
+                    placeholder="What would you like to ask us?"
+                    required></textarea>
+                </div>
+              </div>
+              <div class="contact-grid">
+                <div class="contact-button">
+                  <button type="submit" class="button w-inline-block">
+                    <div class="button-bg"></div>
+                    <div class="button-text">Send message</div>
+                    <div class="button-wrap is-form">
+                      <Icon name="arrow-up-right" class="button-icon" />
+                      <Icon name="arrow-up-right" class="button-icon" />
+                    </div>
+                  </button>
+                </div>
+              </div>
+            </form>
+            <div class="contact-done w-form-done" role="status" data-form-success hidden>
+              <div class="contact-message">Thank you for your submission!</div>
+            </div>
+            <div class="contact-error w-form-fail" role="alert" data-form-error hidden>
+              <div class="contact-message">Oops! Something went wrong.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

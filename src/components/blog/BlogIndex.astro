@@ -1,0 +1,48 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Hero from '../sections/Hero.astro';
+import PostCard from './PostCard.astro';
+import Pagination from '../sections/Pagination.astro';
+import { ROUTES } from '../../config/site';
+import type { CollectionEntry } from 'astro:content';
+
+/**
+ * One page of the journal, six posts at a time as in the design. The first page
+ * lives at `/blog/` and the rest at `/blog/page/2/` and on, so a post's own
+ * address (`/blog/<slug>/`) can never be mistaken for a page number.
+ */
+interface Props {
+  posts: CollectionEntry<'posts'>[];
+  back?: string;
+  next?: string;
+  /** Set on every page after the first, so each has its own title. */
+  pageNumber?: number;
+}
+
+const { posts, back, next, pageNumber = 1 } = Astro.props;
+---
+
+<BaseLayout
+  title={pageNumber > 1 ? `Journal — page ${pageNumber}` : 'Journal'}
+  description="Notes from the studio on making, materials and living with handmade work."
+  breadcrumb={[{ label: 'Home', href: ROUTES.home }, { label: 'Journal' }]}
+>
+  <Hero
+    parent={{ label: 'Home', href: ROUTES.home }}
+    tag="Journal"
+    title="What we are making, and what we have learned making it"
+  />
+
+  <section class="global-section">
+    <div class="w-layout-blockcontainer main-container w-container">
+      <div class="blog-block">
+        <div data-paginated>
+          <div class="blog-list">
+            {posts.map((post) => <PostCard {post} />)}
+          </div>
+          <Pagination {back} {next} />
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

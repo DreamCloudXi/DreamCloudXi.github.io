@@ -1,0 +1,68 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import Media from '../ui/Media.astro';
+
+import Icon from '../ui/Icon.astro';
+import MoreSlider from '../sections/MoreSlider.astro';
+import { ROUTES } from '../../config/site';
+
+interface Props {
+  posts: CollectionEntry<'posts'>[];
+  title?: string;
+}
+
+const { posts, title = 'More from the journal' } = Astro.props;
+
+const format = (date: Date) =>
+  date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+---
+
+{
+  posts.length > 0 && (
+    <MoreSlider {title} count={posts.length} label="More articles">
+      {posts.map((post) => (
+        <div class="more-slide w-slide" data-slide data-anim="card">
+          <div class="blog-list is-slider">
+            <a
+              class="blog-card w-inline-block"
+              href={ROUTES.post(post.id)}
+              aria-label={post.data.title}
+            >
+              <div class="blog-thumb-card">
+                <Media
+                  src={post.data.image}
+                  alt={post.data.excerpt}
+                  class="blog-thumb"
+                  widths={[400, 700, 1000]}
+                  sizes="(max-width: 767px) 88vw, 30vw"
+                />
+              </div>
+              <div class="blog-details-card">
+                <div class="blog-date">
+                  <time datetime={post.data.publishedAt.toISOString()}>
+                    {format(post.data.publishedAt)}
+                  </time>
+                </div>
+                <div class="blog-name">{post.data.title}</div>
+                <div class="blog-author">
+                  <div class="blog-author-wrap">
+                    {post.data.author.avatar && (
+                      <Media
+                        src={post.data.author.avatar}
+                        alt={post.data.author.name}
+                        class="blog-author-photo"
+                        width={48}
+                      />
+                    )}
+                    <div class="blog-author-name">{post.data.author.name}</div>
+                  </div>
+                  <Icon name="author" class="blog-author-icon" />
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+      ))}
+    </MoreSlider>
+  )
+}

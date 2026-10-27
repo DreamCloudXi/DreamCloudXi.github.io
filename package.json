@@ -1,0 +1,65 @@
+{
+  "name": "handspark-astro-theme",
+  "type": "module",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Handspark — an Astro theme for a handmade shop: products, categories, gift cards, personalization, a photo gallery and a journal.",
+  "keywords": [
+    "astro",
+    "astro-theme",
+    "astro-template",
+    "ecommerce",
+    "shop",
+    "handmade",
+    "crafts",
+    "gifts",
+    "tailwindcss",
+    "gsap",
+    "blog",
+    "multi-page"
+  ],
+  "homepage": "https://handspark-astro-preview.tncflow.com",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ThemeNcode/handspark-astro-theme.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ThemeNcode/handspark-astro-theme/issues"
+  },
+  "author": "ThemeNcode",
+  "license": "SEE LICENSE IN LICENSE.md",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "preview:shots": "bash scripts/preview-shots.sh",
+    "format": "prettier --write .",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/mdx": "^8.0.0",
+    "@astrojs/rss": "^4.0.19",
+    "@astrojs/sitemap": "^3.7.4",
+    "@tailwindcss/vite": "^4.3.3",
+    "astro": "^7.3.1",
+    "gsap": "^3.15.0",
+    "lenis": "^1.3.26",
+    "sharp": "^0.35.4",
+    "tailwindcss": "^4.3.3"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.10",
+    "prettier": "^3.4.2",
+    "prettier-plugin-astro": "^0.14.1",
+    "prettier-plugin-tailwindcss": "^0.6.11",
+    "typescript": "^5.9.3"
+  },
+  "allowScripts": {
+    "esbuild": true
+  }
+}

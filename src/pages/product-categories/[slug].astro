@@ -1,0 +1,56 @@
+---
+import { getCollection } from 'astro:content';
+
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Hero from '../../components/sections/Hero.astro';
+import CategoryFilter from '../../components/shop/CategoryFilter.astro';
+import ProductCard from '../../components/shop/ProductCard.astro';
+import Pagination from '../../components/sections/Pagination.astro';
+import { ROUTES } from '../../config/site';
+
+export async function getStaticPaths() {
+  const categories = await getCollection('productCategories');
+  const products = await getCollection('products', ({ data }) => !data.draft);
+
+  return categories.map((category) => ({
+    params: { slug: category.id },
+    props: {
+      category,
+      categories,
+      products: products
+        .filter((product) => product.data.category === category.id)
+        .sort((a, b) => a.data.order - b.data.order),
+    },
+  }));
+}
+
+const { category, categories, products } = Astro.props;
+---
+
+<BaseLayout
+  title={category.data.title}
+  description={category.data.description}
+  breadcrumb={[
+    { label: 'Home', href: ROUTES.home },
+    { label: 'Shop', href: ROUTES.shop },
+    { label: category.data.title },
+  ]}
+>
+  <Hero variant="show" parent={{ label: 'Shop', href: ROUTES.shop }} tag="Category" title={category.data.title} />
+
+  <section class="global-section">
+    <div class="w-layout-blockcontainer main-container w-container">
+      <div class="global-block">
+        <div class="product-block">
+          <CategoryFilter {categories} current={category.id} />
+          <div class="shop-wrapper">
+            <div class="shop-list">
+              {products.map((product) => <ProductCard {product} />)}
+            </div>
+            <Pagination />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,296 @@
+---
+import { getCollection } from 'astro:content';
+
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/sections/Hero.astro';
+import TeamCard from '../components/sections/TeamCard.astro';
+import { Image } from 'astro:assets';
+import Icon from '../components/ui/Icon.astro';
+import img_image_56 from '../assets/images/image-56.webp';
+import img_image_57 from '../assets/images/image-57.webp';
+import img_image_58 from '../assets/images/image-58.webp';
+import img_image_59 from '../assets/images/image-59.webp';
+import img_image_60 from '../assets/images/image-60.webp';
+import img_image_62 from '../assets/images/image-62.webp';
+
+const team = (await getCollection('team')).sort((a, b) => a.data.order - b.data.order);
+---
+
+<BaseLayout
+  title="About the studio"
+  description="Who makes the work, how the studio started, and what we mean when we say every piece is made by hand."
+>
+  <Hero tag="About" title="Six people, one small studio, and everything that comes out of it" />
+  <section class="global-section">
+    <div class="w-layout-blockcontainer main-container w-container">
+      <div class="about-block">
+        <div class="about-left-block">
+          <div class="about-info-block">
+            <div class="about-info" data-anim="hero">
+              <ul class="section-info" role="list">
+                <li class="section-info-item">About Us</li>
+              </ul>
+            </div>
+          </div>
+          <div class="about-title-block">
+            <h3 class="about-title" data-anim="hero">We believe every space deserves character and meaning.</h3>
+          </div>
+          <div class="about-thumb-block">
+            <Image src={img_image_62} alt="We believe every space deserves character and meaning." class="about-thumb" loading="lazy" data-anim="image-zoom" />
+          </div>
+        </div>
+        <div class="about-right-block">
+          <div class="about-except-block">
+            <div class="about-except" data-anim="hero">We bring together unique art prints and handcrafted products made by talented artisans. Each piece is carefully created with passion and creativity, helping you add meaningful art and handmade charm to your home.</div>
+            <div class="about-except" data-anim="hero">Our collection is thoughtfully curated to ensure every product feels special and unique. No mass production — just carefully crafted items that carry real stories and human touch.</div>
+            <div class="about-except" data-anim="hero">By choosing handmade, you support creativity, sustainability, and small artisans around the world while bringing something truly personal into your everyday life.</div>
+          </div>
+          <div class="about-video-block">
+            <div class="about-video w-background-video w-background-video-atom" data-anim="image-zoom">
+              <video
+                id="about-video"
+                poster="/videos/we-believe-every-space-deserves-character-and-meaning-poster.jpg"
+                muted
+                playsinline
+                preload="metadata"
+              >
+                <source src="/videos/we-believe-every-space-deserves-character-and-meaning-mp4.mp4" type="video/mp4" />
+                <source src="/videos/we-believe-every-space-deserves-character-and-meaning-webm.webm" type="video/webm" />
+              </video>
+              <div aria-live="polite">
+                <button class="w-backgroundvideo-backgroundvideoplaypausebutton video-button w-background-video--control" type="button" data-w-bg-video-control="true" aria-controls="about-video" aria-label="Play video">
+                  <span class="video-state play" hidden>
+                    <Icon name="video-pause" class="video-state-icon" />
+                  </span>
+                  <span class="video-state pause">
+                    <Icon name="video-play" class="video-state-icon" />
+                  </span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="choose-section">
+    <div class="choose-block">
+      <div class="choose-text-block">
+        <div class="choose-info" data-anim="text-lines">
+          <ul class="section-info is-choose" role="list">
+            <li class="section-info-item">Why Choose Us</li>
+          </ul>
+        </div>
+      </div>
+      <div class="choose-card-block" data-anim="choose">
+        <div class="choose-card" data-anim="choose-item">
+          <Icon name="choose-01" class="choose-icon" />
+          <div class="choose-title">Authentic Craftsmanship</div>
+          <div class="choose-text">Every piece is handmade by skilled artisans, bringing true creativity, detail, and a personal human touch to each product.</div>
+        </div>
+        <div class="choose-card" data-anim="choose-item">
+          <Icon name="choose-02" class="choose-icon" />
+          <div class="choose-title">Unique Designs</div>
+          <div class="choose-text">Our collection is carefully curated to offer distinctive designs that add character and tell a story in your space.</div>
+        </div>
+        <div class="choose-card" data-anim="choose-item">
+          <Icon name="choose-03" class="choose-icon" />
+          <div class="choose-title">Quality &amp; Sustainability</div>
+          <div class="choose-text">We use high-quality, eco-friendly materials to ensure every product is durable, beautiful, and responsibly made.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="journey-section">
+    <div class="section-space">
+      <div class="w-layout-blockcontainer main-container w-container">
+        <div class="journey-block">
+          <div class="journey-text-block">
+            <div class="journey-info-block">
+              <div class="journey-info" data-anim="text-lines">
+                <ul class="section-info" role="list">
+                  <li class="section-info-item">Our Journey</li>
+                </ul>
+              </div>
+            </div>
+            <div class="journey-title-block">
+              <h2 class="journey-title is-display-show-for-desktop" data-anim="text-lines">The Journey of Creation HandSpark</h2>
+              <h3 class="journey-title is-display-show-for-mobile" data-anim="text-lines">The Journey of Creation HandSpark</h3>
+            </div>
+          </div>
+          <div class="journey-wrap-block">
+            <div class="journey-details-block">
+              <h3 class="journey-heading is-display-show-for-desktop" data-anim="text-lines">The Journey Begins with Inspiration</h3>
+              <h4 class="journey-heading is-display-show-for-mobile" data-anim="text-lines">The Journey Begins with Inspiration</h4>
+              <div class="journey-summary" data-anim="text-lines">Every creation begins with a spark of imagination, a moment where ideas take flight. Our artisans carefully draw inspiration from nature, culture, and life’s rich experiences, transforming these influences into thoughtfully conceptualized pieces that resonate deeply with emotion, meaning, and timeless beauty.</div>
+            </div>
+            <div class="journey-thumb-block">
+              <Image src={img_image_60} alt="The Journey of Creation HandSpark" class="journey-thumb" loading="lazy" data-anim="image-zoom" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="banner-section">
+    <div class="banner-height">
+      <div class="banner-sticky">
+        <div class="banner-block">
+          <Image src={img_image_59} alt="Journey Image" class="banner-image" loading="lazy" />
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="details-section">
+    <div class="details-wrapper">
+      <div class="details-height">
+        <div class="details-sticky">
+          <div class="details-block">
+            <div class="details-inner">
+              <div class="details-card is-item-01">
+                <div class="details-thumb-card">
+                  <Image src={img_image_57} alt="Skilled Artisans Turn Creative Concepts into Tangible Pieces Using Time-Honored Techniques and Careful Attention" class="details-thumb" loading="lazy" />
+                </div>
+                <div class="details-content-card">
+                  <h3 class="journey-heading">Skilled Artisans Turn Creative Concepts Into</h3>
+                  <div class="journey-summary">With skilled hands and focused minds, ideas transform into tangible beauty. Each brushstroke, each chisel mark, and each stitch carries intention.</div>
+                </div>
+              </div>
+              <div class="details-card is-item-02">
+                <div class="details-thumb-card">
+                  <Image src={img_image_58} alt="We Ensure Every Creation Reaches You Safely, Preserving Its Beauty, Quality, and Handmade Essence" class="details-thumb" loading="lazy" />
+                </div>
+                <div class="details-content-card">
+                  <h3 class="journey-heading">We Ensure Every Creation Reaches You Safely.</h3>
+                  <div class="journey-summary">Finally, your chosen piece is carefully wrapped and sent on its journey to you. What arrives is more than a product—it&#x27;s a story, a moment, a connection.</div>
+                </div>
+              </div>
+              <div class="details-card is-item-03">
+                <div class="details-thumb-card">
+                  <Image src={img_image_57} alt="Skilled Artisans Turn Creative Concepts into Tangible Pieces Using Time-Honored Techniques and Careful Attention" class="details-thumb" loading="lazy" />
+                </div>
+                <div class="details-content-card">
+                  <h3 class="journey-heading">Skilled Artisans Turn Creative Concepts into.</h3>
+                  <div class="journey-summary">With skilled hands and focused minds, ideas transform into tangible beauty. Each brushstroke, each chisel mark, each stitch carries intention and care.</div>
+                </div>
+              </div>
+              <div class="details-card is-item-04">
+                <div class="details-thumb-card">
+                  <Image src={img_image_56} alt="Every Piece Is Thoughtfully Refined Through Patience and Precision to Achieve Exceptional Craftsmanship" class="details-thumb" loading="lazy" />
+                </div>
+                <div class="details-content-card">
+                  <h3 class="journey-heading">Every Piece Is Refined Through Patience.</h3>
+                  <div class="journey-summary">Perfection lives in the details. Every piece undergoes meticulous refinement, where textures are smoothed, cleaned, and colors balanced.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="details-wrapp">
+        <div class="details-slider w-slider" data-slider data-slider-infinite>
+          <div
+            class="details-mask w-slider-mask"
+            data-slider-mask
+            tabindex="0"
+            role="group"
+            aria-label="How a piece is made"
+          >
+            <div class="details-slide w-slide" data-slide data-anim="card">
+              <div class="details-card">
+                <div class="details-thumb-card">
+                  <Image src={img_image_57} alt="Skilled Artisans Turn Creative Concepts into Tangible Pieces Using Time-Honored Techniques and Careful Attention" class="details-thumb" loading="lazy" />
+                </div>
+                <div class="details-content-card">
+                  <div class="journey-heading">Skilled Artisans Turn Creative Concepts into.</div>
+                  <div class="journey-summary">With skilled hands and focused minds, ideas transform into tangible beauty. Each brushstroke, each chisel mark, and each stitch carries intention.</div>
+                </div>
+              </div>
+            </div>
+            <div class="details-slide w-slide" data-slide data-anim="card">
+              <div class="details-card">
+                <div class="details-thumb-card">
+                  <Image src={img_image_58} alt="We Ensure Every Creation Reaches You Safely, Preserving Its Beauty, Quality, and Handmade Essence" class="details-thumb" loading="lazy" />
+                </div>
+                <div class="details-content-card">
+                  <div class="journey-heading">We Ensure Creation Reaches You Safely.</div>
+                  <div class="journey-summary">Finally, your chosen piece is carefully wrapped and sent on its journey to you. What arrives is more than a product—it&#x27;s a story, a moment, a connection.</div>
+                </div>
+              </div>
+            </div>
+            <div class="details-slide w-slide" data-slide data-anim="card">
+              <div class="details-card">
+                <div class="details-thumb-card">
+                  <Image src={img_image_57} alt="Skilled Artisans Turn Creative Concepts into Tangible Pieces Using Time-Honored Techniques and Careful Attention" class="details-thumb" loading="lazy" />
+                </div>
+                <div class="details-content-card">
+                  <div class="journey-heading">Skilled Artisans Turn Creative Concepts into.</div>
+                  <div class="journey-summary">With skilled hands and focused minds, ideas transform into tangible beauty. Each brushstroke, each chisel mark, each stitch carries intention.</div>
+                </div>
+              </div>
+            </div>
+            <div class="details-slide w-slide" data-slide data-anim="card">
+              <div class="details-card">
+                <div class="details-thumb-card">
+                  <Image src={img_image_56} alt="Every Piece Is Thoughtfully Refined Through Patience and Precision to Achieve Exceptional Craftsmanship" class="details-thumb" loading="lazy" />
+                </div>
+                <div class="details-content-card">
+                  <div class="journey-heading">Every Piece Is Refined Through Patience.</div>
+                  <div class="journey-summary">Perfection lives in the details. Every piece undergoes meticulous refinement, where textures are smoothed, cleaned, and colors balanced.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button
+            type="button"
+            class="details-arrow is-left w-slider-arrow-left"
+            data-slider-prev
+            aria-label="Previous"
+          >
+            <Icon name="arrow-left" class="details-icon" />
+          </button>
+          <button
+            type="button"
+            class="details-arrow is-right w-slider-arrow-right"
+            data-slider-next
+            aria-label="Next"
+          >
+            <Icon name="arrow-right" class="details-icon" />
+          </button>
+          <div class="details-navbar w-slider-nav w-round w-num">
+            {
+              [0, 1, 2, 3].map((i) => (
+                <button
+                  type="button"
+                  class="w-slider-dot"
+                  data-slider-dot
+                  aria-label={`Go to slide ${i + 1}`}
+                />
+              ))
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="team-section">
+    <div class="section-space">
+      <div class="w-layout-blockcontainer main-container w-container">
+        <div class="team-block">
+          <div class="team-text-block">
+            <div class="team-title-block">
+              <h2 class="team-title is-display-show-for-desktop" data-anim="text-lines">Creative Crew Minds Behind Ideas</h2>
+              <h3 class="team-title is-display-show-for-mobile" data-anim="text-lines">Creative Crew Minds Behind Ideas</h3>
+            </div>
+            <div class="team-except-block">
+              <div class="team-except" data-anim="text-lines">Six of us, in one room above a hardware shop: two potters, a printmaker, a weaver, a woodworker and somebody who packs the boxes better than the rest of us can.</div>
+            </div>
+          </div>
+          <div class="team-card-block">
+          {team.map((member) => <TeamCard {member} />)}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
