@@ -23,14 +23,14 @@ const { posts, back, next, pageNumber = 1 } = Astro.props;
 ---
 
 <BaseLayout
-  title={pageNumber > 1 ? `Journal — page ${pageNumber}` : 'Journal'}
-  description="Notes from the studio on making, materials and living with handmade work."
-  breadcrumb={[{ label: 'Home', href: ROUTES.home }, { label: 'Journal' }]}
+  title={pageNumber > 1 ? `博客 — 第 ${pageNumber} 页` : '博客'}
+  description="记录想法、故事、技术与生活。"
+    breadcrumb={[{ label: '首页', href: ROUTES.home }, { label: '博客' }]}
 >
   <Hero
-    parent={{ label: 'Home', href: ROUTES.home }}
-    tag="Journal"
-    title="What we are making, and what we have learned making it"
+    parent={{ label: '首页', href: ROUTES.home }}
+    tag="Blog"
+    title="记录想法、故事，以及正在发生的生活"
   />
 
   <section class="global-section">

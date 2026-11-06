@@ -17,7 +17,7 @@ interface Props {
 const { post, sizes = '(max-width: 767px) 92vw, (max-width: 991px) 45vw, 30vw' } = Astro.props;
 const { title, excerpt, image, author, publishedAt } = post.data;
 
-const date = publishedAt.toLocaleDateString('en-US', {
+const date = publishedAt.toLocaleDateString('zh-CN', {
   year: 'numeric',
   month: 'long',
   day: 'numeric',

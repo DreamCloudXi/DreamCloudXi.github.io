@@ -72,17 +72,28 @@ export const postSchema = (ctx: SchemaContext) =>
   z.object({
     title: z.string(),
     excerpt: z.string(),
-    /** Matches an entry id in `blogCategories`. */
-    category: z.string(),
-    author: person(ctx),
-    publishedAt: z.coerce.date(),
+    /** Compatible with my-astrowind's Markdown frontmatter. */
+    category: z.string().default('Other'),
+    tags: z.array(z.string()).default([]),
+    author: z.union([person(ctx), z.string()]).transform((value) =>
+      typeof value === 'string' ? { name: value } : value
+    ),
+    publishDate: z.coerce.date().optional(),
+    updateDate: z.coerce.date().optional(),
+    publishedAt: z.coerce.date().optional(),
     updatedAt: z.coerce.date().optional(),
-    image: imageField(ctx),
+    image: imageField(ctx).optional(),
+    imageAlt: z.string().optional(),
     readingTime: z.number().optional(),
     featured: z.boolean().default(false),
     draft: z.boolean().default(false),
     seo: seo.optional(),
-  });
+  }).transform((post) => ({
+    ...post,
+    publishedAt: post.publishDate ?? post.publishedAt ?? new Date(),
+    updatedAt: post.updateDate ?? post.updatedAt,
+    image: post.image ?? '/og-image.jpg',
+  }));
 
 /* ------------------------------------------------------------ the studio -- */
 

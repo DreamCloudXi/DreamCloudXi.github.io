@@ -4,37 +4,33 @@
  */
 export const SITE = {
   /** Absolute URL of the deployed site. Used for canonical URLs and the sitemap. */
-  url: 'https://handspark-astro-preview.tncflow.com',
-  name: 'Handspark',
-  title: 'Handspark',
-  titleTemplate: '%s — Handspark',
-  description:
-    'A shop for handmade art, prints and personalized gifts — every piece made to order by a small studio of makers.',
+  url: 'https://mobellling.github.io',
+  name: 'DreamCloudXi',
+  title: 'DreamCloudXi',
+  titleTemplate: '%s — DreamCloudXi',
+  description: 'DreamCloudXi 的个人博客，记录学习、思考与生活。',
   /** Default social sharing image, relative to /public. 1200x630. */
   ogImage: '/og-image.jpg',
   /** Square mark used for the Organization structured data. */
   logo: '/webclip.jpg',
-  locale: 'en',
-  themeColor: '#3d5a33',
+  locale: 'zh-CN',
+  themeColor: '#252525',
   /** The currency every price on the site is quoted in. */
-  currency: 'USD',
-  currencySymbol: '$',
+  currency: 'CNY',
+  currencySymbol: '¥',
   /**
    * Attribution in the footer's bottom row. Set `credit` to null to drop the
    * line entirely.
    */
   credit: {
-    prefix: 'Designed by',
-    label: 'TNCFlow',
-    href: 'https://www.tncflow.com',
+    prefix: '由',
+    label: 'DreamCloudXi 维护',
+    href: 'https://astro.build',
   },
   /** Shown in the footer and on the contact page. */
   contact: {
-    phone: '(704) 555-0148',
-    phoneHref: 'tel:+17045550148',
-    email: 'hello@handspark.example.com',
-    address: '118 Kiln Row, Asheville, North Carolina 28801',
-    hours: 'Studio open Tuesday to Saturday, 10am to 6pm',
+    phone: '', phoneHref: '', email: 'mobellling@outlook.com',
+    address: '', hours: '',
   },
   /**
    * The returns panel on every product page. One policy, written once — a shop
@@ -84,54 +80,49 @@ export const ROUTES = {
 
 /** The bar across the top: five links and a mega menu behind "Pages". */
 export const NAV = [
-  { label: 'Home', href: ROUTES.home },
-  { label: 'About', href: ROUTES.about },
-  { label: 'Shop', href: ROUTES.shop },
-  { label: 'Blog', href: ROUTES.blog },
-  { label: 'Contact', href: ROUTES.contact },
+  { label: '首页', href: ROUTES.home },
+  { label: '博客', href: ROUTES.blog },
+  { label: '关于', href: ROUTES.about },
+  { label: '联系', href: ROUTES.contact },
 ] as const;
 
 /** The "Pages" mega menu, which the design lays out as a single column list. */
 export const MEGA_MENU = [
-  { label: 'About', href: ROUTES.about },
-  { label: 'Blog', href: ROUTES.blog },
-  { label: 'Shop', href: ROUTES.shop },
-  { label: 'Contact', href: ROUTES.contact },
-  { label: 'Photo Gallery', href: ROUTES.gallery },
-  { label: 'FAQ', href: ROUTES.faq },
-  { label: 'Gift & Gift Card', href: ROUTES.giftCards },
-  { label: 'Privacy & Policy', href: ROUTES.privacy },
-  { label: 'Personalize Your Gift', href: ROUTES.personalize },
+  { label: '关于我', href: ROUTES.about },
+  { label: '博客', href: ROUTES.blog },
+  { label: '联系我', href: ROUTES.contact },
+  { label: '照片', href: ROUTES.gallery },
+  { label: '常见问题', href: ROUTES.faq },
+  { label: '隐私政策', href: ROUTES.privacy },
   { label: '404', href: ROUTES.notFound },
 ] as const;
 
 /** The footer's three link columns. */
 export const FOOTER_NAV = [
   {
-    title: 'Main Pages',
+    title: '主要页面',
     links: [
-      { label: 'Home', href: ROUTES.home },
-      { label: 'About', href: ROUTES.about },
-      { label: 'Shop', href: ROUTES.shop },
-      { label: 'Contact', href: ROUTES.contact },
+      { label: '首页', href: ROUTES.home },
+      { label: '关于我', href: ROUTES.about },
+      { label: '博客', href: ROUTES.blog },
+      { label: '联系我', href: ROUTES.contact },
     ],
   },
   {
-    title: 'Quick Links',
+    title: '更多内容',
     links: [
-      { label: 'Blog', href: ROUTES.blog },
-      { label: 'FAQ', href: ROUTES.faq },
-      { label: 'Photo Gallery', href: ROUTES.gallery },
-      { label: 'Privacy Policy', href: ROUTES.privacy },
+      { label: '博客', href: ROUTES.blog },
+      { label: '照片', href: ROUTES.gallery },
+      { label: '隐私政策', href: ROUTES.privacy },
     ],
   },
   {
-    title: 'Utility Pages',
+    title: '其他',
     links: [
       { label: '404', href: ROUTES.notFound },
-      { label: 'Licenses', href: ROUTES.licenses },
-      { label: 'Style Guide', href: ROUTES.styleGuide },
-      { label: 'Change-Log', href: ROUTES.changelog },
+      { label: '许可说明', href: ROUTES.licenses },
+      { label: '样式指南', href: ROUTES.styleGuide },
+      { label: '更新记录', href: ROUTES.changelog },
     ],
   },
 ] as const;
