@@ -24,8 +24,8 @@ export const SITE = {
    */
   credit: {
     prefix: '由',
-    label: 'DreamCloudXi 维护',
-    href: 'https://astro.build',
+    label: '晓钟Mobell 维护',
+    href: 'https://mobellling.github.io/',
   },
   /** Shown in the footer and on the contact page. */
   contact: {
